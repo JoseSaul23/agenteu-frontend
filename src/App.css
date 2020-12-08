@@ -7,6 +7,18 @@
   font-size: small !important
 }
 
+.small-label {
+  font-size: 14px !important;
+}
+
+.medium-text {
+  font-size: 16px !important;
+}
+
+.big-text {
+  font-size: 18px;
+}
+
 .side {
   background-color: white;
 }
@@ -15,20 +27,85 @@
   min-height: 91vh;
 }
 
+.black-title {
+  color: #030303;
+}
+
+.close-letters {
+  line-height:1.7rem ;
+}
+
+.closer-letters {
+  line-height:1rem ;
+}
+
+.icon {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* .form-box {
   width:50%;
   margin: auto;
 } */
 
+.right-side-panel {
+  border-left-style: solid;
+  border-width: 0.1rem;
+  border-color:#C2C2C2;
+}
+
+.right-side-panel > div {
+  position: fixed;
+}
+
+.list-border-bottom {
+  border-bottom-style: solid;
+  border-width: 0.1rem;
+  border-color:#C2C2C2;
+}
+
+.side-list {
+  background-color: #D6EEF8;
+  border-radius: 20px;
+}
+
+.round-box {
+  border-radius: 20px;
+}
+
+.master-wrapper {
+  z-index: 2;
+}
+
 .menu-wrapper {
   position: fixed;
   width: 18%;  
+  height: 100%;
+  z-index: 1;
   /* poner media para tablets para width o para padding??*/
 }
 
-
 .menu-wrapper ul {
   width: 100%;
+}
+
+/* .foot {
+  position: absolute;
+  bottom: 5rem;
+} */
+
+.review-main-box {
+  background-color: #E0E0E0;
+}
+
+.review-main-box .review-text {
+  background-color: white;
+  color: #030303;
+  line-height:1.3rem ;
+  padding: 1.5%;
+  min-height: 120px;
 }
 
 .Top-review-box {
@@ -42,6 +119,14 @@
   color: black;
   line-height:1.3rem ;
   height: 90px;
+}
+
+.Results-review-text {
+  background-color: white;
+  padding: 5px;
+  color: black;
+  line-height:1.3rem ;
+  height: 100%;
 }
 
 .Top-review-numbers {

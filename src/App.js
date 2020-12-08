@@ -14,7 +14,7 @@ class App extends Component {
           <div className="column side is-2 full-h pr-0 is-hidden-mobile">
             <Menu />
           </div>
-          <div className="column master-wrapper pt-5">
+          <div className="column master-wrapper pt-5 pr-0">
             <MasterWrapper />
           </div>
         </div>

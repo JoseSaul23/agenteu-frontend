@@ -16,19 +16,19 @@ export class Login extends Component {
                         <h4 className="title is-4">Iniciar sesión en agenteUIS</h4>
                     </div>
                     <form>
-                        <div class="field">
-                            <p class="control">
-                                <input class="input is-medium" type="email" placeholder="correo"/>
+                        <div className="field">
+                            <p className="control">
+                                <input className="input is-medium" type="email" placeholder="correo"/>
                             </p>
                         </div>
-                        <div class="field mt-4">
-                            <p class="control">
-                                <input class="input is-medium" type="password" placeholder="contraseña" />
+                        <div className="field mt-4">
+                            <p className="control">
+                                <input className="input is-medium" type="password" placeholder="contraseña" />
                             </p>
                         </div>
-                        <div class="field mt-5">
-                            <p class="control has-text-centered">
-                                <button class="button is-link is-medium has-text-white has-text-weight-bold">
+                        <div className="field mt-5">
+                            <p className="control has-text-centered">
+                                <button className="button is-link is-medium has-text-white has-text-weight-bold">
                                     Iniciar sesión
                                 </button>
                             </p>
