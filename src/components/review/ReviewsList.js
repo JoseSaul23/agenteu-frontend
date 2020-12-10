@@ -59,7 +59,9 @@ export class ReviewsList extends Component {
                     difficulty={review.difficulty}
                     date={review.date}
                     user={review.user}
+                    user_name={review.user_name}
                     entity={review.entity}
+                    entity_name={review.entity_name}
                     recomendations_count={review.recomendations_count}
                     />
                   );

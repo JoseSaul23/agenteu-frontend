@@ -1,17 +1,7 @@
 import React, {Component} from 'react'
-import {useParams} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {IoIosNotifications} from 'react-icons/io'
 
-// export function ProfessorDetails (){
-
-//     let { id } = useParams();
-
-//     return (
-//       <div>
-//         <h3>{id}</h3>
-//       </div>
-//     );
-//}
 export class ProfessorDetails extends Component {
     state = {
         professor: {},
@@ -36,7 +26,16 @@ export class ProfessorDetails extends Component {
     }
 
     render () {
-        const {name, professor_school, professor_university, overall_difficulty, overall_rating, reviews_count, subscribers_count}
+        const {
+            name,
+            professor_school,
+            professor_school_name, 
+            professor_university,
+            professor_university_name,
+            overall_difficulty,
+            overall_rating,
+            reviews_count,
+            subscribers_count}
         = this.state.professor
 
         return (
@@ -45,8 +44,12 @@ export class ProfessorDetails extends Component {
                     <p className="black-title has-text-weight-medium big-text">{name}</p>
                 </div>
                 <div className="column is-full pb-0 pt-0 closer-letters has-text-weight-medium">
-                    <p>{professor_school}</p>
-                    <p>de {professor_university}</p> 
+                    <Link to={"/escuelas/" + professor_school}>
+                        <p>{professor_school_name}</p>
+                    </Link>
+                    <Link to={"/universidades/" + professor_university}>
+                        <p>de {professor_university_name}</p> 
+                    </Link>
                 </div>
                 <div className="column">
                     <div className="columns is-vcentered is-mobile ">

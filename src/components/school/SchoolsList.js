@@ -45,6 +45,7 @@ export class SchoolsList extends Component {
                     name={school.name}
                     school_logo={school.logo}
                     school_university={school.school_university}
+                    school_university_name={school.school_university_name}
                     overall_difficulty={school.overall_difficulty}
                     overall_rating={school.overall_rating}
                     reviews_count={school.reviews_count}

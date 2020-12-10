@@ -24,7 +24,6 @@ export class MasterWrapper extends Component {
           <Route exact path="/profesores" component={ProfessorsInMenuList}></Route>
           <Route path="/busqueda" component={SearchResults}></Route>
           <Route path="/publicar/:id" component={CreateReview}></Route>
-
           <Route path="/feed" component={UserFeed}></Route>
           <Route path="/biblioteca" component={UserLibrary}></Route>
           <Route path="/mis-publicaciones" component={UserReviews}></Route>

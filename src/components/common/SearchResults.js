@@ -1,10 +1,37 @@
 import React, {Component} from 'react'
-import {University} from '../university/University'
-import {Professor} from '../professor/Professor'
+// import {University} from '../university/University'
+// import {Professor} from '../professor/Professor'
 import {School} from '../school/School'
 import {ReviewInResults} from '../review/ReviewInResults'
 
 export class SearchResults extends Component {
+
+    // _renderResults () {
+    //     if entity === "professor"{
+    //         return 
+    //          <div className="column is-one-quarter">
+//                results.map( professor => {
+//              <Professor
+//                    key=professor.id
+//                        {...Professor}
+//                 })
+//                </div>
+    //     }
+    //     if entity === "school"{
+    //         return results.map( school => {
+    //              <School
+    //                    key=school.id
+    //                        {...school}
+    //          })
+    //     }
+    //     if entity === "university"{
+    //         return results.map( university => {
+    //              <University
+    //                    key=university.id
+    //                        {...university}
+    //          })
+    //     }
+    // }
 
     render() {
         return (

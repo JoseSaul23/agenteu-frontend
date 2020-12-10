@@ -3,18 +3,20 @@ import {Link} from 'react-router-dom'
 
 export class ProfessorInMenu extends Component {
     render () {
-      const {id, name, last_name, overall_rating, overall_difficulty, reviews_count, professor_university} = this.props
+      const {id, name, overall_rating, overall_difficulty, reviews_count, professor_university_name} 
+      = this.props
+
       return (
         <div className="card column is-one-quarter m-4 p-0">
           <Link to={"/profesores/" + id}>
           <header className="has-background-link">
             <p className="card-header-title has-text-white p-2">
-              {name} {last_name}
+              {name}
             </p>
           </header>
           <div className="card-content p-2">
             <div className="content">
-              {professor_university}
+              {professor_university_name}
               <br/>
               <p>{reviews_count} Reseñas</p>
             </div>

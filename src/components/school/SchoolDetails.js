@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {IoIosNotifications} from 'react-icons/io'
+import {Link} from 'react-router-dom'
 
 export class SchoolDetails extends Component {
     state = {
@@ -25,7 +26,17 @@ export class SchoolDetails extends Component {
     }
 
     render () {
-        const {name, logo, school_university, professors_count, overall_difficulty, overall_rating, reviews_count, subscribers_count} 
+        const {
+            name,
+            logo,
+            school_university,
+            school_university_name,
+            professors_count,
+            overall_difficulty,
+            overall_rating,
+            reviews_count,
+            subscribers_count
+        } 
         = this.state.school
 
         return (
@@ -35,13 +46,11 @@ export class SchoolDetails extends Component {
                 </div>
                 <div className="column is-full pb-0 pt-0">
                     <p className="black-title has-text-weight-medium big-text">{name}</p>
-                    <p className="institution-label">de {school_university}</p> 
+                    <Link to={"/universidades/" + school_university}>
+                        <p className="institution-label">de {school_university_name}</p> 
+                    </Link> 
                 </div>
                 <div className="column">
-                    {/* <div className="Top-review-numbers">
-                        <div>Universidad Industrial de Santander</div>
-                        <div className="pb-3">Escuela de Ingenieria de Sistemas</div>
-                    </div>  */}
                     <div className="columns is-vcentered is-mobile ">
                         <div className="column has-text-weight-medium is-three-quarters">
                             {reviews_count} reseñas | {professors_count} profesores

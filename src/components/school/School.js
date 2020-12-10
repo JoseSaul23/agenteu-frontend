@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 export class School extends Component {
     render () {
-        const {name, school_logo, school_university, overall_difficulty, overall_rating, reviews_count} 
+        const {name, school_logo, school_university, school_university_name, overall_difficulty, overall_rating, reviews_count} 
         = this.props
 
         return (
@@ -14,7 +14,7 @@ export class School extends Component {
                 <div className="column pl-2 pr-4 pl-4"> 
                     <div className="pb-3">
                         <p className="has-text-weight-medium">{name}</p>
-                        <p className="institution-labels">de {school_university}</p>
+                        <p className="institution-labels">de {school_university_name}</p>
                     </div>
                     <div className="pb-3 has-text-weight-medium">{reviews_count} reseñas</div>
                     <div className="columns is-vcentered is-mobile">

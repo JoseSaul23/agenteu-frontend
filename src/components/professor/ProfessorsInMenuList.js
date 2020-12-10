@@ -31,7 +31,7 @@ export class ProfessorsInMenuList extends Component { //UniversityProfessorsList
             overall_rating={professor.overall_rating}
             overall_difficulty={professor.overall_difficulty}
             reviews_count={professor.reviews_count}
-            professor_university={professor.professor_university}
+            professor_university_name={professor.professor_university_name}
             />
           );
       } )

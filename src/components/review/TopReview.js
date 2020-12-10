@@ -3,7 +3,7 @@ import {AiOutlineLike} from 'react-icons/ai'
 
 export class TopReview extends Component {
     render () {
-      const {text, rating, difficulty, date, user, entity, recomendations_count} = this.props
+      const {text, rating, difficulty, date, user, user_name, entity, entity_name, recomendations_count} = this.props
       
       return (
         <div className="column is-one-quarter mb-5">
@@ -26,8 +26,8 @@ export class TopReview extends Component {
             </div>
           </div>
           <div className="Top-review-especifics has-text-weight-medium">
-            <p>Por {user} - {date}</p>
-            <p>sobre {entity}</p>
+            <p>Por {user_name} - {date}</p>
+            <p>sobre {entity_name}</p>
           </div>
         </div>
       );

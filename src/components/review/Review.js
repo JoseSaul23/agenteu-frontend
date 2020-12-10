@@ -5,16 +5,16 @@ import {RiShareForwardFill} from 'react-icons/ri'
 
 export class Review extends Component {
     render () {
-        const {text, rating, difficulty, date, user, entity, recomendations_count} = this.props
+        const {text, rating, difficulty, date, user, user_name, entity, entity_name, recomendations_count} = this.props
 
         return (
             <div className="columns is-multiline mb-5">
                 <div className="column is-full has-text-weight-medium small-label p-0 pl-1 closer-letters">
                     <p>
-                        <span className="black-title">{user}</span> - {date}
+                        <span className="black-title">{user_name}</span> - {date}
                     </p>
                     <p>
-                        sobre {entity}
+                        sobre {entity_name}
                     </p>
                 </div>
                 <div className="column">

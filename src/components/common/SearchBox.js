@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { BsSearch } from 'react-icons/bs';
+// import {connect} from 'react-redux'
 
 export class SearchBox extends Component {
     state = {
