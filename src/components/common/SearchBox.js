@@ -1,24 +1,20 @@
 import React, {Component} from 'react'
 import { BsSearch } from 'react-icons/bs';
+import {Link} from 'react-router-dom'
 // import {connect} from 'react-redux'
 
 export class SearchBox extends Component {
     state = {
-        inputQuery: ''
+        inputQuery: '',
+        entity: 'profesores'
     }
 
     _handleChange = (e) => {
-        this.setState({ inputQuery: e.target.value})
+        this.setState({ inputQuery: e.target.value })
     }
 
-    _handleSubmit = (e) => {
-        e.preventDefault()
-        const {inputQuery} = this.state
-        fetch(`http://localhost:8000/api/profesores/?search=`+inputQuery)
-        .then(res => res.json())
-        .then(results => {
-            this.props.onResults(results)
-        }) 
+    _handleSelect = (e) => {
+        this.setState({ entity: e.target.value })
     }
 
     render () {
@@ -26,10 +22,10 @@ export class SearchBox extends Component {
         <form className="field has-addons">
             <p className="control">
             <span className="select">
-                <select>
-                <option value="professor">Profesores</option>
-                <option value="university">Universidades</option>
-                <option value="schools">Escuelas</option>
+                <select value={this.state.entity} onChange={this._handleSelect}>
+                <option value="profesores">Profesores</option>
+                <option value="universidades">Universidades</option>
+                <option value="escuelas">Escuelas</option>
                 </select>
             </span>
             </p>
@@ -38,12 +34,14 @@ export class SearchBox extends Component {
                 className="input"
                 onChange={this._handleChange}
                 type="text" 
-                placeholder="Buscar en agenteuis"/>
+                placeholder={"Buscar reseñas de " + this.state.entity +" en agenteUIS"}/>
             </div>
             <div className="control">
-            <button className="button is-warning">
-                <BsSearch className="is-size-5"></BsSearch>
-            </button>
+                <Link to={"/busqueda/" + this.state.entity + "/" + this.state.inputQuery}>
+                    <button className="button is-warning">
+                        <BsSearch className="is-size-5"></BsSearch>
+                    </button>
+                </Link>
             </div>
         </form>
         );

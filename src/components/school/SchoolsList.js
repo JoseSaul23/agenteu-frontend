@@ -42,6 +42,7 @@ export class SchoolsList extends Component {
                 return (
                     <School 
                     key={school.id} 
+                    id={school.id}
                     name={school.name}
                     school_logo={school.logo}
                     school_university={school.school_university}

@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 
 export class School extends Component {
     render () {
-        const {name, school_logo, school_university, school_university_name, overall_difficulty, overall_rating, reviews_count} 
+        const {id, name, school_logo, school_university, school_university_name, overall_difficulty, overall_rating, reviews_count} 
         = this.props
 
         return (
@@ -14,7 +15,9 @@ export class School extends Component {
                 <div className="column pl-2 pr-4 pl-4"> 
                     <div className="pb-3">
                         <p className="has-text-weight-medium">{name}</p>
-                        <p className="institution-labels">de {school_university_name}</p>
+                        <Link to={"/universidades/" + school_university}>
+                            <p className="institution-labels">de {school_university_name}</p>
+                        </Link>
                     </div>
                     <div className="pb-3 has-text-weight-medium">{reviews_count} reseñas</div>
                     <div className="columns is-vcentered is-mobile">
@@ -27,9 +30,11 @@ export class School extends Component {
                             <p className="has-text-success has-text-weight-medium">{overall_difficulty? overall_difficulty + "%": "N/A"}</p>
                         </div>
                         <div className="column">
-                            <button className="button is-small is-link">
-                                <span className="medium-text has-text-weight-medium">Ver reseñas</span>
-                            </button> 
+                            <Link to={"/escuelas/" + id}>
+                                <button className="button is-small is-link">
+                                    <span className="medium-text has-text-weight-medium">Ver reseñas</span>
+                                </button> 
+                            </Link>
                         </div>
                     </div>
                 </div>

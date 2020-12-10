@@ -2,6 +2,9 @@ import React, {Component} from 'react'
 import logoicono from '../../logo-icono.png'
 
 export class Register extends Component {
+
+    
+
     render () {
         return (
             <section class="section pt-3">

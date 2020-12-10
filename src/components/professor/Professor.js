@@ -22,8 +22,12 @@ export class Professor extends Component {
                 </div>
                 <div className="column">
                     <div className="Top-review-numbers">
-                        <div>{professor_university_name}</div>
-                        <div className="pb-3">{professor_school_name}</div>
+                        <Link to={"/universidades/" + professor_university}>
+                            <div>{professor_university_name}</div>
+                        </Link>
+                        <Link to={"/escuelas/" + professor_school}>
+                            <div className="pb-3">{professor_school_name}</div>
+                        </Link>
                     </div> 
                     <div className="pb-3 has-text-weight-medium">{reviews_count} reseñas</div>
                     <div className="columns is-vcentered is-mobile">

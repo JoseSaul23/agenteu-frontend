@@ -1,64 +1,200 @@
 import React, {Component} from 'react'
-// import {University} from '../university/University'
-// import {Professor} from '../professor/Professor'
+import {University} from '../university/University'
+import {Professor} from '../professor/Professor'
 import {School} from '../school/School'
 import {ReviewInResults} from '../review/ReviewInResults'
+import { Review } from '../review/Review'
 
 export class SearchResults extends Component {
 
-    // _renderResults () {
-    //     if entity === "professor"{
-    //         return 
-    //          <div className="column is-one-quarter">
-//                results.map( professor => {
-//              <Professor
-//                    key=professor.id
-//                        {...Professor}
-//                 })
-//                </div>
-    //     }
-    //     if entity === "school"{
-    //         return results.map( school => {
-    //              <School
-    //                    key=school.id
-    //                        {...school}
-    //          })
-    //     }
-    //     if entity === "university"{
-    //         return results.map( university => {
-    //              <University
-    //                    key=university.id
-    //                        {...university}
-    //          })
-    //     }
-    // }
+    state = {
+        results: [],
+        first_result_name: "",
+        first_result_reviews: []
+    }
+
+    _fetchResults = () => {
+        const {entity, q} = this.props.match.params
+
+        fetch(`http://localhost:8000/api/${entity}/?search=` + q)
+        .then(res => res.json())
+        .then(results => {
+            this.setState({results})
+            if (results[0] !== undefined){
+                this.setState( {
+                    first_result_name: results[0].name
+                })
+                this._fetchFirstResultReviews(results[0].id)
+            }
+        }) 
+    }
+
+    componentDidMount() {
+        this._fetchResults()
+    }
+
+    componentDidUpdate (prevProps) {
+        const {entity, q} = this.props.match.params
+        if (prevProps.match.params.q !== q || prevProps.match.params.entity !== entity ) { 
+            this._fetchResults()
+        }
+    }
+
+    _renderProfessorsResults() {
+        const {results} = this.state
+        if (results.length === 0) {
+            return (
+                <div>No se encontraron resultados para su búsqueda.</div>
+            );
+        }
+        else {
+            return results.map( result => {
+                return (
+                    <Professor 
+                        key={result.id} 
+                        id={result.id}
+                        name={result.name}
+                        professor_university={result.professor_university}
+                        professor_school={result.professor_school}
+                        professor_school_name={result.professor_school_name}
+                        professor_university_name={result.professor_university_name}
+                        overall_difficulty={result.overall_difficulty}
+                        overall_rating={result.overall_rating}
+                        reviews_count={result.reviews_count}
+                    />
+                    );
+            })
+        }
+    }
+
+    _renderUniversitiesResults() {
+        const {results} = this.state
+        if (results.length === 0) {
+            return (
+                <div>No se encontraron resultados para su búsqueda.</div>
+            );
+        }
+        else {
+            return results.map( result => {
+                return (
+                    <University 
+                    key={result.id}
+                    id={result.id}
+                    name={result.name}
+                    logo={result.logo}
+                    reviews_count={result.reviews_count}
+                    overall_rating={result.overall_rating}
+                    overall_difficulty={result.overall_difficulty}
+                    />
+                    );
+            })
+        }
+    }
+
+    _renderSchoolsResults() {
+        const {results} = this.state
+        if (results.length === 0) {
+            return (
+                <div>No se encontraron resultados para su búsqueda.</div>
+            );
+        }
+        else {
+            return results.map( result => {
+                return (
+                    <School 
+                    key={result.id}
+                    id={result.id}
+                    name={result.name}
+                    school_logo={result.logo}
+                    school_university={result.school_university}
+                    school_university_name={result.school_university_name}
+                    reviews_count={result.reviews_count}
+                    overall_rating={result.overall_rating}
+                    overall_difficulty={result.overall_difficulty}
+                    />
+                    );
+            })
+        }
+    }
+
+    _fetchFirstResultReviews = (id) => {
+        const {entity} = this.props.match.params
+
+        fetch(`http://localhost:8000/api/${entity}/${id}/reviews`)
+        .then(res => res.json())
+        .then(first_result_reviews => {
+            this.setState({first_result_reviews})
+        }) 
+    }
+
+    _renderFirstResultReviews = () => {
+        const {first_result_reviews} = this.state
+        if (first_result_reviews.length === 0) {
+            return (
+                <div>Sin reseñas</div>
+            );
+        }
+        else {
+            return first_result_reviews.map( review => {
+                return (
+                    <ReviewInResults 
+                    key={review.id}
+                    id={review.id}
+                    text={review.text}
+                    rating={review.rating}
+                    difficulty={review.difficulty}
+                    date={review.date}
+                    user_name={review.user_name}
+                    entity_name={review.entity_name}
+                    />
+                    );
+            })
+        }
+    }
 
     render() {
+        const {entity} = this.props.match.params
+        const {results, first_result_name} = this.state
+
         return (
             <div>
                 <div className="columns is-multiline m-2 pl-4">
-                    {/* {this._renderResults()} */}
-                    {/* <University />  */}
-                        <School />
-                   
-                    {/* <div className="column is-one-quarter">
-                        <Professor />
-                        <Professor />
-                        <Professor />
-                    </div> */}
+                    { 
+                        entity === "profesores"
+                        ? 
+                            <div className="column is-one-quarter">
+                                {this._renderProfessorsResults()}
+                            </div>
+                        :   
+                            entity === "universidades"
+                            ?
+                                this._renderUniversitiesResults()
+                            :
+                                entity === "escuelas"
+                                ?
+                                    this._renderSchoolsResults()
+                                :
+                                    <div>Eliga una categoria de búsqueda</div>
+                    }
                 </div>
-                <hr className="has-background-dark"/>
-                <div className="m-3 ml-5">
-                    <h5 className="title is-5">Ultimas reseñas sobre Amaranta Jose Galileo Gutierrez</h5>
-                </div>
-                <div className="columns is-multiline m-2 mt-5 pl-4">
-                    {/* {this._renderSingleResultReviews()} */} 
-                    <ReviewInResults />
-                    <div className="column is-four-fifths p-0"></div>
-                    <ReviewInResults />
-                    <div className="column is-four-fifths p-0"></div>
-                    <ReviewInResults />
-                </div>
+                {results.length !== 0
+                ?   <React.Fragment>
+                        <hr className="has-background-dark"/>
+                        <div className="m-3 ml-5">
+                            <h5 className="title is-5">Ultimas reseñas sobre {first_result_name}</h5>
+                        </div>
+                        <div className="columns is-multiline m-2 mt-5 pl-4">
+                            {this._renderFirstResultReviews()} 
+                            {/* <ReviewInResults />
+                            <div className="column is-four-fifths p-0"></div>
+                            <ReviewInResults />
+                            <div className="column is-four-fifths p-0"></div>
+                            <ReviewInResults /> */}
+                        </div>
+                    </React.Fragment>
+                :
+                    <React.Fragment />
+                }
             </div>
         );
     }

@@ -14,8 +14,8 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-            <Route path="/iniciar-sesion" component={Login}></Route>
-            <Route path="/registro" component={Register}></Route>
+            <Route exact path="/iniciar-sesion" component={Login}></Route>
+            <Route exact path="/registro" component={Register}></Route>
             <Route
             exact  
             path="" 
@@ -32,7 +32,7 @@ class App extends Component {
                     </div>
                   </div>
             )} 
-          />
+            />
         </Switch>
       </div>
     );

@@ -14,15 +14,22 @@ import {ProfessorDetails} from '../professor/ProfessorDetails'
 import {CreateReview} from '../review/CreateReview'
 import {NotificationsList} from '../user/NotificationsList'
 import {UserAccount} from '../user/UserAccount'
+import {RedirectAs404} from '../common/RedirectAs404'
 
 export class MasterWrapper extends Component {
     render () {
       return (
         <Switch> 
           <Route exact path="/" component={Home}></Route>
-          <Route path="/instituciones" component={InstitutionsInMenuList}></Route>
+          <Route exact path="/instituciones" component={InstitutionsInMenuList}></Route>
           <Route exact path="/profesores" component={ProfessorsInMenuList}></Route>
-          <Route path="/busqueda" component={SearchResults}></Route>
+          <Route
+            exact 
+            path="/busqueda/:entity/:q/"
+            render={ (props) => (
+              <SearchResults {...props}/>
+            )} 
+          /> 
           <Route path="/publicar/:id" component={CreateReview}></Route>
           <Route path="/feed" component={UserFeed}></Route>
           <Route path="/biblioteca" component={UserLibrary}></Route>
@@ -54,6 +61,7 @@ export class MasterWrapper extends Component {
           />
           <Route path="/notificaciones" component={NotificationsList}></Route>
           <Route path="/cuenta" component={UserAccount}></Route>
+          <Route component={RedirectAs404}/>
         </Switch> 
       );
     }

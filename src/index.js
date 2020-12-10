@@ -6,17 +6,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import {createStore} from 'redux'
-import {SearchResultsReducer} from './components/reducers/SearchResultsReducer'
 import {Provider} from 'react-redux'
 
-const store = createStore(SearchResultsReducer)
+// const store = createStore()
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Provider store={store}>
+      {/* <Provider store={store}> */}
         <App />
-      </Provider>
+      {/* </Provider> */}
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
