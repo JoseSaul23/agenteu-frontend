@@ -3,6 +3,10 @@
   /* poner media para otros pantallas */
 }
 
+a {
+  color: inherit !important;
+}
+
 .small-text {
   font-size: small !important
 }
@@ -39,11 +43,6 @@
   line-height:1rem ;
 }
 
-.icon {
-  display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 /* .form-box {
   width:50%;
