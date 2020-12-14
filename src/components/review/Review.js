@@ -1,11 +1,32 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import {AiOutlineLike} from 'react-icons/ai'
 import {BsBookmark, BsFlagFill} from 'react-icons/bs'
 import {RiShareForwardFill} from 'react-icons/ri'
+import {FaTrashAlt, FaEdit} from 'react-icons/fa'
+import {_myColor} from '../common/util'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 export class Review extends Component {
+
+    static propTypes = {
+        auth : PropTypes.object.isRequired,
+    }
+
     render () {
-        const {text, rating, difficulty, date, user, user_name, entity, entity_name, recomendations_count} = this.props
+        const {
+            text,
+            rating,
+            difficulty,
+            date,
+            user,
+            user_name,
+            entity,
+            entity_name,
+            entity_type,
+            recomendations_count
+        } = this.props
 
         return (
             <div className="columns is-multiline mb-5">
@@ -13,9 +34,15 @@ export class Review extends Component {
                     <p>
                         <span className="black-title">{user_name}</span> - {date}
                     </p>
-                    <p>
-                        sobre {entity_name}
-                    </p>
+                    <Link to={
+                            entity_type === "Professor"
+                            ? "/profesores/" + entity
+                            : entity_type === "School"
+                            ? "/escuelas/" + entity
+                            : "/universidades/" + entity
+                        }>
+                        <p>sobre {entity_name}</p>
+                    </Link>
                 </div>
                 <div className="column">
                     <div className="columns is-mobile">
@@ -26,9 +53,15 @@ export class Review extends Component {
                                 </p>
                             </div>
                             <div className="columns is-mobile pt-2"> 
-                                <div className="column is-8-desktop is-half-mobile icon">
+                                <div className="column is-6-desktop is-half-mobile icon">
                                     <AiOutlineLike className="is-size-5" />
                                     {recomendations_count}    
+                                </div>
+                                <div className="column has-text-centered has-text-link">
+                                    {this.props.auth.user && this.props.auth.user.id === user ? <FaEdit className="is-size-5" />  : ''} 
+                                </div>
+                                <div className="column has-text-centered has-text-danger-dark">
+                                    {this.props.auth.user && this.props.auth.user.id === user ? <FaTrashAlt className="is-size-6" /> : ''} 
                                 </div>
                                 <div className="column has-text-centered">
                                     <BsBookmark className="is-size-5" />  
@@ -44,11 +77,21 @@ export class Review extends Component {
                         <div className="column has-text-centered has-text-weight-medium pt-0"> 
                             <div className="review-main-box mb-4 close-letters"> 
                                 <p>calificación</p>
-                                <p className="is-size-4">{rating}</p> 
+                                <p 
+                                    className="is-size-4"
+                                    style={ {color: _myColor(rating, "rating")} }
+                                >
+                                    {rating}
+                                </p> 
                             </div>
                             <div className="review-main-box close-letters"> 
                                 <p>dificultad</p>
-                                <p className="is-size-4">{difficulty}%</p>
+                                <p 
+                                    className="is-size-4"
+                                    style={ {color: _myColor(difficulty, "difficulty")} }
+                                >
+                                    {difficulty}%
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -57,3 +100,9 @@ export class Review extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    auth : state.auth,
+});
+
+export default connect(mapStateToProps)(Review);

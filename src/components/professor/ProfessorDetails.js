@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {IoIosNotifications} from 'react-icons/io'
+import {_myColor} from '../common/util'
 
 export class ProfessorDetails extends Component {
     state = {
@@ -27,6 +28,7 @@ export class ProfessorDetails extends Component {
 
     render () {
         const {
+            id,
             name,
             professor_school,
             professor_school_name, 
@@ -63,20 +65,28 @@ export class ProfessorDetails extends Component {
                     <div className="columns is-vcentered is-mobile has-text-weight-medium">
                         <div className="column has-text-centered Top-review-numbers">
                             <p>calificación general</p>
-                            <p className="has-text-success is-size-4 pt-2">
+                            <p 
+                                className="is-size-4 pt-2"
+                                style={{color: _myColor(overall_rating, "rating")}} 
+                            >
                                 {overall_rating? overall_rating : "N/A"}
                             </p>
                         </div>
                         <div className="column has-text-centered Top-review-numbers">
                             <p>dificultad promedio</p>
-                            <p className="has-text-danger is-size-4 pt-2">
+                            <p 
+                                className="is-size-4 pt-2"
+                                style={{color: _myColor(overall_difficulty, "difficulty")}}
+                            >
                                 {overall_difficulty? overall_difficulty + "%": "N/A"}
                             </p>
                         </div>
                         <div className="column">
-                            <button className="button is-small is-link">
-                                <span className="medium-text has-text-weight-medium">Crear reseña</span>
-                            </button> 
+                            <Link to={"/publicar/" + id}>
+                                <button className="button is-small is-link">
+                                    <span className="medium-text has-text-weight-medium">Crear reseña</span>
+                                </button>
+                            </Link> 
                         </div>
                     </div>
                     <div className="pb-3 has-text-weight-medium mt-2 mb-2">

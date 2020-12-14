@@ -138,14 +138,16 @@ export class SearchResults extends Component {
             return first_result_reviews.map( review => {
                 return (
                     <ReviewInResults 
-                    key={review.id}
-                    id={review.id}
-                    text={review.text}
-                    rating={review.rating}
-                    difficulty={review.difficulty}
-                    date={review.date}
-                    user_name={review.user_name}
-                    entity_name={review.entity_name}
+                        key={review.id}
+                        id={review.id}
+                        text={review.text}
+                        rating={review.rating}
+                        difficulty={review.difficulty}
+                        date={review.date}
+                        user_name={review.user_name}
+                        entity={review.entity}
+                        entity_name={review.entity_name}
+                        entity_type={review.entity_type}
                     />
                     );
             })
@@ -179,7 +181,7 @@ export class SearchResults extends Component {
                 </div>
                 {results.length !== 0
                 ?   <React.Fragment>
-                        <hr className="has-background-dark"/>
+                        <hr className="horizontal-line"/>
                         <div className="m-3 ml-5">
                             <h5 className="title is-5">Ultimas reseñas sobre {first_result_name}</h5>
                         </div>

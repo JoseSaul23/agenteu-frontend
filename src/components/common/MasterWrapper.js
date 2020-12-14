@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Switch, Route } from 'react-router-dom'
 import {Home} from './Home'
-import {UserFeed} from '../user/UserFeed'
-import {UserLibrary} from '../user/UserLibrary'
+import UserFeed from '../user/UserFeed'
+import UserLibrary from '../user/UserLibrary'
 import {UserReviews} from '../user/UserReviews'
 import {InstitutionsInMenuList} from '../university/InstitutionsList'
 import {ProfessorsInMenuList} from '../professor/ProfessorsInMenuList'
@@ -11,10 +11,11 @@ import {Profile} from './Profile'
 import {UniversityDetails} from '../university/UniversityDetails'
 import {SchoolDetails} from '../school/SchoolDetails'
 import {ProfessorDetails} from '../professor/ProfessorDetails'
-import {CreateReview} from '../review/CreateReview'
+import CreateReview from '../review/CreateReview'
 import {NotificationsList} from '../user/NotificationsList'
 import {UserAccount} from '../user/UserAccount'
 import {RedirectAs404} from '../common/RedirectAs404'
+import PrivateRoute from '../common/PrivateRoute'
 
 export class MasterWrapper extends Component {
     render () {
@@ -30,7 +31,7 @@ export class MasterWrapper extends Component {
               <SearchResults {...props}/>
             )} 
           /> 
-          <Route path="/publicar/:id" component={CreateReview}></Route>
+          <PrivateRoute path="/publicar/:id" component={CreateReview}></PrivateRoute>
           <Route path="/feed" component={UserFeed}></Route>
           <Route path="/biblioteca" component={UserLibrary}></Route>
           <Route path="/mis-publicaciones" component={UserReviews}></Route>

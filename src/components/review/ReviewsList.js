@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
-import {Review} from './Review'
+import Review from './Review'
+import axios from 'axios'
+
 export class ReviewsList extends Component {
 
     state = {
@@ -29,11 +31,11 @@ export class ReviewsList extends Component {
     }
 
     _fetchReviews = () => {
-      fetch("http://localhost:8000" + this.url)
-      .then(res => res.json())
-      .then(reviews => {
-        this.setState({ reviews })
-      }) 
+      axios.get("http://localhost:8000" + this.url)
+      .then(res => {
+        this.setState({ reviews: res.data })
+      })
+      .catch(e => console.log(e.response.data)) 
     }
   
     componentDidMount() {
@@ -62,6 +64,7 @@ export class ReviewsList extends Component {
                     user_name={review.user_name}
                     entity={review.entity}
                     entity_name={review.entity_name}
+                    entity_type={review.entity_type}
                     recomendations_count={review.recomendations_count}
                     />
                   );

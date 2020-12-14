@@ -12,7 +12,7 @@ export class UserReviews extends Component {
                             <h5 className="title is-5">Mis reseñas</h5>
                         </div>
                         <div className="column is-four-fifths mt-2">
-                            <ReviewsList />
+                            {/* <ReviewsList entity="user-reviews"/> */}
                         </div>
                     </div>
                 </div>

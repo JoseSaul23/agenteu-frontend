@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import {_myColor} from '../common/util'
 
 export class University extends Component {
     render () {
@@ -17,13 +18,19 @@ export class University extends Component {
                     <div className="columns is-vcentered is-mobile">
                         <div className="column has-text-centered">
                             <p className="institution-labels">calificación</p>
-                            <p className="has-text-success has-text-weight-medium">
+                            <p 
+                                style={{color: _myColor(overall_rating, "rating")}} 
+                                className="has-text-weight-medium"
+                            >
                                 {overall_rating? overall_rating : "N/A"}
                             </p>
                         </div>
                         <div className="column has-text-centered">
                             <p className="institution-labels">dificultad</p>
-                            <p className="has-text-success has-text-weight-medium">
+                            <p 
+                                style={{color: _myColor(overall_difficulty, "difficulty")}}
+                                className="has-text-weight-medium"
+                            >
                                 {overall_difficulty? overall_difficulty + "%": "N/A"}
                             </p>
                         </div>

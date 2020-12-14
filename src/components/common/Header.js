@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Logo} from './Logo'
 import {SearchBox} from './SearchBox'
-import {HeaderLinks} from './HeaderLinks'
+import HeaderLinks from './HeaderLinks'
 
 export class Header extends Component {
 

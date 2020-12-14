@@ -34,6 +34,7 @@ export class TopReviewsList extends Component {
             recomendations_count={topReview.recomendations_count}
             user_name={topReview.user_name}
             entity_name={topReview.entity_name}
+            entity_type={topReview.entity_type}
             />
           );
       } )

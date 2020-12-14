@@ -1,18 +1,25 @@
 import React, {Component} from 'react'
 import {IoIosNotifications} from 'react-icons/io'
+import {_myColor} from '../common/util'
+import axios from 'axios'
+import {RedirectAs404} from '../common/RedirectAs404'
+import {Link} from 'react-router-dom'
 
 export class UniversityDetails extends Component {
 
     state = {
-        university: {}
+        university: {},
+        error: false,
+        loading: true
     }
 
     _fetchUniversity = () => {
-        fetch("http://localhost:8000/api/universidades/" + this.props.match.params.id)
-      .then(res => res.json())
-      .then(university => {
-        this.setState({ university })
-      }) 
+        axios.get("http://localhost:8000/api/universidades/" + this.props.match.params.id)
+            .then(res => {
+                this.setState({ university: res.data })
+                this.setState({loading: false})
+            })
+            .catch(e => this.setState({error:true}))
     }
 
     componentDidMount() {
@@ -26,8 +33,17 @@ export class UniversityDetails extends Component {
     }
 
     render () {
-        const {name, logo, professors_count, overall_difficulty, overall_rating, reviews_count, subscribers_count} 
+
+        if (this.state.error) {
+            return <RedirectAs404 location={this.props.location}/>
+        }
+
+        const {id, name, logo, professors_count, overall_difficulty, overall_rating, reviews_count, subscribers_count} 
         = this.state.university
+
+        if( this.state.loading){
+            return <button className="button is-link is-loading">Loading</button>
+        }
 
         return (
             <div className="columns is-multiline">
@@ -49,20 +65,28 @@ export class UniversityDetails extends Component {
                     <div className="columns is-vcentered is-mobile has-text-weight-medium">
                         <div className="column has-text-centered Top-review-numbers">
                             <p>calificación general</p>
-                            <p className="has-text-success is-size-4 pt-2">
+                            <p 
+                                style={{color: _myColor(overall_rating, "rating")}} 
+                                className="is-size-4 pt-2"
+                            >
                                 {overall_rating? overall_rating : "N/A"}
                             </p>
                         </div>
                         <div className="column has-text-centered Top-review-numbers">
                             <p>dificultad promedio</p>
-                            <p className="has-text-danger is-size-4 pt-2">
+                            <p 
+                                style={{color: _myColor(overall_difficulty, "difficulty")}}
+                                className="is-size-4 pt-2"
+                            >
                                 {overall_difficulty? overall_difficulty + "%": "N/A"}
                             </p>
                         </div>
                         <div className="column">
-                            <button className="button is-small is-link">
-                                <span className="medium-text has-text-weight-medium">Crear reseña</span>
-                            </button> 
+                            <Link to={"/publicar/" + id}>
+                                <button className="button is-small is-link">
+                                    <span className="medium-text has-text-weight-medium">Crear reseña</span>
+                                </button> 
+                            </Link>
                         </div>
                     </div>
                     <div className="pb-3 has-text-weight-medium mt-2 mb-2">

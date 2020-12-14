@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import {_myColor} from '../common/util'
 
 export class ProfessorInMenu extends Component {
     render () {
@@ -24,12 +25,12 @@ export class ProfessorInMenu extends Component {
           <footer className="card-footer">
             <div className="card-footer-item p-1 has-text-centered">
               <p className="institution-labels has-text-weight-medium">calificación
-                <br/>{overall_rating? overall_rating + "%": "N/A"}
+                <br/><span style={{color: _myColor(overall_rating, "rating")}} >{overall_rating? overall_rating: "N/A"}</span>
               </p>
             </div>
             <div className="card-footer-item p-1 has-text-centered">
               <p className="institution-labels has-text-weight-medium">dificultad 
-                <br/>{overall_difficulty? overall_difficulty + "%": "N/A"}
+                <br/><span style={{color: _myColor(overall_difficulty, "difficulty")}}>{overall_difficulty? overall_difficulty + "%": "N/A"}</span>
               </p>
             </div>
           </footer>

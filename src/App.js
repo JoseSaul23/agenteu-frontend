@@ -2,20 +2,27 @@ import React, {Component} from 'react'
 import {Header} from './components/common/Header'
 import {Menu} from './components/common/Menu'
 import {MasterWrapper} from './components/common/MasterWrapper'
-import {Register} from './components/accout/Register'
-import {Login} from './components/accout/Login'
+import Register from './components/accout/Register'
+import Login from './components/accout/Login'
 import {Switch, Route } from 'react-router-dom'
 import './App.css';
 import 'bulma/css/bulma.css'
+import store from './store'
+import {getUser} from '../src/components/actions/authActions' 
 
 class App extends Component {
+
+  componentDidMount() {
+    store.dispatch(getUser())
+  }
+
   render () {
     return (
       <div className="App">
         <Header />
         <Switch>
-            <Route exact path="/iniciar-sesion" component={Login}></Route>
-            <Route exact path="/registro" component={Register}></Route>
+            <Route exact path="/iniciar-sesion" component={Login} />
+            <Route exact path="/registro" component={Register} />
             <Route
             exact  
             path="" 
@@ -25,6 +32,7 @@ class App extends Component {
                   : 
                   <div className="main-content columns">
                     <div className="column side is-2 full-h pr-0 is-hidden-mobile">
+                      {/* className={true? "column side is-2 full-h pr-0 is-hidden-mobile" : "column side is-1 full-h pr-0 is-hidden-mobile" }> */}
                       <Menu />
                     </div>
                     <div className="column master-wrapper pt-5 pr-0">

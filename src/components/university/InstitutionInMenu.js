@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import {_myColor} from '../common/util'
 
 export class InstitutionInMenu extends Component {
     render () {
@@ -20,11 +21,21 @@ export class InstitutionInMenu extends Component {
               <div className="column has-text-centered">
                 <div>
                   <p className="institution-labels">calificación</p>
-                  <p>{overall_rating? overall_rating : "N/A"}</p>
+                  <p 
+                    style={{color: _myColor(overall_rating, "rating")}} 
+                    className="has-text-weight-medium"
+                  >
+                    {overall_rating? overall_rating : "N/A"}
+                  </p>
                 </div>
                 <div className="mt-1">
                   <p className="institution-labels">dificultad</p>
-                  <p>{overall_difficulty? overall_difficulty + "%": "N/A"}</p>
+                  <p 
+                    style={{color: _myColor(overall_difficulty, "difficulty")}}
+                    className="has-text-weight-medium"  
+                  >
+                    {overall_difficulty? overall_difficulty + "%": "N/A"}
+                  </p>
                 </div>
               </div> 
             </div>

@@ -11,7 +11,11 @@ export class Menu extends Component {
         return (
         <aside className="menu-wrapper menu navbar-menu pl-5 pr-0">
             <ul className="menu-list">
-                <li><Link><GiHamburgerMenu className="is-size-4"></GiHamburgerMenu></Link></li>
+                <li>
+                    {/* <Link> */}
+                        <GiHamburgerMenu className="is-size-4" />
+                    {/* </Link> */}
+                </li>
                 <li className="has-text-weight-medium">
                     <Link to='/'>
                         <VscHome className="is-size-4 mr-4"></VscHome> Inicio
