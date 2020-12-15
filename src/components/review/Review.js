@@ -5,17 +5,32 @@ import {BsBookmark, BsFlagFill} from 'react-icons/bs'
 import {RiShareForwardFill} from 'react-icons/ri'
 import {FaTrashAlt, FaEdit} from 'react-icons/fa'
 import {_myColor} from '../common/util'
+import {deleteReview} from '../actions/reviewActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 export class Review extends Component {
 
+    state = {
+        showDeleteMessage: false
+    }
+
     static propTypes = {
         auth : PropTypes.object.isRequired,
+        deleteReview: PropTypes.func.isRequired
+    }
+
+    _showDeleteConfirmation = () => {
+        this.setState({showDeleteMessage: !this.state.showDeleteMessage})
+    }
+
+    _handleDelete = () => {
+        this.props.deleteReview(this.props.id)
     }
 
     render () {
         const {
+            id,
             text,
             rating,
             difficulty,
@@ -58,10 +73,12 @@ export class Review extends Component {
                                     {recomendations_count}    
                                 </div>
                                 <div className="column has-text-centered has-text-link">
-                                    {this.props.auth.user && this.props.auth.user.id === user ? <FaEdit className="is-size-5" />  : ''} 
+                                    {this.props.auth.user && this.props.auth.user.id === user 
+                                        ? <Link to={"/editar/"+id}><FaEdit className="is-size-5" /></Link>  : ''} 
                                 </div>
                                 <div className="column has-text-centered has-text-danger-dark">
-                                    {this.props.auth.user && this.props.auth.user.id === user ? <FaTrashAlt className="is-size-6" /> : ''} 
+                                    {this.props.auth.user && this.props.auth.user.id === user
+                                        ? <FaTrashAlt onClick={this._showDeleteConfirmation} className="custom-icon is-size-6" /> : ''} 
                                 </div>
                                 <div className="column has-text-centered">
                                     <BsBookmark className="is-size-5" />  
@@ -96,6 +113,26 @@ export class Review extends Component {
                         </div>
                     </div>
                 </div>
+                {this.state.showDeleteMessage ?
+                    <div className="column is-full">
+                        ¿Eliminar reseña?
+                        <p className="buttons">
+                            <button 
+                                className="button is-small is-danger"
+                                onClick={this._handleDelete}
+                            >
+                                Eliminar
+                            </button>
+                            <button 
+                                className="button is-small"
+                                onClick={this._showDeleteConfirmation}
+                            >
+                                Cancelar
+                            </button>
+                        </p>
+                    </div> :  
+                    ''  
+                }
             </div>
         );
     }
@@ -105,4 +142,4 @@ const mapStateToProps = state => ({
     auth : state.auth,
 });
 
-export default connect(mapStateToProps)(Review);
+export default connect(mapStateToProps, {deleteReview})(Review);

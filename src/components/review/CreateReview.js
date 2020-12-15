@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {addReview} from '../actions/reviewActions'
+import {addReview, formWillClose} from '../actions/reviewActions'
 import {clearErrors} from '../actions/errorActions'
+import {_myColor} from '../common/util'
 
 export class CreateReview extends Component {
 
@@ -14,6 +15,7 @@ export class CreateReview extends Component {
 
     static propTypes = {
         addReview: PropTypes.func.isRequired,
+        formWillClose: PropTypes.func.isRequired,
         wasAdded: PropTypes.bool,
         error: PropTypes.object.isRequired,
     }
@@ -23,15 +25,23 @@ export class CreateReview extends Component {
         const {text, difficulty, rating} = this.state
         const entity = this.props.match.params.id
         this.props.addReview({text, difficulty, rating, entity})
-        // this.props.history.goBack(-1)
     }
 
     _handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.wasAdded !== this.props.wasAdded){
+            if(this.props.wasAdded){
+                this.props.history.goBack(-1)
+            }
+        }
+    }
+
     componentWillUnmount() {
         this.props.clearErrors()
+        this.props.formWillClose()
     }
 
     render () {
@@ -42,11 +52,6 @@ export class CreateReview extends Component {
         return (
             <div>
                 <div className="m-3 ml-5">
-                <button onClick={() => {
-                // history.push('/')
-                this.props.history.goBack(-1);
-            }}>go back
-            </button>
                     <h5 className="title is-5">Es hora de escribir sobre Universidad Industrial de Santander.</h5>
                 </div>
                 <div className="columns">
@@ -84,7 +89,10 @@ export class CreateReview extends Component {
                                             value={difficulty}
                                         />
                                     </div>
-                                    <div className="column is-6-mobile is-1-desktop pl-0 big-text">
+                                    <div 
+                                        className="column is-6-mobile is-1-desktop pl-0 big-text has-text-weight-medium"
+                                        style={ {color: _myColor(difficulty, "difficulty")} }
+                                    >
                                         {difficulty}%
                                     </div>
                                     <p className="has-text-danger">
@@ -106,7 +114,10 @@ export class CreateReview extends Component {
                                             value={rating}
                                         />
                                     </div>
-                                    <div className="column is-6-mobile is-1-desktop pl-0 big-text">
+                                    <div 
+                                        className="column is-6-mobile is-1-desktop pl-0 big-text has-text-weight-medium"
+                                        style={ {color: _myColor(rating, "rating")} }
+                                    >
                                         {rating}
                                     </div>
                                     <p className="has-text-danger">
@@ -133,8 +144,8 @@ export class CreateReview extends Component {
 } 
 
 const mapStateToProps = state => ({
-    reviews: state.reviews.wasAdded,
+    wasAdded: state.reviews.wasAdded,
     error: state.error
 });
 
-export default connect(mapStateToProps, {addReview, clearErrors})(CreateReview);
+export default connect(mapStateToProps, {addReview, formWillClose, clearErrors})(CreateReview);

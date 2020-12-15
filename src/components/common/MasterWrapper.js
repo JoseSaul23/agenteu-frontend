@@ -8,10 +8,11 @@ import {InstitutionsInMenuList} from '../university/InstitutionsList'
 import {ProfessorsInMenuList} from '../professor/ProfessorsInMenuList'
 import {SearchResults} from './SearchResults'
 import {Profile} from './Profile'
-import {UniversityDetails} from '../university/UniversityDetails'
+import UniversityDetails from '../university/UniversityDetails'
 import {SchoolDetails} from '../school/SchoolDetails'
 import {ProfessorDetails} from '../professor/ProfessorDetails'
 import CreateReview from '../review/CreateReview'
+import EditReview from '../review/EditReview'
 import {NotificationsList} from '../user/NotificationsList'
 import {UserAccount} from '../user/UserAccount'
 import {RedirectAs404} from '../common/RedirectAs404'
@@ -32,6 +33,7 @@ export class MasterWrapper extends Component {
             )} 
           /> 
           <PrivateRoute path="/publicar/:id" component={CreateReview}></PrivateRoute>
+          <PrivateRoute path="/editar/:id" component={EditReview}></PrivateRoute>
           <Route path="/feed" component={UserFeed}></Route>
           <Route path="/biblioteca" component={UserLibrary}></Route>
           <Route path="/mis-publicaciones" component={UserReviews}></Route>

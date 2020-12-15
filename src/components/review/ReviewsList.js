@@ -55,7 +55,8 @@ export class ReviewsList extends Component {
             return reviews.map( review => {
                 return (
                   <Review 
-                    key={review.id} 
+                    key={review.id}
+                    id={review.id} 
                     text={review.text}
                     rating={review.rating}
                     difficulty={review.difficulty}

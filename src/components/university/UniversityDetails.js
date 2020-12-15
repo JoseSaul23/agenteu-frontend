@@ -4,6 +4,10 @@ import {_myColor} from '../common/util'
 import axios from 'axios'
 import {RedirectAs404} from '../common/RedirectAs404'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {getReviewByUserOr404, clearReviewByUser} from '../actions/entityDetailsActions'
+import PropTypes from 'prop-types'
+import Review from '../review/Review'
 
 export class UniversityDetails extends Component {
 
@@ -13,10 +17,17 @@ export class UniversityDetails extends Component {
         loading: true
     }
 
+    static propTypes = {
+        entityDetails: PropTypes.object.isRequired,
+        getReviewByUserOr404: PropTypes.func.isRequired,
+        clearReviewByUser: PropTypes.func.isRequired
+    }
+
     _fetchUniversity = () => {
         axios.get("http://localhost:8000/api/universidades/" + this.props.match.params.id)
             .then(res => {
                 this.setState({ university: res.data })
+                this.props.getReviewByUserOr404('universidades', this.props.match.params.id)
                 this.setState({loading: false})
             })
             .catch(e => this.setState({error:true}))
@@ -30,6 +41,10 @@ export class UniversityDetails extends Component {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
             this._fetchUniversity()
         }
+    }
+
+    componentWillUnmount() {
+        this.props.clearReviewByUser()
     }
 
     render () {
@@ -47,13 +62,13 @@ export class UniversityDetails extends Component {
 
         return (
             <div className="columns is-multiline">
-                <div className="column">
+                <div className="column is-three-fifths">
                     <img src={logo} alt="logo"/>
                 </div>
                 <div className="column is-full black-title big-text pb-0 pt-0 has-text-weight-medium">
                     {name}
                 </div>
-                <div className="column">
+                <div className="column is-three-fifths">
                     <div className="columns is-vcentered is-mobile ">
                         <div className="column has-text-weight-medium is-three-quarters">
                             {reviews_count} reseñas | {professors_count} profesores
@@ -82,18 +97,49 @@ export class UniversityDetails extends Component {
                             </p>
                         </div>
                         <div className="column">
-                            <Link to={"/publicar/" + id}>
-                                <button className="button is-small is-link">
-                                    <span className="medium-text has-text-weight-medium">Crear reseña</span>
-                                </button> 
-                            </Link>
+                            { this.props.entityDetails.reviewByUser.id ?
+                                "" :
+                                <Link to={"/publicar/" + id}>
+                                    <button className="button is-small is-link">
+                                        <span className="medium-text has-text-weight-medium">Crear reseña</span>
+                                    </button> 
+                                </Link>
+                            }
                         </div>
                     </div>
                     <div className="pb-3 has-text-weight-medium mt-2 mb-2">
-                        <span className="black-title">{subscribers_count}</span> usuarios esperan nueva reseña
+                        <span className="black-title">{subscribers_count}</span> {subscribers_count === 1 ? "usuario espera" : "usuarios esperan"}  nueva reseña
                     </div>
                 </div>
+                {
+                    this.props.entityDetails.reviewByUser.id
+                    ? 
+                        <div className="column">
+                            <Review 
+                                key={this.props.entityDetails.reviewByUser.id}
+                                id={this.props.entityDetails.reviewByUser.id} 
+                                text={this.props.entityDetails.reviewByUser.text}
+                                rating={this.props.entityDetails.reviewByUser.rating}
+                                difficulty={this.props.entityDetails.reviewByUser.difficulty}
+                                date={this.props.entityDetails.reviewByUser.date}
+                                user={this.props.entityDetails.reviewByUser.user}
+                                user_name={this.props.entityDetails.reviewByUser.user_name}
+                                entity={this.props.entityDetails.reviewByUser.entity}
+                                entity_name={this.props.entityDetails.reviewByUser.entity_name}
+                                entity_type={this.props.entityDetails.reviewByUser.entity_type}
+                                recomendations_count={this.props.entityDetails.reviewByUser.recomendations_count}
+                            />
+                        </div> 
+                    :
+                        ""
+                }
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    entityDetails : state.entityDetails,
+});
+
+export default connect(mapStateToProps, {getReviewByUserOr404, clearReviewByUser})(UniversityDetails);

@@ -35,6 +35,10 @@ a {
   color: #030303;
 }
 
+.custom-icon:hover {
+  cursor: pointer;
+}
+
 .close-letters {
   line-height:1.7rem ;
 }
@@ -43,9 +47,6 @@ a {
   line-height:1rem ;
 }
 
-.yellow {
-  color: #FBC400;
-}
 /* .form-box {
   width:50%;
   margin: auto;
@@ -95,11 +96,6 @@ a {
 .menu-wrapper ul {
   width: 100%;
 }
-
-/* .foot {
-  position: absolute;
-  bottom: 5rem;
-} */
 
 .review-main-box {
   background-color: #E0E0E0;

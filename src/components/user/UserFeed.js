@@ -46,7 +46,7 @@ export class UserFeed extends Component {
                         <div className="column m-5" >
                             <div className="columns has-text-centered">
                                 <div className="column">
-                                    <div class="select is-small">
+                                    <div className="select is-small">
                                         <select>
                                             <option>Selecciona tu universidad</option>
                                             <option>Universidad Industrial de Santander</option>
@@ -55,7 +55,7 @@ export class UserFeed extends Component {
                                     </div>
                                 </div>
                                 <div className="column">
-                                    <div class="select is-small">
+                                    <div className="select is-small">
                                         <select>
                                             <option>Selecciona tu escuela</option>
                                             <option>Escuela de Ingenieria de Sistemas</option>

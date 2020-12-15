@@ -20,7 +20,7 @@ export class Profile extends Component {
             <div className="columns">
                 <div className="column is-two-thirds pr-0">
                     <div className="columns mt-5 pl-2 is-multiline">
-                        <div className="column is-three-fifths is-offset-1">
+                        <div className="column is-four-fifths is-offset-1">
                             {/* DETALLES */}
                             {this.props.children}
                         </div>

@@ -187,11 +187,6 @@ export class SearchResults extends Component {
                         </div>
                         <div className="columns is-multiline m-2 mt-5 pl-4">
                             {this._renderFirstResultReviews()} 
-                            {/* <ReviewInResults />
-                            <div className="column is-four-fifths p-0"></div>
-                            <ReviewInResults />
-                            <div className="column is-four-fifths p-0"></div>
-                            <ReviewInResults /> */}
                         </div>
                     </React.Fragment>
                 :
