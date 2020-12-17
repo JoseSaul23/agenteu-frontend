@@ -5,19 +5,21 @@ import {BsBookmark, BsFlagFill} from 'react-icons/bs'
 import {RiShareForwardFill} from 'react-icons/ri'
 import {FaTrashAlt, FaEdit} from 'react-icons/fa'
 import {_myColor} from '../common/util'
-import {deleteReview} from '../actions/reviewActions'
+import {deleteReview, recommendReview} from '../actions/reviewActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 export class Review extends Component {
 
     state = {
-        showDeleteMessage: false
+        showDeleteMessage: false,
+        showLoginMessage: false,
     }
 
     static propTypes = {
         auth : PropTypes.object.isRequired,
-        deleteReview: PropTypes.func.isRequired
+        deleteReview: PropTypes.func.isRequired,
+        recommendReview: PropTypes.func.isRequired
     }
 
     _showDeleteConfirmation = () => {
@@ -26,6 +28,15 @@ export class Review extends Component {
 
     _handleDelete = () => {
         this.props.deleteReview(this.props.id)
+    }
+
+    _receiveRecommendation = () => {
+        if(this.props.auth.isAuthenticated) {
+            this.props.recommendReview(this.props.id)
+        }
+        else {
+            this.setState({ showLoginMessage: !this.state.showLoginMessage })
+        }
     }
 
     render () {
@@ -69,7 +80,10 @@ export class Review extends Component {
                             </div>
                             <div className="columns is-mobile pt-2"> 
                                 <div className="column is-6-desktop is-half-mobile icon">
-                                    <AiOutlineLike className="is-size-5" />
+                                    <AiOutlineLike
+                                        onClick={this._receiveRecommendation}
+                                        className="custom-icon is-size-5"
+                                    />
                                     {recomendations_count}    
                                 </div>
                                 <div className="column has-text-centered has-text-link">
@@ -133,6 +147,17 @@ export class Review extends Component {
                     </div> :  
                     ''  
                 }
+                {this.state.showLoginMessage ?
+                    <div className="column is-full">
+                        <p>Inicia sesión para recomendar esta reseña</p>
+                        <Link to="/iniciar-sesion">
+                            <button className="button is-small is-link mt-1">
+                                Iniciar sesión
+                            </button>
+                        </Link>
+                    </div> :  
+                    ''  
+                }
             </div>
         );
     }
@@ -142,4 +167,4 @@ const mapStateToProps = state => ({
     auth : state.auth,
 });
 
-export default connect(mapStateToProps, {deleteReview})(Review);
+export default connect(mapStateToProps, {deleteReview, recommendReview})(Review);

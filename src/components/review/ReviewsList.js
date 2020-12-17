@@ -1,58 +1,48 @@
 import React, {Component} from 'react'
 import Review from './Review'
-import axios from 'axios'
+import {connect} from 'react-redux'
+import {getEntityReviews, clearReviews} from '../actions/reviewActions'
+import PropTypes from 'prop-types'
 
 export class ReviewsList extends Component {
 
-    state = {
-        reviews: []
-    }
-
-    url = ""
-
-    _setURL = () => {
-        const {entity} = this.props
-        const {id} = this.props.match.params
-        if (entity === "university") {
-            this.url = `/api/universidades/${id}/reviews`
-        } 
-        if (entity === "school") {
-            this.url = `/api/escuelas/${id}/reviews`
-        } 
-        if (entity === "professor") {
-            this.url = `/api/profesores/${id}/reviews`
-        } 
-        // if (entity === "user-favorites") {
-        //     this.url = `/api/universidades/${id}/reviews`
-        // } 
-        // if (entity === "user-reviews") {
-        //     this.url = `/api/universidades/${id}/reviews`
-        // } 
-    }
-
-    _fetchReviews = () => {
-      axios.get("http://localhost:8000" + this.url)
-      .then(res => {
-        this.setState({ reviews: res.data })
-      })
-      .catch(e => console.log(e.response.data)) 
+    static propTypes = {
+        reviews: PropTypes.array.isRequired,
+        getEntityReviews: PropTypes.func.isRequired,
+        clearReviews: PropTypes.func.isRequired
     }
   
     componentDidMount() {
-        this._setURL()
-        this._fetchReviews()
+        // Tipo de entidad que llega como prop
+        const {entity} = this.props
+
+        // Id de la entidad en parametro
+        const {id} = this.props.match.params
+
+        // Traer reseñas
+        this.props.getEntityReviews(entity, id)
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.reviews !== this.props.reviews){
+            console.log(this.props.reviews)
+        }
+    }
+
+    componentWillUnmount() {
+        // Limpiar reseñas cargadas
+        this.props.clearReviews()
     }
 
     _renderReviews = () => {
-        const {reviews} = this.state
         //cambiar mensaje por cargando
-        if (reviews.length === 0) {
+        if (this.props.reviews.length === 0) {
             return (
                 <div>No hay reseñas</div>
             );
         }
         else {
-            return reviews.map( review => {
+            return this.props.reviews.map( review => {
                 return (
                   <Review 
                     key={review.id}
@@ -81,3 +71,9 @@ export class ReviewsList extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    reviews : state.reviews.reviews,
+});
+
+export default connect(mapStateToProps, {getEntityReviews, clearReviews})(ReviewsList);

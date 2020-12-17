@@ -9,8 +9,8 @@ import {ProfessorsInMenuList} from '../professor/ProfessorsInMenuList'
 import {SearchResults} from './SearchResults'
 import {Profile} from './Profile'
 import UniversityDetails from '../university/UniversityDetails'
-import {SchoolDetails} from '../school/SchoolDetails'
-import {ProfessorDetails} from '../professor/ProfessorDetails'
+import SchoolDetails from '../school/SchoolDetails'
+import ProfessorDetails from '../professor/ProfessorDetails'
 import CreateReview from '../review/CreateReview'
 import EditReview from '../review/EditReview'
 import {NotificationsList} from '../user/NotificationsList'
@@ -36,11 +36,11 @@ export class MasterWrapper extends Component {
           <PrivateRoute path="/editar/:id" component={EditReview}></PrivateRoute>
           <Route path="/feed" component={UserFeed}></Route>
           <Route path="/biblioteca" component={UserLibrary}></Route>
-          <Route path="/mis-publicaciones" component={UserReviews}></Route>
+          <PrivateRoute path="/mis-publicaciones" component={UserReviews}></PrivateRoute>
           <Route 
             path="/universidades/:id" 
             render={(props) => (
-              <Profile {...props} entity="university">
+              <Profile {...props} entity="universidades">
                 <UniversityDetails {...props}/>
               </Profile>
             )} 
@@ -49,7 +49,7 @@ export class MasterWrapper extends Component {
             path="/escuelas/:id" 
             //Route inyecta el componente con props (match y otros)
             render={(props) => (
-              <Profile {...props} entity="school">
+              <Profile {...props} entity="escuelas">
                 <SchoolDetails {...props}/>
               </Profile>
             )} 
@@ -57,7 +57,7 @@ export class MasterWrapper extends Component {
           <Route  
             path="/profesores/:id" 
             render={(props) => (
-              <Profile {...props} entity="professor">
+              <Profile {...props} entity="profesores">
                 <ProfessorDetails {...props}/>
               </Profile>
             )} 

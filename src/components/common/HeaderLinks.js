@@ -29,7 +29,7 @@ export class HeaderLinks extends Component {
                             <span>{user ? user.username : ''} ⯆</span>
                         </button>
                     </div>
-                    <div className="dropdown-menu" id="dropdown-menu4" role="menu">
+                    <div className="dropdown-menu" role="menu">
                         <div className="dropdown-content">
                             <Link to="/cuenta" className="dropdown-item">
                                 Cuenta

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {ProfileNavBar} from './ProfileNavBar'
-import {ReviewsList} from '../review/ReviewsList'
+import ReviewsList from '../review/ReviewsList'
 import {SchoolsList} from '../school/SchoolsList'
 import {ProfessorsList} from '../professor/ProfessorsList'
 import {RedirectAs404} from './RedirectAs404'
@@ -39,7 +39,7 @@ export class Profile extends Component {
                                     </div>
                                 )} 
                             />
-                            {entity === "university" || entity ==="school"
+                            {entity === "universidades" || entity ==="escuelas"
                                 ?   <Route 
                                         path={this.props.match.path + "/profesores"}
                                         render={(props) => (
@@ -50,7 +50,7 @@ export class Profile extends Component {
                                     />
                                 :   <Route component={RedirectAs404}/>
                                 }
-                            {entity === "university" 
+                            {entity === "universidades" 
                                 ?   <Route 
                                         path={this.props.match.path + "/escuelas"}
                                         render={(props) => (

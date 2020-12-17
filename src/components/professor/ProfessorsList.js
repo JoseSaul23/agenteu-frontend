@@ -7,22 +7,10 @@ export class ProfessorsList extends Component {
         professors: [],
     }
 
-    url= ""
-
-    _setURL = () => {
+    _fetchProfessors = () => {
         const {entity} = this.props
         const {id} = this.props.match.params
-
-        if (entity === "university") {
-            this.url = `/api/universidades/${id}/professors`
-        } 
-        if (entity === "school") {
-            this.url = `/api/escuelas/${id}/professors`
-        } 
-    }
-
-    _fetchProfessors = () => {
-        fetch("http://localhost:8000" + this.url)
+        fetch(`http://localhost:8000/api/${entity}/${id}/professors`)
         .then(res => res.json())
         .then(professors => {
           this.setState({ professors })
@@ -30,7 +18,6 @@ export class ProfessorsList extends Component {
     }
 
     componentDidMount() {
-        this._setURL()
         this._fetchProfessors()
     }
 

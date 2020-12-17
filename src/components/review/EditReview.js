@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {editReview, formWillClose} from '../actions/reviewActions'
+import {getReview, editReview, clearReview, formWillClose} from '../actions/reviewActions'
 import {clearErrors} from '../actions/errorActions'
 import {_myColor} from '../common/util'
 
@@ -14,10 +14,18 @@ export class EditReview extends Component {
     }
 
     static propTypes = {
+        getReview: PropTypes.func.isRequired,
+        review: PropTypes.object.isRequired,
+        clearReview: PropTypes.func.isRequired,
         editReview: PropTypes.func.isRequired,
         formWillClose: PropTypes.func.isRequired,
         wasAdded: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        clearErrors: PropTypes.func.isRequired
+    }
+
+    componentDidMount () {
+        this.props.getReview(this.props.match.params.id)
     }
 
     _handleSubmit = (e) => {
@@ -32,20 +40,32 @@ export class EditReview extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.wasAdded !== this.props.wasAdded){
-            if(this.props.wasAdded){
-                this.props.history.goBack(-1)
-            }
+        
+        if(prevProps.review !== this.props.review){
+            const {text, difficulty, rating} = this.props.review
+            this.setState({ text, difficulty, rating })
         }
+
+        if(this.props.wasAdded){
+            this.props.history.goBack(-1)
+        }        
     }
 
     componentWillUnmount() {
+        // Se limpian errores
         this.props.clearErrors()
+
+        // Se limpia la reseña
+        this.props.clearReview()
+
+        // Se cambia variable usada para 
+        // regresar a pagina anterior
         this.props.formWillClose()
     }
 
     render () {
 
+        
         const {text, difficulty, rating} = this.state
         const {error} = this.props
 
@@ -144,8 +164,12 @@ export class EditReview extends Component {
 } 
 
 const mapStateToProps = state => ({
+    review: state.reviews.review,
     wasAdded: state.reviews.wasAdded,
     error: state.error
 });
 
-export default connect(mapStateToProps, {editReview, formWillClose, clearErrors})(EditReview);
+export default connect(
+    mapStateToProps,
+    {getReview, editReview, clearReview, formWillClose, clearErrors}
+)(EditReview);

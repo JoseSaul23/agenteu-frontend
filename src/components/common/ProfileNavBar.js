@@ -5,7 +5,7 @@ export class ProfileNavBar extends Component {
     _renderNavBar = () => {
         const {subject, url} = this.props
         switch (subject) {
-            case "university":
+            case "universidades":
                 return (
                     <div className="tabs">
                         <ul className="has-text-weight-medium">
@@ -24,7 +24,7 @@ export class ProfileNavBar extends Component {
                         </ul>
                     </div>
                 );
-            case "school": 
+            case "escuelas": 
                 return (
                     <div className="tabs">
                         <ul className="has-text-weight-medium">
@@ -39,7 +39,7 @@ export class ProfileNavBar extends Component {
                         </ul>
                     </div>
                 );
-            case "professor":
+            case "profesores":
                 return (
                     <div className="tabs">
                         <ul className="has-text-weight-medium">
@@ -54,10 +54,10 @@ export class ProfileNavBar extends Component {
                             <li className="is-active pr-3 pl-3 is-hidden-mobile"></li>
                             <li className="is-active pr-3 pl-3 is-hidden-mobile"></li>
                             <li className="is-active pr-3 pl-3">
-                                <Link>Favoritas</Link>
+                                <Link to={url+'/favoritas'}>Favoritas</Link>
                             </li>
                             <li className="pr-3 pl-3">
-                                <Link>Recomendadas</Link>
+                                <Link to={url+'/recomendadas'}>Recomendadas</Link>
                             </li>
                         </ul>
                     </div>

@@ -18,6 +18,7 @@ export class CreateReview extends Component {
         formWillClose: PropTypes.func.isRequired,
         wasAdded: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        clearErrors: PropTypes.func.isRequired
     }
 
     _handleSubmit = (e) => {
@@ -32,10 +33,8 @@ export class CreateReview extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.wasAdded !== this.props.wasAdded){
-            if(this.props.wasAdded){
-                this.props.history.goBack(-1)
-            }
+        if(this.props.wasAdded){
+            this.props.history.goBack(-1)
         }
     }
 

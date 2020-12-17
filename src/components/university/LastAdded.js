@@ -8,7 +8,7 @@ export class LastAdded extends Component {
     }
   
     _fetchLastAdded = () => {
-      fetch(`http://localhost:8000/api/escuelas/last_added`) //poner paginacion en backend de a 3 o 4. De escuelas por ahora.
+      fetch(`http://localhost:8000/api/escuelas/last_added/`) //poner paginacion en backend de a 3 o 4. De escuelas por ahora.
       .then(res => res.json())
       .then(lastAdded => {
         this.setState({ lastAdded })

@@ -20,14 +20,17 @@ export class UniversityDetails extends Component {
     static propTypes = {
         entityDetails: PropTypes.object.isRequired,
         getReviewByUserOr404: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool,
         clearReviewByUser: PropTypes.func.isRequired
     }
 
     _fetchUniversity = () => {
-        axios.get("http://localhost:8000/api/universidades/" + this.props.match.params.id)
+        axios.get(`http://localhost:8000/api/universidades/${this.props.match.params.id}/`)
             .then(res => {
                 this.setState({ university: res.data })
-                this.props.getReviewByUserOr404('universidades', this.props.match.params.id)
+                if(this.props.isAuthenticated){
+                    this.props.getReviewByUserOr404('universidades', this.props.match.params.id)
+                }
                 this.setState({loading: false})
             })
             .catch(e => this.setState({error:true}))
@@ -53,8 +56,17 @@ export class UniversityDetails extends Component {
             return <RedirectAs404 location={this.props.location}/>
         }
 
-        const {id, name, logo, professors_count, overall_difficulty, overall_rating, reviews_count, subscribers_count} 
-        = this.state.university
+        const {
+            id,
+            name,
+            logo,
+            professors_count,
+            overall_difficulty,
+            overall_rating, reviews_count,
+            subscribers_count
+        } = this.state.university
+
+        const {reviewByUser} = this.props.entityDetails
 
         if( this.state.loading){
             return <button className="button is-link is-loading">Loading</button>
@@ -112,26 +124,24 @@ export class UniversityDetails extends Component {
                     </div>
                 </div>
                 {
-                    this.props.entityDetails.reviewByUser.id
-                    ? 
-                        <div className="column">
-                            <Review 
-                                key={this.props.entityDetails.reviewByUser.id}
-                                id={this.props.entityDetails.reviewByUser.id} 
-                                text={this.props.entityDetails.reviewByUser.text}
-                                rating={this.props.entityDetails.reviewByUser.rating}
-                                difficulty={this.props.entityDetails.reviewByUser.difficulty}
-                                date={this.props.entityDetails.reviewByUser.date}
-                                user={this.props.entityDetails.reviewByUser.user}
-                                user_name={this.props.entityDetails.reviewByUser.user_name}
-                                entity={this.props.entityDetails.reviewByUser.entity}
-                                entity_name={this.props.entityDetails.reviewByUser.entity_name}
-                                entity_type={this.props.entityDetails.reviewByUser.entity_type}
-                                recomendations_count={this.props.entityDetails.reviewByUser.recomendations_count}
-                            />
-                        </div> 
-                    :
-                        ""
+                reviewByUser.id
+                ?   <div className="column">
+                        <Review 
+                            key={reviewByUser.id}
+                            id={reviewByUser.id} 
+                            text={reviewByUser.text}
+                            rating={reviewByUser.rating}
+                            difficulty={reviewByUser.difficulty}
+                            date={reviewByUser.date}
+                            user={reviewByUser.user}
+                            user_name={reviewByUser.user_name}
+                            entity={reviewByUser.entity}
+                            entity_name={reviewByUser.entity_name}
+                            entity_type={reviewByUser.entity_type}
+                            recomendations_count={reviewByUser.recomendations_count}
+                        />
+                    </div> 
+                :   ""
                 }
             </div>
         );
@@ -139,6 +149,7 @@ export class UniversityDetails extends Component {
 }
 
 const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
     entityDetails : state.entityDetails,
 });
 

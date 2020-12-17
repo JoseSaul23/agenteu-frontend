@@ -2,18 +2,33 @@ import React, {Component} from 'react'
 import {IoIosNotifications} from 'react-icons/io'
 import {Link} from 'react-router-dom'
 import {_myColor} from '../common/util'
+import axios from 'axios'
+import {connect} from 'react-redux'
+import {getReviewByUserOr404, clearReviewByUser} from '../actions/entityDetailsActions'
+import PropTypes from 'prop-types'
+import Review from '../review/Review'
 
 export class SchoolDetails extends Component {
     state = {
         school: {}
     }
 
+    static propTypes = {
+        entityDetails: PropTypes.object.isRequired,
+        getReviewByUserOr404: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool,
+        clearReviewByUser: PropTypes.func.isRequired
+    }
+
     _fetchSchool = () => {
-        fetch("http://localhost:8000/api/escuelas/" + this.props.match.params.id)
-      .then(res => res.json())
-      .then(school => {
-        this.setState({ school })
-      }) 
+        axios.get("http://localhost:8000/api/escuelas/" + this.props.match.params.id)
+            .then(res => {
+                this.setState({ school: res.data })
+                    if(this.props.isAuthenticated){
+                        this.props.getReviewByUserOr404('escuelas', this.props.match.params.id)
+                    }
+            })
+            // .catch(e => this.setState({error:true}))
     }
 
     componentDidMount() {
@@ -24,6 +39,10 @@ export class SchoolDetails extends Component {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
             this._fetchSchool()
         }
+    }
+
+    componentWillUnmount() {
+        this.props.clearReviewByUser()
     }
 
     render () {
@@ -41,18 +60,20 @@ export class SchoolDetails extends Component {
         } 
         = this.state.school
 
+        const {reviewByUser} = this.props.entityDetails
+
         return (
             <div className="columns is-multiline">
-                <div className="column">
+                <div className="column is-three-fifths">
                     <img src={logo} alt="logo"/>
                 </div>
-                <div className="column is-full pb-0 pt-0">
+                <div className="column is-three-fifths pb-0 pt-0">
                     <p className="black-title has-text-weight-medium big-text">{name}</p>
                     <Link to={"/universidades/" + school_university}>
                         <p className="institution-label">de {school_university_name}</p> 
                     </Link> 
                 </div>
-                <div className="column">
+                <div className="column is-three-fifths">
                     <div className="columns is-vcentered is-mobile ">
                         <div className="column has-text-weight-medium is-three-quarters">
                             {reviews_count} reseñas | {professors_count} profesores
@@ -81,18 +102,48 @@ export class SchoolDetails extends Component {
                             </p>
                         </div>
                         <div className="column">
-                            <Link to={"/publicar/" + id}>
-                                <button className="button is-small is-link">
-                                    <span className="medium-text has-text-weight-medium">Crear reseña</span>
-                                </button> 
-                            </Link>
+                            { this.props.entityDetails.reviewByUser.id ?
+                                "" :
+                                <Link to={"/publicar/" + id}>
+                                    <button className="button is-small is-link">
+                                        <span className="medium-text has-text-weight-medium">Crear reseña</span>
+                                    </button> 
+                                </Link>
+                            }
                         </div>
                     </div>
                     <div className="pb-3 has-text-weight-medium mt-2 mb-2">
                         <span className="black-title">{subscribers_count}</span> usuarios esperan nueva reseña
                     </div>
                 </div>
+                {
+                reviewByUser.id
+                ?   <div className="column">
+                        <Review 
+                            key={reviewByUser.id}
+                            id={reviewByUser.id} 
+                            text={reviewByUser.text}
+                            rating={reviewByUser.rating}
+                            difficulty={reviewByUser.difficulty}
+                            date={reviewByUser.date}
+                            user={reviewByUser.user}
+                            user_name={reviewByUser.user_name}
+                            entity={reviewByUser.entity}
+                            entity_name={reviewByUser.entity_name}
+                            entity_type={reviewByUser.entity_type}
+                            recomendations_count={reviewByUser.recomendations_count}
+                        />
+                    </div> 
+                :   ""
+                }
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    entityDetails : state.entityDetails,
+});
+
+export default connect(mapStateToProps, {getReviewByUserOr404, clearReviewByUser})(SchoolDetails);

@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import {ReviewsList} from '../review/ReviewsList'
 import {ProfileNavBar} from '../common/ProfileNavBar'
+import UserListReviews from '../user/UserListReviews'
 import {MdLibraryBooks} from 'react-icons/md' 
 import {RightPanel} from '../common/RightPanel'
-import {Link} from 'react-router-dom'
+import {Link, Switch, Route, Redirect} from 'react-router-dom'
+import {RedirectAs404} from '../common/RedirectAs404'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -39,16 +40,31 @@ export class UserLibrary extends Component {
                 </div>
             );
         }
-
+        
         return (
             <div className="columns">
                 <div className="column is-two-thirds pr-0">
                     <div className="columns is-multiline is-centered pl-4">
                         <div className="column mb-3">
-                            <ProfileNavBar subject="library"/>
+                            <ProfileNavBar subject="library" url={this.props.match.url}/>
                         </div>
                         <div className="column is-four-fifths mt-2">
-                            {/* <ReviewsList /> */}
+                            <Switch>
+                                <Redirect exact from={this.props.match.url} to={this.props.match.url + "/favoritas"} />
+                                <Route  
+                                    path={this.props.match.path + "/favoritas"}
+                                    render={(props) => (
+                                        <UserListReviews {...props} review_type="favorites"/>
+                                    )} 
+                                />
+                                <Route  
+                                    path={this.props.match.path + "/recomendadas"}
+                                    render={(props) => (
+                                        <UserListReviews {...props} review_type="recommended"/>
+                                    )} 
+                                />
+                                <Route component={RedirectAs404}/>
+                            </Switch>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ReviewsList} from '../review/ReviewsList'
+import UserListReviews from '../user/UserListReviews'
 import {RightPanel} from '../common/RightPanel'
 
 export class UserReviews extends Component {
@@ -12,7 +12,7 @@ export class UserReviews extends Component {
                             <h5 className="title is-5">Mis reseñas</h5>
                         </div>
                         <div className="column is-four-fifths mt-2">
-                            {/* <ReviewsList entity="user-reviews"/> */}
+                            <UserListReviews review_type="reviews"/>
                         </div>
                     </div>
                 </div>
