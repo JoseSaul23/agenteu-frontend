@@ -2,50 +2,50 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {IoIosNotifications} from 'react-icons/io'
 import {_myColor} from '../common/util'
-import axios from 'axios'
+import {RedirectAs404} from '../common/RedirectAs404'
 import {connect} from 'react-redux'
-import {getReviewByUserOr404, clearReviewByUser} from '../actions/entityDetailsActions'
+import {getEntity, clearEntity, subscribeToEntity, getReviewByUserOr404, clearReviewByUser} from '../actions/entityDetailsActions'
 import PropTypes from 'prop-types'
 import Review from '../review/Review'
 
 export class ProfessorDetails extends Component {
-    state = {
-        professor: {},
-    }
 
     static propTypes = {
+        getEntity: PropTypes.func.isRequired,
         entityDetails: PropTypes.object.isRequired,
-        isAuthenticated: PropTypes.bool,
+        clearEntity: PropTypes.func.isRequired,
+        subscribeToEntity: PropTypes.func.isRequired,
         getReviewByUserOr404: PropTypes.func.isRequired,
-        clearReviewByUser: PropTypes.func.isRequired
-    }
-
-    _fetchProfessor= () => {
-        axios.get("http://localhost:8000/api/profesores/" + this.props.match.params.id)
-            .then(res => {
-                this.setState({ professor: res.data })
-                if(this.props.isAuthenticated){
-                    this.props.getReviewByUserOr404('profesores', this.props.match.params.id)
-                }
-            })
-            // .catch(e => this.setState({error:true})) 
+        clearReviewByUser: PropTypes.func.isRequired,
+        auth: PropTypes.object,
+        error: PropTypes.object.isRequired,
     }
 
     componentDidMount() {
-        this._fetchProfessor()
+        this.props.getEntity('profesores', this.props.match.params.id)
     }
-    
+
     componentDidUpdate (prevProps) {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
-            this._fetchProfessor()
+            this.props.getEntity('profesores', this.props.match.params.id)
         }
     }
 
+    _handleSubscription = () => {
+        this.props.subscribeToEntity('profesores', this.props.match.params.id)
+    }
+
     componentWillUnmount() {
+        this.props.clearEntity()
         this.props.clearReviewByUser()
     }
 
     render () {
+
+        if (this.props.error.status === 404) {
+            return <RedirectAs404 location={this.props.location}/>
+        }
+
         const {
             id,
             name,
@@ -57,9 +57,13 @@ export class ProfessorDetails extends Component {
             overall_rating,
             reviews_count,
             subscribers_count}
-        = this.state.professor
+        = this.props.entityDetails.entity
 
         const {reviewByUser} = this.props.entityDetails
+
+        if( this.props.entityDetails.entityIsLoading){
+            return <button className="button is-link is-loading">Loading</button>
+        }
 
         return (
             <div className="columns is-multiline">
@@ -80,7 +84,10 @@ export class ProfessorDetails extends Component {
                             {reviews_count} reseñas
                         </div>
                         <div className="column">
-                            <IoIosNotifications  className="is-size-2"></IoIosNotifications>
+                            <IoIosNotifications
+                                onClick={this._handleSubscription}  
+                                className="custom-icon is-size-2"
+                            />
                         </div>
                     </div>
                     <div className="columns is-vcentered is-mobile has-text-weight-medium">
@@ -143,8 +150,9 @@ export class ProfessorDetails extends Component {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
     entityDetails : state.entityDetails,
+    error: state.error
 });
 
-export default connect(mapStateToProps, {getReviewByUserOr404, clearReviewByUser})(ProfessorDetails);
+export default connect(mapStateToProps, {getEntity, clearEntity, subscribeToEntity, getReviewByUserOr404, clearReviewByUser})(ProfessorDetails);

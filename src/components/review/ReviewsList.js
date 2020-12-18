@@ -23,12 +23,6 @@ export class ReviewsList extends Component {
         this.props.getEntityReviews(entity, id)
     }
 
-    componentDidUpdate(prevProps) {
-        if(prevProps.reviews !== this.props.reviews){
-            console.log(this.props.reviews)
-        }
-    }
-
     componentWillUnmount() {
         // Limpiar reseñas cargadas
         this.props.clearReviews()

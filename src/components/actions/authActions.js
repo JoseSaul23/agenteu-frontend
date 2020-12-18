@@ -8,7 +8,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
-    GET_ERRORS
+    GET_ERRORS,
+    CLEAR_ERRORS
 } from './types'
 
 
@@ -117,6 +118,63 @@ export const register = ({username, email, password}) => (dispatch) => {
                 payload: errors
             })
             dispatch({ type: REGISTER_FAIL })
+        })
+}
+
+export const updateUser = (fields) => (dispatch, getState) => {
+    // Petición HTTP a la API para modificar campos del usuario. 
+    axios.put('http://localhost:8000/auth/users/me/', fields, tokenConfig(getState))
+        .then( res => {
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            });
+            dispatch({
+                type: CLEAR_ERRORS,
+            });
+        })
+        .catch( e => {
+            const errors = {message: e.response.data, status: e.response.status}
+            dispatch( {
+                type: GET_ERRORS,
+                payload: errors
+            })
+        })
+}
+
+export const updatePassword = (current_password, new_password) => (dispatch, getState) => {
+    // Petición HTTP a la API para cambiar contraseña 
+    axios.post('http://localhost:8000/auth/users/set_password/', {current_password, new_password}, tokenConfig(getState))
+    .then( res => {
+        dispatch(getUser());
+        dispatch({
+            type: CLEAR_ERRORS,
+        });
+    })
+    .catch( e => {
+        const errors = {message: e.response.data, status: e.response.status}
+        dispatch( {
+            type: GET_ERRORS,
+            payload: errors
+        })
+    })
+}
+
+export const updateEmail = (new_email, current_password) => (dispatch, getState) => {
+        // Petición HTTP a la API para cambiar correo 
+        axios.post('http://localhost:8000/auth/users/set_email/', {new_email, current_password}, tokenConfig(getState))
+        .then( res => {
+            dispatch(getUser());
+            dispatch({
+                type: CLEAR_ERRORS,
+            });
+        })
+        .catch( e => {
+            const errors = {message: e.response.data, status: e.response.status}
+            dispatch( {
+                type: GET_ERRORS,
+                payload: errors
+            })
         })
 }
 

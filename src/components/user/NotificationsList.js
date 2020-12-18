@@ -1,9 +1,49 @@
 import React, {Component} from 'react'
-import {FaTrashAlt} from 'react-icons/fa'
-import {AiOutlineCheck} from 'react-icons/ai'
+import Notification from './Notification'
 import {RightPanel} from '../common/RightPanel'
+import {connect} from 'react-redux'
+import {getNotifications, clearNotifications} from '../actions/notificationsActions'
+import PropTypes from 'prop-types'
 
 export class NotificationsList extends Component {
+
+    static propTypes = {
+        notifications: PropTypes.array.isRequired,
+        getNotifications: PropTypes.func.isRequired,
+        clearNotifications: PropTypes.func.isRequired
+    }
+
+    componentDidMount() {
+        // Traer notificaciones
+        this.props.getNotifications()
+    }
+
+    componentWillUnmount() {
+        // Limpiar reseñas cargadas
+        this.props.clearNotifications()
+    }
+
+    _renderNotifications = () => {
+        if (this.props.notifications.length === 0) {
+            return (
+                <div className="m-2">No hay mensajes</div>
+            );
+        }
+        else {
+            return this.props.notifications.map( notification => {
+                return (
+                    <Notification 
+                        key={notification.id}
+                        id={notification.id} 
+                        message={notification.message}
+                        check={notification.check}
+                        date={notification.date}
+                    />
+                  );
+            }   )
+        } 
+    }
+
     render () {
         return (
             <div className="columns">
@@ -14,40 +54,7 @@ export class NotificationsList extends Component {
                                 <div className="p-4 pt-1 list-border-bottom has-text-weight-bold">
                                     Notificaciones
                                 </div>
-                                <div className="pt-2 pb-2 pl-4 pr-4 list-border-bottom">
-                                    <div className="columns">
-                                        <div className="column is-10">
-                                            Nueva reseña sobre: Maria Alejandra Rodriguez Ospina 
-                                        </div>
-                                        <div className="column">
-                                            <span className="has-text-warning-dark">
-                                                <AiOutlineCheck />
-                                            </span>
-                                        </div>
-                                        <div className="column">
-                                            <span className="has-text-danger-dark">
-                                                <FaTrashAlt />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="pt-2 pb-2 pl-4 pr-4 list-border-bottom">
-                                    <div className="columns">
-                                        <div className="column is-10">
-                                            Nueva reseña sobre: Maria Alejandra Rodriguez Ospina 
-                                        </div>
-                                        <div className="column">
-                                            <span className="has-text-warning-dark">
-                                                <AiOutlineCheck />
-                                            </span>
-                                        </div>
-                                        <div className="column">
-                                            <span className="has-text-danger-dark">
-                                                <FaTrashAlt />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                {this._renderNotifications()}
                             </div>
                         </div>
                     </div>
@@ -57,3 +64,9 @@ export class NotificationsList extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    notifications : state.notification.notifications,
+});
+
+export default connect(mapStateToProps, {getNotifications, clearNotifications})(NotificationsList);

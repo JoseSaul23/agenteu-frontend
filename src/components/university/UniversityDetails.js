@@ -1,58 +1,48 @@
 import React, {Component} from 'react'
 import {IoIosNotifications} from 'react-icons/io'
 import {_myColor} from '../common/util'
-import axios from 'axios'
 import {RedirectAs404} from '../common/RedirectAs404'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {getReviewByUserOr404, clearReviewByUser} from '../actions/entityDetailsActions'
+import {getEntity, clearEntity, subscribeToEntity, getReviewByUserOr404, clearReviewByUser} from '../actions/entityDetailsActions'
 import PropTypes from 'prop-types'
 import Review from '../review/Review'
 
 export class UniversityDetails extends Component {
 
-    state = {
-        university: {},
-        error: false,
-        loading: true
-    }
-
     static propTypes = {
+        getEntity: PropTypes.func.isRequired,
         entityDetails: PropTypes.object.isRequired,
+        clearEntity: PropTypes.func.isRequired,
+        subscribeToEntity: PropTypes.func.isRequired,
         getReviewByUserOr404: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool,
-        clearReviewByUser: PropTypes.func.isRequired
-    }
-
-    _fetchUniversity = () => {
-        axios.get(`http://localhost:8000/api/universidades/${this.props.match.params.id}/`)
-            .then(res => {
-                this.setState({ university: res.data })
-                if(this.props.isAuthenticated){
-                    this.props.getReviewByUserOr404('universidades', this.props.match.params.id)
-                }
-                this.setState({loading: false})
-            })
-            .catch(e => this.setState({error:true}))
+        clearReviewByUser: PropTypes.func.isRequired,
+        auth: PropTypes.object,
+        error: PropTypes.object.isRequired,
     }
 
     componentDidMount() {
-        this._fetchUniversity()
+        this.props.getEntity('universidades', this.props.match.params.id)
     }
 
     componentDidUpdate (prevProps) {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
-            this._fetchUniversity()
+            this.props.getEntity('universidades', this.props.match.params.id)
         }
     }
 
+    _handleSubscription = () => {
+        this.props.subscribeToEntity('universidades', this.props.match.params.id)
+    }
+
     componentWillUnmount() {
+        this.props.clearEntity()
         this.props.clearReviewByUser()
     }
 
     render () {
 
-        if (this.state.error) {
+        if (this.props.error.status === 404) {
             return <RedirectAs404 location={this.props.location}/>
         }
 
@@ -64,11 +54,11 @@ export class UniversityDetails extends Component {
             overall_difficulty,
             overall_rating, reviews_count,
             subscribers_count
-        } = this.state.university
+        } = this.props.entityDetails.entity
 
         const {reviewByUser} = this.props.entityDetails
 
-        if( this.state.loading){
+        if( this.props.entityDetails.entityIsLoading){
             return <button className="button is-link is-loading">Loading</button>
         }
 
@@ -86,7 +76,10 @@ export class UniversityDetails extends Component {
                             {reviews_count} reseñas | {professors_count} profesores
                         </div>
                         <div className="column">
-                            <IoIosNotifications  className="is-size-2"></IoIosNotifications>
+                            <IoIosNotifications
+                                onClick={this._handleSubscription}  
+                                className="custom-icon is-size-2"
+                            />
                         </div>
                     </div>
                     <div className="columns is-vcentered is-mobile has-text-weight-medium">
@@ -149,8 +142,9 @@ export class UniversityDetails extends Component {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
     entityDetails : state.entityDetails,
+    error: state.error
 });
 
-export default connect(mapStateToProps, {getReviewByUserOr404, clearReviewByUser})(UniversityDetails);
+export default connect(mapStateToProps, {getEntity, clearEntity, subscribeToEntity, getReviewByUserOr404, clearReviewByUser})(UniversityDetails);

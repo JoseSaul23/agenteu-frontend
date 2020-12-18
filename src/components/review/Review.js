@@ -5,7 +5,7 @@ import {BsBookmark, BsFlagFill} from 'react-icons/bs'
 import {RiShareForwardFill} from 'react-icons/ri'
 import {FaTrashAlt, FaEdit} from 'react-icons/fa'
 import {_myColor} from '../common/util'
-import {deleteReview, recommendReview} from '../actions/reviewActions'
+import {deleteReview, recommendReview, saveReview} from '../actions/reviewActions'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -14,11 +14,13 @@ export class Review extends Component {
     state = {
         showDeleteMessage: false,
         showLoginMessage: false,
+        showLoginMessageForSave: false,
     }
 
     static propTypes = {
         auth : PropTypes.object.isRequired,
         deleteReview: PropTypes.func.isRequired,
+        saveReview: PropTypes.func.isRequired,
         recommendReview: PropTypes.func.isRequired
     }
 
@@ -35,7 +37,22 @@ export class Review extends Component {
             this.props.recommendReview(this.props.id)
         }
         else {
+            if (this.state.showLoginMessageForSave === true) {
+                this.setState({ showLoginMessageForSave: false })
+            }
             this.setState({ showLoginMessage: !this.state.showLoginMessage })
+        }
+    }
+
+    _saveReview = () => {
+        if(this.props.auth.isAuthenticated) {
+            this.props.saveReview(this.props.id)
+        }
+        else {
+            if (this.state.showLoginMessage === true) {
+                this.setState({ showLoginMessage: false })
+            }
+            this.setState({ showLoginMessageForSave: !this.state.showLoginMessageForSave })
         }
     }
 
@@ -87,15 +104,29 @@ export class Review extends Component {
                                     {recomendations_count}    
                                 </div>
                                 <div className="column has-text-centered has-text-link">
-                                    {this.props.auth.user && this.props.auth.user.id === user 
-                                        ? <Link to={"/editar/"+id}><FaEdit className="is-size-5" /></Link>  : ''} 
+                                    {
+                                        this.props.auth.user && this.props.auth.user.id === user ?
+                                            <Link to={"/editar/"+id}>
+                                                <FaEdit className="is-size-5" />
+                                            </Link> :
+                                        ''
+                                    } 
                                 </div>
                                 <div className="column has-text-centered has-text-danger-dark">
-                                    {this.props.auth.user && this.props.auth.user.id === user
-                                        ? <FaTrashAlt onClick={this._showDeleteConfirmation} className="custom-icon is-size-6" /> : ''} 
+                                    {
+                                        this.props.auth.user && this.props.auth.user.id === user ?
+                                            <FaTrashAlt 
+                                                onClick={this._showDeleteConfirmation}
+                                                className="custom-icon is-size-6" 
+                                            /> :
+                                            ''
+                                    } 
                                 </div>
                                 <div className="column has-text-centered">
-                                    <BsBookmark className="is-size-5" />  
+                                    <BsBookmark
+                                        onClick={this._saveReview} 
+                                        className="custom-icon is-size-5"
+                                    />  
                                 </div>
                                 <div className="column has-text-centered">
                                     <RiShareForwardFill className="is-size-5" />
@@ -158,6 +189,17 @@ export class Review extends Component {
                     </div> :  
                     ''  
                 }
+                {this.state.showLoginMessageForSave ?
+                    <div className="column is-full">
+                        <p>Inicia sesión para guardar esta reseña</p>
+                        <Link to="/iniciar-sesion">
+                            <button className="button is-small is-link mt-1">
+                                Iniciar sesión
+                            </button>
+                        </Link>
+                    </div> :  
+                    ''  
+                }
             </div>
         );
     }
@@ -167,4 +209,4 @@ const mapStateToProps = state => ({
     auth : state.auth,
 });
 
-export default connect(mapStateToProps, {deleteReview, recommendReview})(Review);
+export default connect(mapStateToProps, {deleteReview, recommendReview, saveReview})(Review);

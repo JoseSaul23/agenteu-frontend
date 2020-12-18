@@ -5,6 +5,7 @@ import {
     EDIT_REVIEW,
     DELETE_REVIEW,
     RECOMMEND_REVIEW,
+    SAVE_REVIEW,
     CLEAR_REVIEWS,
     CLEAR_REVIEW,
     GET_ERRORS,
@@ -108,7 +109,6 @@ export const editReview = (id, review) => (dispatch, getState) => {
             payload: errors
         })
     })
-
 }
 
 export const deleteReview = (id) => (dispatch, getState) => {
@@ -138,6 +138,24 @@ export const recommendReview = (id) => (dispatch, getState) => {
     .then( res => {
         dispatch({ 
             type: RECOMMEND_REVIEW,
+            payload: res.data
+        });
+    })
+    .catch( e => {
+        const errors = {message: e.response.data, status: e.response.status}
+        dispatch( {
+            type: GET_ERRORS,
+            payload: errors
+        })
+    })
+}
+
+export const saveReview = (id) => (dispatch, getState) => {
+    // Petición HTTP a la API para dar recomendacion a reseña. 
+    axios.get(`http://localhost:8000/api/publicaciones/${id}/favorite/`, tokenConfig(getState))
+    .then( res => {
+        dispatch({ 
+            type: SAVE_REVIEW,
             payload: res.data
         });
     })
