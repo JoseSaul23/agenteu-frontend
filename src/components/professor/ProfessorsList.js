@@ -1,36 +1,46 @@
 import React, {Component} from 'react'
 import {Professor} from './Professor'
-//  _renderReviews 
+import {connect} from 'react-redux'
+import {getEntitiesOfEntity, clearEntities} from '../actions/entityActions'
+import PropTypes from 'prop-types'
+
+
 export class ProfessorsList extends Component {
 
-    state = {
-        professors: [],
-    }
-
-    _fetchProfessors = () => {
-        const {entity} = this.props
-        const {id} = this.props.match.params
-        fetch(`http://localhost:8000/api/${entity}/${id}/professors`)
-        .then(res => res.json())
-        .then(professors => {
-          this.setState({ professors })
-        }) 
+    static propTypes = {
+        entities: PropTypes.array.isRequired,
+        getEntitiesOfEntity: PropTypes.func.isRequired,
+        clearEntities: PropTypes.func.isRequired,
+        isLoading: PropTypes.bool
     }
 
     componentDidMount() {
-        this._fetchProfessors()
+        const {entity} = this.props
+        const {id} = this.props.match.params
+        this.props.getEntitiesOfEntity(entity, id, 'professors')
+    }
+
+    componentDidUpdate (prevProps) {
+        if (prevProps.match.params.id !== this.props.match.params.id) { 
+            const {entity} = this.props
+            const {id} = this.props.match.params
+            this.props.getEntitiesOfEntity(entity, id, 'professors')
+        }
+    }
+
+    componentWillUnmount() {
+        // Limpiar entidades cargadas
+        this.props.clearEntities()
     }
 
     _renderProfessors = () => {
-        const {professors} = this.state
-
-        if (professors.length === 0) {
+        if (this.props.entities.length === 0) {
             return (
                 <div>No hay profesores</div>
             );
         }
         else {
-            return professors.map( professor => {
+            return this.props.entities.map( professor => {
                 return (
                   <Professor 
                     key={professor.id} 
@@ -51,9 +61,22 @@ export class ProfessorsList extends Component {
 
     render () {
         return (
-            <div>
-                {this._renderProfessors()}
-            </div>  
+            this.props.isLoading ?
+                <div className="columns mb-6">
+                    <div className="column has-text-centered">
+                        <button class="button is-link is-loading">Loading</button>
+                    </div>
+                </div> :
+                <div>
+                    {this._renderProfessors()}
+                </div>  
         );
     }
 }
+
+const mapStateToProps = state => ({
+    entities : state.entities.entities,
+    isLoading: state.entities.isLoading
+});
+
+export default connect(mapStateToProps, {getEntitiesOfEntity, clearEntities})(ProfessorsList);

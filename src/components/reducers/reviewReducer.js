@@ -1,5 +1,6 @@
 import {
     GET_REVIEWS,
+    LOADING_REVIEWS,
     GET_REVIEW,
     ADD_REVIEW,
     EDIT_REVIEW,
@@ -14,15 +15,22 @@ import {
 const initialState = {
     reviews: [],
     review: {},
+    isLoading: null,
     wasAdded: null
 }
 
 export const reviewReducer = (state=initialState, action) => {
     switch(action.type) {
+        case LOADING_REVIEWS:
+            return {
+                ...state,
+                isLoading: true
+            }
         case GET_REVIEWS:
             return {
                 ...state,
-                reviews: action.payload
+                reviews: action.payload,
+                isLoading: false
             }
         case GET_REVIEW:
             return {

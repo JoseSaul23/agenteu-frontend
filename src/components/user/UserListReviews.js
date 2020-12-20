@@ -13,7 +13,7 @@ export class UserListReviews extends Component {
     }
   
     componentDidMount() {
-        // Tipo de reseña de usuario que ver (creadas, favoritas, recomendadas)
+        // Tipo de reseña de usuario que ver (creadas, favoritas, recomendadas, feed)
         const {review_type} = this.props
 
         // Traer reseñas
@@ -62,15 +62,22 @@ export class UserListReviews extends Component {
 
     render () {
         return (
-            <div>
-                {this._renderReviews()}
-            </div>  
+            this.props.isLoading ?
+                <div className="columns mb-6">
+                    <div className="column has-text-centered">
+                        <button class="button is-link is-loading">Loading</button>
+                    </div>
+                </div> :
+                <div>
+                    {this._renderReviews()}
+                </div>  
         );
     }
 }
 
 const mapStateToProps = state => ({
     reviews : state.reviews.reviews,
+    isLoading: state.reviews.isLoading
 });
 
 export default connect(mapStateToProps, {getUserReviews, clearReviews})(UserListReviews);

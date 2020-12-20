@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {LastAdded} from '../university/LastAdded'
-import {TopReviewsList} from '../review/TopReviewsList'
+import LastAdded from '../university/LastAdded'
+import TopReviewsList from '../review/TopReviewsList'
 
 export class Home extends Component {
     render () {

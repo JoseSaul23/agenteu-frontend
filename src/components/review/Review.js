@@ -75,7 +75,7 @@ export class Review extends Component {
             <div className="columns is-multiline mb-5">
                 <div className="column is-full has-text-weight-medium small-label p-0 pl-1 closer-letters">
                     <p>
-                        <span className="black-title">{user_name}</span> - {date}
+                        <span className="black-title">{user_name}</span> • {date}
                     </p>
                     <Link to={
                             entity_type === "Professor"

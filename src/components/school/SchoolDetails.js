@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import {getEntity, clearEntity, subscribeToEntity, getReviewByUserOr404, clearReviewByUser} from '../actions/entityDetailsActions'
 import PropTypes from 'prop-types'
 import Review from '../review/Review'
+import Skeleton from '@material-ui/lab/Skeleton';
 
 export class SchoolDetails extends Component {
     
@@ -63,8 +64,16 @@ export class SchoolDetails extends Component {
 
         const {reviewByUser} = this.props.entityDetails
 
-        if( this.props.entityDetails.entityIsLoading){
-            return <button className="button is-link is-loading">Loading</button>
+        if(this.props.entityDetails.entityIsLoading){
+            return (
+                <div>
+                    <Skeleton variant="rect" width={300} height={150} />
+                    <Skeleton className="mt-3" variant="rect" width={300} height={20} />
+                    <Skeleton className="mt-5" variant="rect" width={340} height={30} />
+                    <Skeleton className="mt-4" variant="rect" width={360} height={120} />
+                    <Skeleton className="mt-3 mb-5" variant="rect" width={300} height={20} />
+                </div>
+            );
         }
 
         return (
