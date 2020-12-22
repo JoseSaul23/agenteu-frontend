@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {ProfileNavBar} from '../common/ProfileNavBar'
 import UserListReviews from '../user/UserListReviews'
 import {MdLibraryBooks} from 'react-icons/md' 
-import {RightPanel} from '../common/RightPanel'
+import RightPanel from '../common/RightPanel'
 import {Link, Switch, Route, Redirect} from 'react-router-dom'
 import {RedirectAs404} from '../common/RedirectAs404'
 import {connect} from 'react-redux'
@@ -46,7 +46,11 @@ export class UserLibrary extends Component {
                 <div className="column is-two-thirds pr-0">
                     <div className="columns is-multiline is-centered pl-4">
                         <div className="column mb-3">
-                            <ProfileNavBar subject="library" url={this.props.match.url}/>
+                            <ProfileNavBar 
+                                subject="library"
+                                url={this.props.match.url}
+                                location={this.props.location}
+                            />
                         </div>
                         <div className="column is-four-fifths mt-2">
                             <Switch>

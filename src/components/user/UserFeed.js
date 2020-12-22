@@ -1,12 +1,16 @@
 import React, {Component} from 'react'
 import UserListReviews from '../user/UserListReviews'
 import {BiNews} from 'react-icons/bi'
-import {RightPanel} from '../common/RightPanel'
+import RightPanel from '../common/RightPanel'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getUniversityOptions, getSchoolOptions, setSchool, setUniversity, clearOptions} from '../actions/userFeedActions'
 import {updateUser} from '../actions/authActions'
 import PropTypes from 'prop-types'
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import { string } from 'prop-types'
+
 
 export class UserFeed extends Component {
 
@@ -35,7 +39,7 @@ export class UserFeed extends Component {
     }
     
     componentDidUpdate(prevProps) {
-        if( prevProps.user !== this.props.user){
+        if(prevProps.user !== this.props.user){
             if(this.props.user.university){
                 this.props.setUniversity(this.props.user.university)
                 this.props.getSchoolOptions(this.props.user.university)
@@ -48,17 +52,23 @@ export class UserFeed extends Component {
         this.props.clearOptions()
     }
 
-    _handleUniversity = (e) => {
-        this.props.setUniversity(e.target.value)
-        if(e.target.value !== ""){
-            this.props.getSchoolOptions(e.target.value)
+    _handleUniversity = (e, newValue) => {
+        if(newValue !== null){
+            this.props.setUniversity(newValue.id)
+            this.props.getSchoolOptions(newValue.id)
         }
     }
 
-    _handleSchool = (e) => {
+    _handleSchool = (e, newValue) => {
         const {user, userFeed} = this.props
-        this.props.setSchool(e.target.value)
-        this.props.updateUser({ ...user, university: userFeed.university, school: e.target.value })
+        if(newValue !== null){
+            // this.props.setSchool(newValue.id)
+            this.props.updateUser({ 
+                ...user,
+                university: userFeed.university,
+                school: newValue.id 
+            })
+        }
     }
 
     render () {
@@ -68,10 +78,12 @@ export class UserFeed extends Component {
             schoolOptions,
             university,
             school,
+            loadingUniversityOptions,
+            loadingSchoolOptions,
         } = this.props.userFeed
         
         const {user} = this.props
-
+        
         if (!this.props.isAuthenticated){
             return (
                 <div className="columns pt-6">
@@ -84,7 +96,8 @@ export class UserFeed extends Component {
                         </div>
                         <div className="m-5">
                             <p>
-                                Inicia sesión para ver las ultimas reseñas de tu universidad, tu escuela y los profesores de tu escuela
+                                Inicia sesión para ver las ultimas reseñas de tu universidad,
+                                tu escuela y los profesores de tu escuela
                             </p>
                         </div>
                         <div className="m-5">
@@ -104,47 +117,40 @@ export class UserFeed extends Component {
                         <div className="column m-5" >
                             <div className="columns has-text-centered">
                                 <div className="column">
-                                    <div className="select is-small">
-                                        <select 
-                                            onChange={this._handleUniversity}
-                                            value={university ? university : ""}
-                                        >
-                                            <option value="">Selecciona tu universidad</option>
-                                            {
-                                                universityOptions.map( university_option => {
-                                                return (
-                                                        <option 
-                                                            key={university_option.id}
-                                                            value={university_option.id}
-                                                        >
-                                                            {university_option.name}
-                                                        </option>
-                                                )
-                                                })
-                                            }
-                                        </select>
-                                    </div>
+                                {
+                                    loadingUniversityOptions ?
+                                    <p>Loading</p>
+                                    :
+                                    <Autocomplete
+                                        id="combo-box-uni"
+                                        options={universityOptions[0] ? universityOptions : []}
+                                        getOptionLabel={(option) => option.name}
+                                        style={{ width: 300 }}
+                                        onChange={this._handleUniversity}
+                                        value={university ? universityOptions.find(option => option.id===university) : null}
+                                        renderInput={(params) => 
+                                            <TextField {...params} label="Selecciona tu universidad" variant="outlined" 
+                                        />}
+                                    />
+                                }
                                 </div>
                                 <div className="column">
-                                    <div className="select is-small">
-                                        {
-                                            <select 
-                                                onChange={this._handleSchool}
-                                                value={school ? school : ""}
-                                            >
-                                                <option value="">Selecciona tu escuela</option>
-                                                {
-                                                    schoolOptions.map( option => {
-                                                    return (
-                                                            <option key={option.id} value={option.id}>
-                                                                {option.name}
-                                                            </option>
-                                                        );
-                                                    })
-                                                }
-                                            </select> 
-                                        } 
-                                    </div>
+                                    {
+                                        loadingSchoolOptions ?
+                                        <p>Loading</p>
+                                        :
+                                        <Autocomplete
+                                            id="combo-box-school"
+                                            options={schoolOptions[0] ? schoolOptions : []}
+                                            getOptionLabel={(option) => option.name}
+                                            style={{ width: 300 }}
+                                            onChange={this._handleSchool}
+                                            value={school ? schoolOptions.find( option => option.id === school ) : null}
+                                            renderInput={(params) => 
+                                                <TextField {...params} label="Selecciona tu escuela" variant="outlined" 
+                                            />}
+                                        />
+                                    } 
                                 </div>
                             </div>
                         </div>

@@ -8,6 +8,7 @@ import {
     DELETE_REVIEW,
     RECOMMEND_REVIEW,
     SAVE_REVIEW,
+    REPORT_REVIEW,
     CLEAR_REVIEWS,
     CLEAR_REVIEW
 } from '../actions/types'
@@ -35,7 +36,8 @@ export const reviewReducer = (state=initialState, action) => {
         case GET_REVIEW:
             return {
                 ...state,
-                review: action.payload
+                review: action.payload,
+                isLoading: false
             }
         case ADD_REVIEW:
         case EDIT_REVIEW:
@@ -48,7 +50,8 @@ export const reviewReducer = (state=initialState, action) => {
             // SI ES QUE SE TIENE UNA ENIDAD CARGADA.  EN ENITY REDUCER -- REVIEW_DELETED
             return {
                 ...state,
-                reviews: state.reviews.filter(review => review.id !== action.payload)
+                reviews: state.reviews.filter(review => review.id !== action.payload),
+                review: state.review.id === action.payload ? {} : state.review
             }
         case SAVE_REVIEW:
         case RECOMMEND_REVIEW:
@@ -56,10 +59,19 @@ export const reviewReducer = (state=initialState, action) => {
                 ...state,
                 reviews: state.reviews.map( (review) => review.id === action.payload.id ?
                     // Se transforma la reseña con el id recibido
-                    { ...review, recomendations_count: action.payload.recomendations_count } : 
-                    // Si no, se regresa la original
+                    { 
+                        ...review,
+                        recomendations: action.payload.recomendations,
+                        favorite: action.payload.favorite,
+                        recomendations_count: action.payload.recomendations_count } : 
+                    // la que no sean igual, se regresan igual
                     review
-                )
+                ),
+                review: state.review.id === action.payload.id ? action.payload : state.review
+            }
+        case REPORT_REVIEW:
+            return {
+                ...state
             }
         case CLEAR_REVIEWS:
             return {

@@ -1,4 +1,6 @@
 import {
+    LOADING_UNIVERSITY_OPTIONS,
+    LOADING_SCHOOL_OPTIONS,
     GET_UNIVERSITY_OPTIONS,
     GET_SCHOOL_OPTIONS,
     SET_UNIVERSITY,
@@ -10,6 +12,11 @@ import {
 import axios from 'axios'
 
 export const getUniversityOptions = () => (dispatch) => {
+
+    dispatch({
+        type: LOADING_UNIVERSITY_OPTIONS
+    })
+
     // Petición HTTP a la API para obtener notificaciones del usuario autenticado.
     axios.get(`http://localhost:8000/api/universidades/options/`)
     .then( res => {   
@@ -42,21 +49,25 @@ export const setSchool = (id) => (dispatch) => {
 }
 
 export const getSchoolOptions = (university_id) => (dispatch) => {
-        // Petición HTTP a la API para obtener notificaciones del usuario autenticado.
-        axios.get(`http://localhost:8000/api/universidades/${university_id}/school_options/`)
-        .then( res => {
-            dispatch({ 
-                type: GET_SCHOOL_OPTIONS,
-                payload: res.data
-            });
+    dispatch({
+        type: LOADING_SCHOOL_OPTIONS
+    })
+
+    // Petición HTTP a la API para obtener notificaciones del usuario autenticado.
+    axios.get(`http://localhost:8000/api/universidades/${university_id}/school_options/`)
+    .then( res => {
+        dispatch({ 
+            type: GET_SCHOOL_OPTIONS,
+            payload: res.data
+        });
+    })
+    .catch( e => {
+        const errors = {message: e.response.data, status: e.response.status}
+        dispatch( {
+            type: GET_ERRORS,
+            payload: errors
         })
-        .catch( e => {
-            const errors = {message: e.response.data, status: e.response.status}
-            dispatch( {
-                type: GET_ERRORS,
-                payload: errors
-            })
-        })
+    })
 }
 
 export const clearOptions = () => (dispatch) => {

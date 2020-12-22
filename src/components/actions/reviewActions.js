@@ -9,6 +9,7 @@ import {
     SAVE_REVIEW,
     CLEAR_REVIEWS,
     CLEAR_REVIEW,
+    REPORT_REVIEW,
     GET_ERRORS,
     REVIEW_FORM_CLOSE,
     CLEAR_REVIEW_BY_USER} from './types'
@@ -89,21 +90,25 @@ export const getReviews = () => (dispatch) => {
 // Obtener solo una reseña
 export const getReview = (id) => (dispatch) => {
 
-        // Petición HTTP a la API para obtener reseña
-        axios.get(`http://localhost:8000/api/publicaciones/${id}/`)
-        .then( res => {
-            dispatch({
-                type: GET_REVIEW,
-                payload: res.data
-            })
+    dispatch({
+        type:LOADING_REVIEWS
+    })
+
+    // Petición HTTP a la API para obtener reseña
+    axios.get(`http://localhost:8000/api/publicaciones/${id}/`)
+    .then( res => {
+        dispatch({
+            type: GET_REVIEW,
+            payload: res.data
         })
-        .catch( e => {
-            const errors = {message: e.response.data, status: e.response.status}
-            dispatch( {
-                type: GET_ERRORS,
-                payload: errors
-            })
+    })
+    .catch( e => {
+        const errors = {message: e.response.data, status: e.response.status}
+        dispatch( {
+            type: GET_ERRORS,
+            payload: errors
         })
+    })
 
 }
 
@@ -184,11 +189,29 @@ export const recommendReview = (id) => (dispatch, getState) => {
 }
 
 export const saveReview = (id) => (dispatch, getState) => {
-    // Petición HTTP a la API para dar recomendacion a reseña. 
+    // Petición HTTP a la API para dar guardar reseña. 
     axios.get(`http://localhost:8000/api/publicaciones/${id}/favorite/`, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: SAVE_REVIEW,
+            payload: res.data
+        });
+    })
+    .catch( e => {
+        const errors = {message: e.response.data, status: e.response.status}
+        dispatch( {
+            type: GET_ERRORS,
+            payload: errors
+        })
+    })
+}
+
+export const reportReview = (review) => (dispatch, getState) => {
+    // Petición HTTP a la API para crear reporte
+    axios.post(`http://localhost:8000/api/reportes/`, {review}, tokenConfig(getState))
+    .then( res => {
+        dispatch({ 
+            type: REPORT_REVIEW,
             payload: res.data
         });
     })

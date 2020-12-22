@@ -5,7 +5,7 @@ import ReviewsList from '../review/ReviewsList'
 import SchoolsList from '../school/SchoolsList'
 import ProfessorsList from '../professor/ProfessorsList'
 import {RedirectAs404} from './RedirectAs404'
-import {RightPanel} from './RightPanel'
+import RightPanel from './RightPanel'
 
 export class Profile extends Component {
 
@@ -26,7 +26,7 @@ export class Profile extends Component {
                         </div>
                         <div className="column is-12">
                             {/* BARRA DE NAVEGACION */}
-                            <ProfileNavBar subject={entity} url={this.props.match.url}/>
+                            <ProfileNavBar subject={entity} url={this.props.match.url} location={this.props.location}/>
                         </div>
                         {/* LISTAS */}
                         <Switch>
@@ -66,7 +66,7 @@ export class Profile extends Component {
                     </div>
                 </div>
                 {/* PANEL DERECHO */}
-                <RightPanel sideList={entity} id={id}/>
+                <RightPanel/>
             </div>
         );
     }

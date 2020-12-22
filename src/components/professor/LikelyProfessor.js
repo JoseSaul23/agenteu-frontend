@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
-export class ProfessorInSideList extends Component {
+export class LikelyProfessor extends Component {
     render () {
         const {id, name, reviews_count} = this.props
 

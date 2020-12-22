@@ -88,7 +88,7 @@ export class EditReview extends Component {
                                         value={text}
                                     />
                                 </div>
-                                <p className="small-label">Quedan {200 - text.length} caracteres</p>
+                                <p className="small-label">Quedan {200 - (text ? text.length : 0)} caracteres</p>
                                 <p className="has-text-danger">
                                     {error.message.text ? error.message.text : '' }
                                 </p>

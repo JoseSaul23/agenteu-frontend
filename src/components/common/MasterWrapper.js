@@ -15,8 +15,10 @@ import CreateReview from '../review/CreateReview'
 import EditReview from '../review/EditReview'
 import NotificationsList from '../user/NotificationsList'
 import UserAccount from '../user/UserAccount'
+import {UserSettings} from '../user/UserSettings'
 import {RedirectAs404} from '../common/RedirectAs404'
 import PrivateRoute from '../common/PrivateRoute'
+import ReviewPost from '../review/ReviewPost'
 
 export class MasterWrapper extends Component {
     render () {
@@ -25,6 +27,7 @@ export class MasterWrapper extends Component {
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/instituciones" component={InstitutionsInMenuList}></Route>
           <Route exact path="/profesores" component={ProfessorsInMenuList}></Route>
+          <Route path="/publicaciones/:id" component={ReviewPost}></Route>
           <Route
             exact 
             path="/busqueda/:entity/:q/"
@@ -64,6 +67,7 @@ export class MasterWrapper extends Component {
           />
           <Route path="/notificaciones" component={NotificationsList}></Route>
           <Route path="/cuenta" component={UserAccount}></Route>
+          <Route path="/ajustes" component={UserSettings}></Route>
           <Route component={RedirectAs404}/>
         </Switch> 
       );

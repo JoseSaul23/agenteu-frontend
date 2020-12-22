@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import logoicono from '../../logo-icono.png'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {login} from '../actions/authActions'
@@ -95,6 +95,11 @@ export class Login extends Component {
                             </p>
                         </div>
                     </form>
+                    <div className="mt-3 has-text-centered has-text-link">
+                        <Link to="/recuperar-cuenta">
+                            <p>¿Has olvidado la contraseña?</p>
+                        </Link>
+                    </div>
                 </div>
             </div>
             </div>

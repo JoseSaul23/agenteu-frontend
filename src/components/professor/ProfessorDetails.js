@@ -4,7 +4,7 @@ import {IoIosNotifications} from 'react-icons/io'
 import {_myColor} from '../common/util'
 import {RedirectAs404} from '../common/RedirectAs404'
 import {connect} from 'react-redux'
-import {getEntity, clearEntity, subscribeToEntity, getReviewByUserOr404, clearReviewByUser} from '../actions/entityDetailsActions'
+import {getEntity, clearEntity, subscribeToEntity, clearReviewByUser} from '../actions/entityDetailsActions'
 import PropTypes from 'prop-types'
 import Review from '../review/Review'
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -16,7 +16,6 @@ export class ProfessorDetails extends Component {
         entityDetails: PropTypes.object.isRequired,
         clearEntity: PropTypes.func.isRequired,
         subscribeToEntity: PropTypes.func.isRequired,
-        getReviewByUserOr404: PropTypes.func.isRequired,
         clearReviewByUser: PropTypes.func.isRequired,
         auth: PropTypes.object,
         error: PropTypes.object.isRequired,
@@ -28,6 +27,8 @@ export class ProfessorDetails extends Component {
 
     componentDidUpdate (prevProps) {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
+            // eliminar reseña de usuario cuando se pasa de entidad a entidad
+            this.props.clearReviewByUser()
             this.props.getEntity('profesores', this.props.match.params.id)
         }
     }
@@ -164,4 +165,4 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, {getEntity, clearEntity, subscribeToEntity, getReviewByUserOr404, clearReviewByUser})(ProfessorDetails);
+export default connect(mapStateToProps, {getEntity, clearEntity, subscribeToEntity, clearReviewByUser})(ProfessorDetails);

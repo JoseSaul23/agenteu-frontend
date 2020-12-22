@@ -34,6 +34,7 @@ export class LastAdded extends Component {
         return this.props.entities.map( inst => { 
           return (
             <InstitutionInMenu
+              category="school"
               key={inst.id}
               id={inst.id}
               name={inst.name} 

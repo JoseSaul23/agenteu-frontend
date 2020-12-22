@@ -1,18 +1,29 @@
 import React, {Component} from 'react'
-import {ProfessorsInSideList} from '../professor/ProfessorsInSideList'
+import LikelyProfessorsList from '../professor/LikelyProfessorsList'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 export class RightPanel extends Component {
+
+    static propTypes = {
+        isAuthenticated: PropTypes.bool
+    }
+
     render () {
         return (
             <div className="column right-side-panel is-hidden-mobile">
                 {
-                    (this.props.sideList === "universidades" || this.props.sideList === "escuelas")
-                    ?   <ProfessorsInSideList subject={this.props.sideList} id={this.props.id}/>
-                    :   <div>Side para perfil de profesores y Usuarios</div>
-                    // <UserSideList />
-                    // <ProfessorSideList />
+                    this.props.isAuthenticated ? 
+                        <LikelyProfessorsList /> :
+                        ""
                 }
             </div>
         );
     }
 } 
+
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(RightPanel)

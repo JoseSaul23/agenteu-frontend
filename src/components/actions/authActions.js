@@ -9,7 +9,10 @@ import {
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
     GET_ERRORS,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    LIKELY_PROFESSORS_LOADING,
+    GET_LIKELY_PROFESSORS,
+    CLEAR_LIKELY_PROFESSORS,
 } from './types'
 
 
@@ -176,6 +179,74 @@ export const updateEmail = (new_email, current_password) => (dispatch, getState)
                 payload: errors
             })
         })
+}
+
+export const resetPassword = (email) => (dispatch) => {
+    // Petición HTTP para enviar correo al usuario
+    axios.post('http://localhost:8000/auth/users/reset_password/', {email})
+    .then( res => {
+        // dispatch({
+
+        // });
+        dispatch({
+            type: CLEAR_ERRORS,
+        });
+    })
+    .catch( e => {
+        const errors = {message: e.response.data, status: e.response.status}
+        dispatch( {
+            type: GET_ERRORS,
+            payload: errors
+        })
+    })
+}
+
+export const resetPasswordConfirm = (uid,token, new_password) => (dispatch) => {
+    // Petición HTTP para enviar correo al usuario
+    axios.post('http://localhost:8000/auth/users/reset_password_confirm/', {uid, token, new_password})
+    .then( res => {
+        // dispatch({
+
+        // });
+        dispatch({
+            type: CLEAR_ERRORS,
+        });
+    })
+    .catch( e => {
+        const errors = {message: e.response.data, status: e.response.status}
+        dispatch( {
+            type: GET_ERRORS,
+            payload: errors
+        })
+    })
+}
+
+export const getLikelyProfessors = () => (dispatch, getState) => {
+    dispatch({
+        type: LIKELY_PROFESSORS_LOADING
+    })
+
+    // 4 profesores aleatorios de la escuela del usuario
+    axios.get(`http://localhost:8000/auth/users/likely_professors/`, tokenConfig(getState))
+    .then(res => {
+        dispatch({
+            type: GET_LIKELY_PROFESSORS,
+            payload: res.data
+        })
+    })
+    .catch(e => {
+        const errors = {message: e.response.data, status: e.response.status}
+        dispatch( {
+            type: GET_ERRORS,
+            payload: errors
+        })
+    })
+}
+
+export const clearLikelyProfessors = () => (dispatch) => {
+    dispatch({
+        type: CLEAR_LIKELY_PROFESSORS
+    })
 }
 
 export const tokenConfig = (getState) => {

@@ -11,6 +11,10 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 export class UniversityDetails extends Component {
 
+    state = {
+        showLoginMessageForSubscribe: false
+    }
+
     static propTypes = {
         getEntity: PropTypes.func.isRequired,
         entityDetails: PropTypes.object.isRequired,
@@ -28,12 +32,21 @@ export class UniversityDetails extends Component {
 
     componentDidUpdate (prevProps) {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
+            // eliminar reseña de usuario cuando se pasa de entidad a entidad
+            this.props.clearReviewByUser()
             this.props.getEntity('universidades', this.props.match.params.id)
         }
     }
 
     _handleSubscription = () => {
-        this.props.subscribeToEntity('universidades', this.props.match.params.id)
+        if(this.props.auth.isAuthenticated) {
+            this.props.subscribeToEntity('universidades', this.props.match.params.id)
+        }
+        else{
+            this.setState({
+                showLoginMessageForSubscribe: !this.state.showLoginMessageForSubscribe
+            })
+        }
     }
 
     componentWillUnmount() {
@@ -54,10 +67,12 @@ export class UniversityDetails extends Component {
             professors_count,
             overall_difficulty,
             overall_rating, reviews_count,
-            subscribers_count
+            subscribers_count,
+            subscribers
         } = this.props.entityDetails.entity
 
         const {reviewByUser} = this.props.entityDetails
+        const {auth} = this.props
 
         if(this.props.entityDetails.entityIsLoading){
             return (
@@ -85,10 +100,19 @@ export class UniversityDetails extends Component {
                             {reviews_count} reseñas | {professors_count} profesores
                         </div>
                         <div className="column">
+                        {
+                            auth.isAuthenticated && 
+                            subscribers && 
+                            subscribers.includes(auth.user.id) ?                                      
+                            <IoIosNotifications
+                                onClick={this._handleSubscription} 
+                                className="custom-icon is-size-2 has-text-link"
+                            /> :
                             <IoIosNotifications
                                 onClick={this._handleSubscription}  
                                 className="custom-icon is-size-2"
                             />
+                        }
                         </div>
                     </div>
                     <div className="columns is-vcentered is-mobile has-text-weight-medium">
@@ -124,6 +148,18 @@ export class UniversityDetails extends Component {
                     <div className="pb-3 has-text-weight-medium mt-2 mb-2">
                         <span className="black-title">{subscribers_count}</span> {subscribers_count === 1 ? "usuario espera" : "usuarios esperan"}  nueva reseña
                     </div>
+                    {
+                        this.state.showLoginMessageForSubscribe ?
+                        <div>
+                            <p>Inicia sesión para suscribirte a esta universidad</p>
+                            <Link to="/iniciar-sesion">
+                                <button className="button is-small is-link mt-1">
+                                    Iniciar sesión
+                                </button>
+                            </Link>
+                        </div> :  
+                        ''  
+                    }
                 </div>
                 {
                 reviewByUser.id
@@ -141,6 +177,8 @@ export class UniversityDetails extends Component {
                             entity_name={reviewByUser.entity_name}
                             entity_type={reviewByUser.entity_type}
                             recomendations_count={reviewByUser.recomendations_count}
+                            recomendations={reviewByUser.recomendations}
+                            favorite={reviewByUser.favorite}
                         />
                     </div> 
                 :   ""

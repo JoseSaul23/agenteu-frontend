@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import UserListReviews from '../user/UserListReviews'
-import {RightPanel} from '../common/RightPanel'
+import RightPanel from '../common/RightPanel'
 
 export class UserReviews extends Component {
     render () {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Notification from './Notification'
-import {RightPanel} from '../common/RightPanel'
+import RightPanel from '../common/RightPanel'
 import {connect} from 'react-redux'
 import {getNotifications, clearNotifications} from '../actions/notificationsActions'
 import PropTypes from 'prop-types'

@@ -5,8 +5,14 @@ import {_myColor} from '../common/util'
 
 export class TopReview extends Component {
 
+  truncate(str) {
+    return str.length > 100 ? str.substring(0, 90) + "..." : str;
+  }
+
   render () {
+
     const {
+      id,
       text,
       rating,
       difficulty,
@@ -22,9 +28,11 @@ export class TopReview extends Component {
     return (
       <div className="column is-one-quarter mb-5">
         <div className="Top-review-box">
-          <div className="Top-review-text has-text-weight-medium">
-            <p>{text}</p>
-          </div>
+          <Link to={"/publicaciones/" + id}>
+            <div className="Top-review-text has-text-weight-medium">
+              <p>{this.truncate(text)}</p>
+            </div>
+          </Link>
           <div className="Top-review-numbers columns is-mobile"> 
             <div className="column has-text-centered pb-1">
               <p className="review-numbers-label">calificación</p>

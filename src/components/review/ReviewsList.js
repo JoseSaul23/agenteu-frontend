@@ -61,6 +61,8 @@ export class ReviewsList extends Component {
                         entity_name={review.entity_name}
                         entity_type={review.entity_type}
                         recomendations_count={review.recomendations_count}
+                        recomendations={review.recomendations}
+                        favorite={review.favorite}
                     />
                   );
             }   )
@@ -72,7 +74,7 @@ export class ReviewsList extends Component {
             this.props.isLoading ?
                 <div className="columns mb-6">
                     <div className="column has-text-centered">
-                        <button class="button is-link is-loading">Loading</button>
+                        <button className="button is-link is-loading">Loading</button>
                     </div>
                 </div> :
                 <div>

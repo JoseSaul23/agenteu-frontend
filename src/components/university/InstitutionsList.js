@@ -7,22 +7,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 export class InstitutionsInMenuList extends Component {
 
-    // state = {
-    //   institutions: []
-    // }
-  
-    // _fetchInstitutionsList = () => {
-    //   fetch(`http://localhost:8000/api/universidades/`) //poner paginacion en backend de a 3 o 4. De escuelas por ahora.
-    //   .then(res => res.json())
-    //   .then(institutions => {
-    //     this.setState({ institutions })
-    //   }) 
-    // }
-  
-    // componentDidMount() {
-    //   this._fetchInstitutionsList()
-    // }
-
     static propTypes = {
       entities: PropTypes.array.isRequired,
       getInstitutions: PropTypes.func.isRequired,
@@ -43,6 +27,7 @@ export class InstitutionsInMenuList extends Component {
       return this.props.entities.map( institution => {  //pido escuelas por ahora
         return (
           <InstitutionInMenu
+            category="university"
             key={institution.id}
             id={institution.id}
             name={institution.name} 
@@ -51,7 +36,7 @@ export class InstitutionsInMenuList extends Component {
             overall_difficulty={institution.overall_difficulty}
             school_university={institution.school_university}
             reviews_count={institution.reviews_count}
-            />
+          />
           );
       } )
     }
@@ -72,7 +57,7 @@ export class InstitutionsInMenuList extends Component {
                 {
                   skeletons.map( ske => {
                     return (
-                      <div className="column is-one-quarter has-text-centered">
+                      <div key={ske} className="column is-one-quarter has-text-centered">
                         <div className="columns is-multiline">
                           <div className="column is-full">
                             <Skeleton variant="rect" width={255} height={120} />

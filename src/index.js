@@ -1,18 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter}  from 'react-router-dom'
+import {BrowserRouter, Switch, Route}  from 'react-router-dom'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import {Provider} from 'react-redux'
 import store from './store'
+
+import Embed from '../src/components/review/Embed'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <Switch>
+          <Route path="/embed/:id" component={Embed}/>
+          <Route path="" component={App}/>
+        </Switch>
+        {/* <App /> */}
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

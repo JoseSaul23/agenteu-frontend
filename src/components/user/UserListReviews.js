@@ -41,19 +41,21 @@ export class UserListReviews extends Component {
         else {
             return this.props.reviews.map( review => {
                 return (
-                  <Review 
-                    key={review.id}
-                    id={review.id} 
-                    text={review.text}
-                    rating={review.rating}
-                    difficulty={review.difficulty}
-                    date={review.date}
-                    user={review.user}
-                    user_name={review.user_name}
-                    entity={review.entity}
-                    entity_name={review.entity_name}
-                    entity_type={review.entity_type}
-                    recomendations_count={review.recomendations_count}
+                    <Review 
+                        key={review.id}
+                        id={review.id} 
+                        text={review.text}
+                        rating={review.rating}
+                        difficulty={review.difficulty}
+                        date={review.date}
+                        user={review.user}
+                        user_name={review.user_name}
+                        entity={review.entity}
+                        entity_name={review.entity_name}
+                        entity_type={review.entity_type}
+                        recomendations_count={review.recomendations_count}
+                        recomendations={review.recomendations}
+                        favorite={review.favorite}
                     />
                   );
             }   )
@@ -65,7 +67,7 @@ export class UserListReviews extends Component {
             this.props.isLoading ?
                 <div className="columns mb-6">
                     <div className="column has-text-centered">
-                        <button class="button is-link is-loading">Loading</button>
+                        <button className="button is-link is-loading">Loading</button>
                     </div>
                 </div> :
                 <div>

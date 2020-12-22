@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {RightPanel} from '../common/RightPanel'
+import RightPanel from '../common/RightPanel'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {getUser, updateUser, updatePassword, updateEmail} from '../actions/authActions'

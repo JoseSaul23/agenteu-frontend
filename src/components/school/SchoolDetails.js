@@ -29,6 +29,8 @@ export class SchoolDetails extends Component {
 
     componentDidUpdate (prevProps) {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
+            // eliminar reseña de usuario cuando se pasa de entidad a entidad
+            this.props.clearReviewByUser()
             this.props.getEntity('escuelas', this.props.match.params.id)
         }
     }

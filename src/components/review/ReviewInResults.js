@@ -3,17 +3,34 @@ import {Link} from 'react-router-dom'
 import {_myColor} from '../common/util'
 
 export class ReviewInResults extends Component {
+
+    truncate(str) {
+        return str.length > 80 ? str.substring(0, 80) + "..." : str;
+    }
+
     render () {
-        const {text, rating, difficulty, date, user, user_name, entity, entity_type, entity_name} = this.props
+        const {
+            id,
+            text,
+            rating,
+            difficulty,
+            date,
+            user,
+            user_name,
+            entity,
+            entity_type,
+            entity_name
+        } = this.props
 
         return (
             <div className="column is-three-fifths mb-5">
                 <div className="columns is-7">
                     <div className="column is-two-fifths Top-review-box p-2">
-                        <div className="Results-review-text has-text-weight-medium">
-                            {/* regresar short-text de API */}
-                            <p>{text}</p>
-                        </div>
+                        <Link to={"/publicaciones/" + id}>
+                            <div className="Results-review-text has-text-weight-medium">
+                                <p>{this.truncate(text)}</p>
+                            </div>
+                        </Link>
                     </div>
                     <div className="column pr-4 pl-4 pt-0"> 
                         <div className="pb-3">

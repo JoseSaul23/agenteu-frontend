@@ -59,7 +59,7 @@ export class SchoolsList extends Component {
             this.props.isLoading ?
                 <div className="columns mb-6">
                     <div className="column has-text-centered">
-                        <button class="button is-link is-loading">Loading</button>
+                        <button className="button is-link is-loading">Loading</button>
                     </div>
                 </div> :
                 <div>

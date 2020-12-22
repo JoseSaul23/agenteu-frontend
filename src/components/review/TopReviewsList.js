@@ -41,6 +41,7 @@ export class TopReviewsList extends Component {
         return (
           <TopReview 
             key={topReview.id} 
+            id={topReview.id}
             text={topReview.text}
             rating={topReview.rating}
             difficulty={topReview.difficulty}

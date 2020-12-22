@@ -7,6 +7,9 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
+    LIKELY_PROFESSORS_LOADING,
+    GET_LIKELY_PROFESSORS,
+    CLEAR_LIKELY_PROFESSORS
 } from '../actions/types'
 
 const initialState = {
@@ -14,6 +17,8 @@ const initialState = {
     isAuthenticated: null,
     isLoading: false,
     user: null,
+    likelyProfessors: [],
+    loadingProfessors: false,
 };
 
 export const authReducer = (state=initialState, action) => {
@@ -58,7 +63,23 @@ export const authReducer = (state=initialState, action) => {
                 user: action.payload.user,
                 isAuthenticated: true,
                 isLoading: false
-            };  
+            };
+        case LIKELY_PROFESSORS_LOADING:
+            return {
+                ...state,
+                loadingProfessors: true
+            }
+        case GET_LIKELY_PROFESSORS:
+            return {
+                ...state,
+                likelyProfessors: action.payload,
+                loadingProfessors: false
+            }
+        case CLEAR_LIKELY_PROFESSORS:
+            return {
+                ...state,
+                likelyProfessors: []
+            }
         default:
             return state;
     }

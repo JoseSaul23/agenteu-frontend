@@ -51,7 +51,7 @@ export class CreateReview extends Component {
         return (
             <div>
                 <div className="m-3 ml-5">
-                    <h5 className="title is-5">Es hora de escribir sobre Universidad Industrial de Santander.</h5>
+                    <h5 className="title is-5">Escribir reseña.</h5>
                 </div>
                 <div className="columns">
                     <div className="column is-three-fifths pt-0">

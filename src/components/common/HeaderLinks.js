@@ -4,6 +4,7 @@ import {IoIosNotifications} from 'react-icons/io'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {logout} from '../actions/authActions'
+import Badge from '@material-ui/core/Badge';
 
 export class HeaderLinks extends Component {
 
@@ -18,11 +19,13 @@ export class HeaderLinks extends Component {
 
         const authLinks = (
             <ul className="has-text-centered">
-                <li className="button small-text mr-5">
-                    <Link to="/notificaciones">
-                        <IoIosNotifications  className="is-size-4" />
-                    </Link>
-                </li>
+                <Link to="/notificaciones">
+                    <li className="button small-text mr-5">
+                        <Badge badgeContent={user ? user.active_notifications_count : 0} color="secondary">
+                            <IoIosNotifications  className="is-size-4" />
+                        </Badge>
+                    </li>
+                </Link>
                 <li className="dropdown is-hoverable">
                     <div className="dropdown-trigger">
                         <button className="button is-link small-text">
@@ -37,9 +40,9 @@ export class HeaderLinks extends Component {
                             <Link to="/mis-publicaciones" className="dropdown-item">
                                 Mis reseñas
                             </Link>
-                            {/* <Link className="dropdown-item">
-                                ajustes
-                            </Link> */}
+                            <Link to="/ajustes" className="dropdown-item">
+                                Ajustes
+                            </Link>
                             <Link to="/" onClick={this.props.logout} className="dropdown-item">
                                 Cerrar sesión
                             </Link>
