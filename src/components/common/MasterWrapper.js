@@ -18,7 +18,7 @@ import UserAccount from '../user/UserAccount'
 import {UserSettings} from '../user/UserSettings'
 import {RedirectAs404} from '../common/RedirectAs404'
 import PrivateRoute from '../common/PrivateRoute'
-import ReviewPost from '../review/ReviewPost'
+import ReviewDetail from '../review/ReviewDetail'
 
 export class MasterWrapper extends Component {
     render () {
@@ -27,7 +27,7 @@ export class MasterWrapper extends Component {
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/instituciones" component={InstitutionsInMenuList}></Route>
           <Route exact path="/profesores" component={ProfessorsInMenuList}></Route>
-          <Route path="/publicaciones/:id" component={ReviewPost}></Route>
+          <Route path="/publicaciones/:id" component={ReviewDetail}></Route>
           <Route
             exact 
             path="/busqueda/:entity/:q/"

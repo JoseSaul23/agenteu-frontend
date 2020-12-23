@@ -18,7 +18,7 @@ export class Profile extends Component {
         const {id} = this.props.match.params
         return (
             <div className="columns">
-                <div className="column is-two-thirds pr-0">
+                <div className="column is-two-thirds">
                     <div className="columns mt-5 pl-2 is-multiline">
                         <div className="column is-four-fifths is-offset-1">
                             {/* DETALLES */}
@@ -26,7 +26,11 @@ export class Profile extends Component {
                         </div>
                         <div className="column is-12">
                             {/* BARRA DE NAVEGACION */}
-                            <ProfileNavBar subject={entity} url={this.props.match.url} location={this.props.location}/>
+                            <ProfileNavBar 
+                                subject={entity} 
+                                url={this.props.match.url} 
+                                location={this.props.location}
+                            />
                         </div>
                         {/* LISTAS */}
                         <Switch>

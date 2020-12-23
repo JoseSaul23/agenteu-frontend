@@ -1,5 +1,5 @@
 import {GET_NOTIFICATIONS, DELETE_NOTIFICATION, CHECK_NOTIFICATION, CLEAR_NOTIFICATIONS, GET_ERRORS} from './types'
-import {tokenConfig} from './authActions'
+import {tokenConfig, getUser} from './authActions'
 import axios from 'axios'
 
 export const getNotifications = () => (dispatch, getState) => {

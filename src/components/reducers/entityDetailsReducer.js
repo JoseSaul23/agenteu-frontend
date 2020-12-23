@@ -36,16 +36,6 @@ export const entityDetailsReducer = (state=initialState, action) => {
                 ...state,
                 entity: action.payload
             }
-        case REVIEW_BY_USER_LOADED:
-            return {
-                ...state,
-                reviewByUser: action.payload
-            }
-        case CLEAR_REVIEW_BY_USER:
-            return {
-                ...state,
-                reviewByUser: {}
-            }
         default:
             return state
     }

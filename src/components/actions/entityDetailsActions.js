@@ -2,9 +2,10 @@ import {
     ENTITY_LOADING,
     GET_ENTITY,
     CLEAR_ENTITY,
-    REVIEW_BY_USER_LOADED,
-    CLEAR_REVIEW_BY_USER,
+    GET_REVIEW,
+    LOADING_REVIEW,
     SUBSCRIBE_TO_ENTITY,
+    SUBSCRIBE_TO_ENTITY_IN_LIST,
     GET_ERRORS
 } from '../actions/types'
 import {tokenConfig} from './authActions'
@@ -23,7 +24,7 @@ export const getEntity = (entity, id) => (dispatch) => {
             type: GET_ENTITY,
             payload: res.data
         })
-        dispatch(getReviewByUserOr404(entity, id))
+        dispatch(getReviewByUser(entity, id))
     })
     .catch(e => {
         const errors = {message: e.response.data, status: e.response.status}
@@ -42,6 +43,12 @@ export const subscribeToEntity  = (entity, id) => (dispatch, getState) => {
             type: SUBSCRIBE_TO_ENTITY,
             payload: res.data
         });
+        // Accion para el reducer subscriptionsReducer,
+        // cuando las suscripciones estan en lista
+        dispatch({
+            type: SUBSCRIBE_TO_ENTITY_IN_LIST,
+            payload: res.data
+        })
     })
     .catch( e => {
         const errors = {message: e.response.data, status: e.response.status}
@@ -58,20 +65,18 @@ export const clearEntity = () => (dispatch) => {
     })
 }
 
-export const getReviewByUserOr404 = (entity, entity_id) => (dispatch, getState) => {
+export const getReviewByUser = (entity, entity_id) => (dispatch, getState) => {
     
+    dispatch({
+        type: LOADING_REVIEW
+    })
+
     axios.get(`http://localhost:8000/api/${entity}/${entity_id}/getReviewByUserOr404/`, tokenConfig(getState))
     .then(res => {
         dispatch({
-            type: REVIEW_BY_USER_LOADED,
+            type: GET_REVIEW,
             payload: res.data
         })
     })
     .catch(e => console.log(e))
-}
-
-export const clearReviewByUser = () => (dispatch) => {
-    dispatch({
-        type: CLEAR_REVIEW_BY_USER
-    })
 }

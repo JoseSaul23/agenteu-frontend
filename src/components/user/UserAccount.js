@@ -27,7 +27,11 @@ export class UserAccount extends Component {
     }
 
     componentDidMount () {
-        this.props.getUser()
+        //this.props.getUser()
+        if(this.props.user){
+            const {username, email} = this.props.user
+            this.setState({ username, email })
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -72,10 +76,10 @@ export class UserAccount extends Component {
         const {error} = this.props
 
         return (
-            <div className="columns">
-                <div className="column is-two-thirds pr-0 mt-4">
-                    <div className="columns is-multiline is-centered pl-4">
-                        <div className="column is-four-fifths mt-2">
+            <div className="columns is-mobile is-centered">
+                <div className="column is-two-thirds mt-4">
+                    <div className="columns is-multiline is-centered">
+                        <div className="column is-four-fifths-desktop mt-2">
                             <div className="side round-box pb-3 black-title">
                                 <div className="p-4 pt-1 list-border-bottom has-text-weight-bold">
                                     Mi cuenta

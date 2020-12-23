@@ -19,6 +19,15 @@ export class UserSettings extends Component {
                     />
                     <div className="pl-4 mb-6">
                         <Switch>
+                            <Route  
+                                exact
+                                path={this.props.match.path}
+                                render={() => (
+                                    <div>
+                                        <p>Elige una lista de suscripciones</p>
+                                    </div>
+                                )} 
+                            />
                             <Route path={this.props.match.path + '/profesores'}>
                                 <SubscriptionsList entity="professors"/>
                             </Route>

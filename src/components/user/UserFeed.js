@@ -112,14 +112,20 @@ export class UserFeed extends Component {
 
         return (
             <div className="columns">
-                <div className="column is-two-thirds pr-0">
+                <div className="column is-two-thirds">
                     <div className="columns is-multiline is-centered pl-4">
                         <div className="column m-5" >
                             <div className="columns has-text-centered">
                                 <div className="column">
                                 {
                                     loadingUniversityOptions ?
-                                    <p>Loading</p>
+                                    <div className="control">
+                                        <div className="select is-loading">
+                                            <select>
+                                                <option>Cargando universidades</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     :
                                     <Autocomplete
                                         id="combo-box-uni"
@@ -137,7 +143,13 @@ export class UserFeed extends Component {
                                 <div className="column">
                                     {
                                         loadingSchoolOptions ?
-                                        <p>Loading</p>
+                                        <div className="control">
+                                            <div className="select is-loading">
+                                                <select>
+                                                    <option>Cargando escuelas</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         :
                                         <Autocomplete
                                             id="combo-box-school"

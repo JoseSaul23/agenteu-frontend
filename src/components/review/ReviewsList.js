@@ -10,7 +10,7 @@ export class ReviewsList extends Component {
         reviews: PropTypes.array.isRequired,
         getEntityReviews: PropTypes.func.isRequired,
         clearReviews: PropTypes.func.isRequired,
-        isLoading: PropTypes.bool
+        areLoading: PropTypes.bool
     }
   
     componentDidMount() {
@@ -71,7 +71,7 @@ export class ReviewsList extends Component {
 
     render () {
         return (
-            this.props.isLoading ?
+            this.props.areLoading ?
                 <div className="columns mb-6">
                     <div className="column has-text-centered">
                         <button className="button is-link is-loading">Loading</button>
@@ -86,7 +86,7 @@ export class ReviewsList extends Component {
 
 const mapStateToProps = state => ({
     reviews : state.reviews.reviews,
-    isLoading: state.reviews.isLoading
+    areLoading: state.reviews.areLoading
 });
 
 export default connect(mapStateToProps, {getEntityReviews, clearReviews})(ReviewsList);

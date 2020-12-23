@@ -4,19 +4,25 @@ import {IoIosNotifications} from 'react-icons/io'
 import {_myColor} from '../common/util'
 import {RedirectAs404} from '../common/RedirectAs404'
 import {connect} from 'react-redux'
-import {getEntity, clearEntity, subscribeToEntity, clearReviewByUser} from '../actions/entityDetailsActions'
+import {getEntity, clearEntity, subscribeToEntity} from '../actions/entityDetailsActions'
+import {clearReview} from '../actions/reviewActions'
 import PropTypes from 'prop-types'
 import Review from '../review/Review'
 import Skeleton from '@material-ui/lab/Skeleton';
 
+
 export class ProfessorDetails extends Component {
+
+    state = {
+        showLoginMessageForSubscribe: false
+    }
 
     static propTypes = {
         getEntity: PropTypes.func.isRequired,
         entityDetails: PropTypes.object.isRequired,
         clearEntity: PropTypes.func.isRequired,
         subscribeToEntity: PropTypes.func.isRequired,
-        clearReviewByUser: PropTypes.func.isRequired,
+        clearReview: PropTypes.func.isRequired,
         auth: PropTypes.object,
         error: PropTypes.object.isRequired,
     }
@@ -28,18 +34,25 @@ export class ProfessorDetails extends Component {
     componentDidUpdate (prevProps) {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
             // eliminar reseña de usuario cuando se pasa de entidad a entidad
-            this.props.clearReviewByUser()
+            this.props.clearReview()
             this.props.getEntity('profesores', this.props.match.params.id)
         }
     }
 
     _handleSubscription = () => {
-        this.props.subscribeToEntity('profesores', this.props.match.params.id)
+        if(this.props.auth.isAuthenticated) {
+            this.props.subscribeToEntity('profesores', this.props.match.params.id)
+        }
+        else{
+            this.setState({
+                showLoginMessageForSubscribe: !this.state.showLoginMessageForSubscribe
+            })
+        }
     }
 
     componentWillUnmount() {
         this.props.clearEntity()
-        this.props.clearReviewByUser()
+        this.props.clearReview()
     }
 
     render () {
@@ -58,10 +71,11 @@ export class ProfessorDetails extends Component {
             overall_difficulty,
             overall_rating,
             reviews_count,
-            subscribers_count}
-        = this.props.entityDetails.entity
+            subscribers_count,
+            subscribers
+        } = this.props.entityDetails.entity
 
-        const {reviewByUser} = this.props.entityDetails
+        const {auth, review} = this.props
 
         if(this.props.entityDetails.entityIsLoading){
             return (
@@ -94,10 +108,19 @@ export class ProfessorDetails extends Component {
                             {reviews_count} reseñas
                         </div>
                         <div className="column">
+                        {
+                            auth.isAuthenticated && 
+                            subscribers && 
+                            subscribers.includes(auth.user.id) ?                                      
+                            <IoIosNotifications
+                                onClick={this._handleSubscription} 
+                                className="custom-icon is-size-2 has-text-link"
+                            /> :
                             <IoIosNotifications
                                 onClick={this._handleSubscription}  
                                 className="custom-icon is-size-2"
                             />
+                        }
                         </div>
                     </div>
                     <div className="columns is-vcentered is-mobile has-text-weight-medium">
@@ -133,23 +156,37 @@ export class ProfessorDetails extends Component {
                     <div className="pb-3 has-text-weight-medium mt-2 mb-2">
                         <span className="black-title">{subscribers_count}</span> usuarios esperan nueva reseña
                     </div>
+                    {
+                        this.state.showLoginMessageForSubscribe ?
+                        <div>
+                            <p>Inicia sesión para suscribirte a este profesor</p>
+                            <Link to="/iniciar-sesion">
+                                <button className="button is-small is-link mt-1">
+                                    Iniciar sesión
+                                </button>
+                            </Link>
+                        </div> :  
+                        ''  
+                    }
                 </div>
                 {
-                reviewByUser.id
+                review.id
                 ?   <div className="column">
                         <Review 
-                            key={reviewByUser.id}
-                            id={reviewByUser.id} 
-                            text={reviewByUser.text}
-                            rating={reviewByUser.rating}
-                            difficulty={reviewByUser.difficulty}
-                            date={reviewByUser.date}
-                            user={reviewByUser.user}
-                            user_name={reviewByUser.user_name}
-                            entity={reviewByUser.entity}
-                            entity_name={reviewByUser.entity_name}
-                            entity_type={reviewByUser.entity_type}
-                            recomendations_count={reviewByUser.recomendations_count}
+                            key={review.id}
+                            id={review.id} 
+                            text={review.text}
+                            rating={review.rating}
+                            difficulty={review.difficulty}
+                            date={review.date}
+                            user={review.user}
+                            user_name={review.user_name}
+                            entity={review.entity}
+                            entity_name={review.entity_name}
+                            entity_type={review.entity_type}
+                            recomendations_count={review.recomendations_count}
+                            recomendations={review.recomendations}
+                            favorite={review.favorite}
                         />
                     </div> 
                 :   ""
@@ -162,7 +199,8 @@ export class ProfessorDetails extends Component {
 const mapStateToProps = state => ({
     auth: state.auth,
     entityDetails : state.entityDetails,
+    review: state.reviews.review,
     error: state.error
 });
 
-export default connect(mapStateToProps, {getEntity, clearEntity, subscribeToEntity, clearReviewByUser})(ProfessorDetails);
+export default connect(mapStateToProps, {getEntity, clearEntity, subscribeToEntity, clearReview})(ProfessorDetails);

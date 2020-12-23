@@ -2,6 +2,7 @@ import {
     GET_REVIEWS,
     LOADING_REVIEWS,
     GET_REVIEW,
+    LOADING_REVIEW,
     ADD_REVIEW,
     EDIT_REVIEW,
     REVIEW_FORM_CLOSE,
@@ -17,7 +18,9 @@ const initialState = {
     reviews: [],
     review: {},
     isLoading: null,
-    wasAdded: null
+    areLoading: null,
+    wasAdded: null,
+    wasDeleted: false,
 }
 
 export const reviewReducer = (state=initialState, action) => {
@@ -25,13 +28,18 @@ export const reviewReducer = (state=initialState, action) => {
         case LOADING_REVIEWS:
             return {
                 ...state,
-                isLoading: true
+                areLoading: true
             }
         case GET_REVIEWS:
             return {
                 ...state,
                 reviews: action.payload,
-                isLoading: false
+                areLoading: false
+            }
+        case LOADING_REVIEW:
+            return {
+                ...state,
+                isLoading: true
             }
         case GET_REVIEW:
             return {
@@ -51,7 +59,8 @@ export const reviewReducer = (state=initialState, action) => {
             return {
                 ...state,
                 reviews: state.reviews.filter(review => review.id !== action.payload),
-                review: state.review.id === action.payload ? {} : state.review
+                wasDeleted: state.review.id === action.payload ? true : state.wasDeleted,
+                review: state.review.id === action.payload ? {} : state.review,
             }
         case SAVE_REVIEW:
         case RECOMMEND_REVIEW:
@@ -81,7 +90,8 @@ export const reviewReducer = (state=initialState, action) => {
         case CLEAR_REVIEW:
             return {
                 ...state,
-                review: {}
+                review: {},
+                wasDeleted: false
             }
         case REVIEW_FORM_CLOSE:
             return {

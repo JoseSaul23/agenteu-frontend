@@ -21,7 +21,10 @@ export class HeaderLinks extends Component {
             <ul className="has-text-centered">
                 <Link to="/notificaciones">
                     <li className="button small-text mr-5">
-                        <Badge badgeContent={user ? user.active_notifications_count : 0} color="secondary">
+                        <Badge 
+                            badgeContent={user ? user.active_notifications_count : 0} 
+                            color="secondary"
+                        >
                             <IoIosNotifications  className="is-size-4" />
                         </Badge>
                     </li>

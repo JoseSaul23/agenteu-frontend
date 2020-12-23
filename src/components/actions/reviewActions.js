@@ -2,6 +2,7 @@ import {
     GET_REVIEWS,
     LOADING_REVIEWS,
     GET_REVIEW,
+    LOADING_REVIEW,
     ADD_REVIEW,
     EDIT_REVIEW,
     DELETE_REVIEW,
@@ -91,7 +92,7 @@ export const getReviews = () => (dispatch) => {
 export const getReview = (id) => (dispatch) => {
 
     dispatch({
-        type:LOADING_REVIEWS
+        type:LOADING_REVIEW
     })
 
     // Petición HTTP a la API para obtener reseña

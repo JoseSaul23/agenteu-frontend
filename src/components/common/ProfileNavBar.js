@@ -12,6 +12,7 @@ export class ProfileNavBar extends Component {
         this.setState({ 
             section: path[path.length-1] 
         })
+        console.log(this.state)
     }
 
     componentDidUpdate(prevPros){
@@ -20,6 +21,7 @@ export class ProfileNavBar extends Component {
             this.setState({ 
                 section: path[path.length-1] 
             })
+            console.log(this.state)
         }
     }
 
@@ -34,7 +36,12 @@ export class ProfileNavBar extends Component {
                             <li className="pr-3 pl-3 is-hidden-mobile"></li>
                             <li className="pr-3 pl-3 is-hidden-mobile"></li>
                             <li 
-                                className={`pr-3 pl-3 ${this.state.section !== ("escuelas" || "profesores") ? "is-active" : ""}`}
+                                className={
+                                    `pr-3 pl-3 
+                                    ${this.state.section !== "escuelas" && this.state.section !== "profesores" 
+                                    ? "is-active" 
+                                    : ""}`
+                                }
                             >
                                 <Link to={url+''}>Reseñas</Link>
                             </li>

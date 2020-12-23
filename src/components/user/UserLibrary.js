@@ -43,7 +43,7 @@ export class UserLibrary extends Component {
         
         return (
             <div className="columns">
-                <div className="column is-two-thirds pr-0">
+                <div className="column is-two-thirds">
                     <div className="columns is-multiline is-centered pl-4">
                         <div className="column mb-3">
                             <ProfileNavBar 

@@ -15,6 +15,7 @@ export class EditReview extends Component {
 
     static propTypes = {
         getReview: PropTypes.func.isRequired,
+        isLoading: PropTypes.bool,
         review: PropTypes.object.isRequired,
         clearReview: PropTypes.func.isRequired,
         editReview: PropTypes.func.isRequired,
@@ -85,7 +86,7 @@ export class EditReview extends Component {
                                         rows="4"
                                         name="text"
                                         onChange={this._handleChange}
-                                        value={text}
+                                        value={text ? text : ""}
                                     />
                                 </div>
                                 <p className="small-label">Quedan {200 - (text ? text.length : 0)} caracteres</p>
@@ -106,7 +107,7 @@ export class EditReview extends Component {
                                             step="10"
                                             name="difficulty"
                                             onChange={this._handleChange}
-                                            value={difficulty}
+                                            value={difficulty ? difficulty : ""}
                                         />
                                     </div>
                                     <div 
@@ -131,7 +132,7 @@ export class EditReview extends Component {
                                             step="1"
                                             name="rating"
                                             onChange={this._handleChange}
-                                            value={rating}
+                                            value={rating ? rating : ""}
                                         />
                                     </div>
                                     <div 
@@ -165,6 +166,7 @@ export class EditReview extends Component {
 
 const mapStateToProps = state => ({
     review: state.reviews.review,
+    isLoading: state.reviews.isLoading,
     wasAdded: state.reviews.wasAdded,
     error: state.error
 });

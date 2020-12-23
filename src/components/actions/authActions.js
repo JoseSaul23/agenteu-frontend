@@ -149,7 +149,7 @@ export const updatePassword = (current_password, new_password) => (dispatch, get
     // Petición HTTP a la API para cambiar contraseña 
     axios.post('http://localhost:8000/auth/users/set_password/', {current_password, new_password}, tokenConfig(getState))
     .then( res => {
-        dispatch(getUser());
+        // dispatch(getUser());
         dispatch({
             type: CLEAR_ERRORS,
         });

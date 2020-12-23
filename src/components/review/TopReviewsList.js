@@ -8,23 +8,11 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 export class TopReviewsList extends Component {
 
-    // state = {
-    //   topReviews: []
-    // }
-  
-    // _fetchTopReviews = () => {
-    //   fetch(`http://localhost:8000/api/publicaciones/`)
-    //   .then(res => res.json())
-    //   .then(topReviews => {
-    //     this.setState({ topReviews })
-    //   }) 
-    // }
-
     static propTypes = {
       reviews: PropTypes.array.isRequired,
       getReviews: PropTypes.func.isRequired,
       clearReviews: PropTypes.func.isRequired,
-      isLoading: PropTypes.bool
+      areLoading: PropTypes.bool
     }
 
     componentDidMount() {
@@ -68,7 +56,7 @@ export class TopReviewsList extends Component {
           </div>
           <div className="columns is-multiline m-2">
           {
-            this.props.isLoading ?
+            this.props.areLoading ?
               <React.Fragment>
                 {
                   skeletons.map( ske => {
@@ -101,7 +89,7 @@ export class TopReviewsList extends Component {
 
 const mapStateToProps = state => ({
   reviews : state.reviews.reviews,
-  isLoading: state.reviews.isLoading
+  areLoading: state.reviews.areLoading
 });
 
 export default connect(mapStateToProps, {getReviews, clearReviews})(TopReviewsList);
