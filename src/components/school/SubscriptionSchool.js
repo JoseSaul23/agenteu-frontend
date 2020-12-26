@@ -30,8 +30,8 @@ export class SubscriptionSchool extends Component {
         const {auth} = this.props
 
         return (
-            <div className="columns is-multiline is-vcentered list-border-bottom">
-                <div className="column is-6">
+            <div className="columns is-mobile is-multiline is-vcentered list-border-bottom">
+                <div className="column is-6-desktop is-9-mobile">
                     <div className="columns is-multiline">
                         <div className="column is-full big-text black-title has-text-weight-medium">
                             <Link to={"/escuelas/" + id}>{name}</Link>
@@ -45,6 +45,7 @@ export class SubscriptionSchool extends Component {
                 </div>
                 <div className="column">
                 {
+                    auth.isAuthenticated && 
                     subscribers && 
                     subscribers.includes(auth.user.id) ?                                      
                     <IoIosNotifications

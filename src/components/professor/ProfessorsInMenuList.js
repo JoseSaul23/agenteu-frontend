@@ -62,7 +62,7 @@ export class ProfessorsInMenuList extends Component { //UniversityProfessorsList
           <div className="m-3 ml-5">
             <h5 className="title is-5">Profesores</h5>
           </div>
-          <div className="columns is-multiline m-2">
+          <div className="columns is-multiline">
           {
             this.props.isLoading ?
               <React.Fragment>

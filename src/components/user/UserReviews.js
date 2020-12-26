@@ -6,12 +6,10 @@ export class UserReviews extends Component {
     render () {
         return (
             <div className="columns">
-                <div className="column is-two-thirds mt-4">
-                    <div className="columns is-multiline is-centered pl-4">
-                        <div className="column is-four-fifths mb-2">
-                            <h5 className="title is-5">Mis reseñas</h5>
-                        </div>
-                        <div className="column is-four-fifths mt-2">
+                <div className="column is-8-desktop mt-4">
+                    <h5 className="title is-5 ml-5">Mis reseñas</h5>
+                    <div className="columns is-multiline is-centered">
+                        <div className="column is-10-desktop is-9-tablet">
                             <UserListReviews review_type="reviews"/>
                         </div>
                     </div>

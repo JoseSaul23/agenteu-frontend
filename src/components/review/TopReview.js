@@ -6,7 +6,7 @@ import {_myColor} from '../common/util'
 export class TopReview extends Component {
 
   truncate(str) {
-    return str.length > 100 ? str.substring(0, 90) + "..." : str;
+    return str.length > 80 ? str.substring(0, 70) + "..." : str;
   }
 
   render () {
@@ -26,7 +26,7 @@ export class TopReview extends Component {
     } = this.props
     
     return (
-      <div className="column is-one-quarter mb-5">
+      <div className="column is-3-desktop is-4-tablet">
         <div className="Top-review-box">
           <Link to={"/publicaciones/" + id}>
             <div className="Top-review-text has-text-weight-medium">
@@ -43,7 +43,7 @@ export class TopReview extends Component {
                 {rating}
               </p>
             </div>
-            <div className="column has-text-centered pb-1">
+            <div className="column has-text-centered pb-1 px-0">
               <p className="review-numbers-label">dificultad</p>
               <p 
                 className="review-numbers-value has-text-weight-medium"
@@ -52,9 +52,10 @@ export class TopReview extends Component {
                 {difficulty}%
               </p>
             </div>
-            <div className="column is-one-third p-0">
-              <div className="mt-5 ml-4">
-                <AiOutlineLike className="is-size-5"></AiOutlineLike> <span className="has-text-weight-semibold">{recomendations_count}</span>
+            <div className="column p-0">
+              <div className="mt-5 ml-4 centered-label">
+                <AiOutlineLike className="is-size-5"></AiOutlineLike>
+                <span className="has-text-weight-semibold">{recomendations_count}</span>
               </div>
             </div>
           </div>

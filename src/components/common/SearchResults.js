@@ -160,7 +160,7 @@ export class SearchResults extends Component {
 
         return (
             <div>
-                <div className="columns is-multiline m-2 pl-4">
+                <div className="columns is-multiline m-2">
                     { 
                         entity === "profesores"
                         ? 
@@ -185,7 +185,7 @@ export class SearchResults extends Component {
                         <div className="m-3 ml-5">
                             <h5 className="title is-5">Ultimas reseñas sobre {first_result_name}</h5>
                         </div>
-                        <div className="columns is-multiline m-2 mt-5 pl-4">
+                        <div className="columns is-multiline m-2 mt-5">
                             {this._renderFirstResultReviews()} 
                         </div>
                     </React.Fragment>

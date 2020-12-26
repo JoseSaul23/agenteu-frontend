@@ -47,8 +47,8 @@ export class NotificationsList extends Component {
     render () {
         return (
             <div className="columns">
-                <div className="column is-two-thirds mt-4">
-                    <div className="columns is-multiline is-centered">
+                <div className="column is-8-desktop mt-4">
+                    <div className="columns is-multiline is-mobile is-centered">
                         <div className="column is-four-fifths mt-2">
                             <div className="side round-box pb-3 black-title">
                                 <div className="p-4 pt-1 list-border-bottom has-text-weight-bold">

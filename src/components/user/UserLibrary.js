@@ -43,16 +43,16 @@ export class UserLibrary extends Component {
         
         return (
             <div className="columns">
-                <div className="column is-two-thirds">
-                    <div className="columns is-multiline is-centered pl-4">
-                        <div className="column mb-3">
+                <div className="column is-8-desktop">
+                    <div className="columns is-multiline is-centered">
+                        <div className="column">
                             <ProfileNavBar 
                                 subject="library"
                                 url={this.props.match.url}
                                 location={this.props.location}
                             />
                         </div>
-                        <div className="column is-four-fifths mt-2">
+                        <div className="column is-10-desktop is-full-mobile is-9-tablet">
                             <Switch>
                                 <Redirect exact from={this.props.match.url} to={this.props.match.url + "/favoritas"} />
                                 <Route  

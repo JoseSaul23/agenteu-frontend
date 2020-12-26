@@ -163,27 +163,23 @@ export class ReviewDetail extends Component {
                     <div className="column">
                         <div className="columns is-mobile">
                             <div className="column is-four-fifths review-main-box pt-2 pr-2 pl-2 pb-0"> 
-                                <Link to={"/publicaciones/" + review.id}>
-                                    <div className="review-text"> 
-                                        <p>
-                                            {review.text}
-                                        </p>
-                                    </div>
-                                </Link>
+                                <div className="review-text"> 
+                                    <p className="text-overflow">{review.text}</p>
+                                </div>
                                 <div className="columns is-mobile pt-2"> 
                                     <div className="column is-6-desktop is-half-mobile icon">
                                     {
                                         auth.isAuthenticated && 
                                         review.recomendations && 
                                         review.recomendations.includes(auth.user.id) ?
-                                        <div className="has-text-link">                                        
+                                        <div className="has-text-link centered-label">                                        
                                             <AiFillLike
                                                 onClick={this._receiveRecommendation}
                                                 className="custom-icon is-size-5"
                                             />
                                             {review.recomendations_count}
                                         </div> :
-                                        <div>
+                                        <div className="centered-label">
                                             <AiOutlineLike
                                                 onClick={this._receiveRecommendation}
                                                 className="custom-icon is-size-5"

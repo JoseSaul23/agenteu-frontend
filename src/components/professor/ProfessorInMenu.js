@@ -8,7 +8,7 @@ export class ProfessorInMenu extends Component {
       = this.props
 
       return (
-        <div className="card column is-one-quarter m-4 p-0">
+        <div className="card column is-one-quarter-desktop m-4 p-0">
           <Link to={"/profesores/" + id}>
           <header className="has-background-link">
             <p className="card-header-title has-text-white p-2">

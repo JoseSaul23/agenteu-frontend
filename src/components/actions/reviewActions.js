@@ -76,7 +76,7 @@ export const getReviews = () => (dispatch) => {
     .then(res => {
         dispatch({
             type: GET_REVIEWS,
-            payload: res.data
+            payload: res.data.results
         })
     })
     .catch(e => {

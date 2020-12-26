@@ -4,11 +4,11 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 const PrivateRoute = ({ component: Component, auth, ...rest}) =>(
-        <Route 
+    <Route 
         {...rest}
         render= {(props) => {
             if (auth.isLoading) {
-                return <div>Cargando...</div>
+                return <div>Cargando...RUTA PRIVADA</div>
             }
             else if (!auth.isAuthenticated) {
                 return <Redirect to="/iniciar-sesion"/>
@@ -17,7 +17,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest}) =>(
                 return <Component {...props}/>
             }
         }}
-        />
+    />
 );
 
 

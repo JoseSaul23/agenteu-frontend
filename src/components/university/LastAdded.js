@@ -57,7 +57,7 @@ export class LastAdded extends Component {
           <div className="m-3 ml-5">
             <h5 className="title is-5">Ultimas escuelas agregadas</h5>
           </div>
-          <div className="columns is-multiline m-2">
+          <div className="columns is-multiline is-mobile m-2">
             {
               this.props.isLoading ?
                 <React.Fragment>

@@ -23,9 +23,9 @@ export class SearchBox extends Component {
             <p className="control">
             <span className="select">
                 <select value={this.state.entity} onChange={this._handleSelect}>
-                <option value="profesores">Profesores</option>
-                <option value="universidades">Universidades</option>
-                <option value="escuelas">Escuelas</option>
+                    <option value="profesores">Profesores</option>
+                    <option value="universidades">Universidades</option>
+                    <option value="escuelas">Escuelas</option>
                 </select>
             </span>
             </p>

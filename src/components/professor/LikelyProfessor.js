@@ -12,7 +12,7 @@ export class LikelyProfessor extends Component {
                         <p className="black-title">{name}</p>
                         <p>{reviews_count} reseñas</p>
                     </div>
-                    <div className="column">
+                    <div className="column has-text-centered">
                         <Link to={"/profesores/"+ id}>
                             <button className="button small-label is-link is-outlined">
                                 Ver

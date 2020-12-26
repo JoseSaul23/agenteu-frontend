@@ -151,7 +151,7 @@ export class SchoolDetails extends Component {
                             }
                         </div>
                     </div>
-                    <div className="pb-3 has-text-weight-medium mt-2 mb-2">
+                    <div className="has-text-weight-medium mt-2">
                         <span className="black-title">{subscribers_count}</span> usuarios esperan nueva reseña
                     </div>
                     {
@@ -169,7 +169,7 @@ export class SchoolDetails extends Component {
                 </div>
                 {
                 review.id
-                ?   <div className="column">
+                ?   <div className="column pt-0">
                         <Review 
                             key={review.id}
                             id={review.id} 

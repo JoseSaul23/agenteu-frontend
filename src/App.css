@@ -3,6 +3,18 @@
   /* poner media para otros pantallas */
 }
 
+@media only screen and (max-width: 767px) {
+  .App {
+    padding-top: 8rem;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .App {
+    padding-top: 8rem;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .app-logo {
     animation: App-logo-spin infinite 5s linear;
@@ -20,6 +32,28 @@
 
 a {
   color: inherit !important;
+}
+
+.small-column {
+  flex: none !important;
+  width: 15% !important; 
+}
+
+.centered-label {
+  display: flex;
+  align-items: center;
+}
+
+.menu-list .menu-active {
+  background-color: #F4F4F4;
+}
+
+.menu-list .menu-active div {
+  color: #3273dc
+}
+
+.menu-mobile .menu-active div {
+  color: #3273dc
 }
 
 .small-text {
@@ -120,6 +154,11 @@ a {
   min-height: 120px;
 }
 
+.text-overflow {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
 .Top-review-box {
   background-color: #E0E0E0;
   padding: 10px 10px 0 10px;
@@ -131,6 +170,7 @@ a {
   color: black;
   line-height:1.3rem ;
   height: 90px;
+  overflow-wrap: break-word; 
 }
 
 .Results-review-text {
@@ -138,7 +178,7 @@ a {
   padding: 5px;
   color: black;
   line-height:1.3rem ;
-  height: 100%;
+  height: 90px;
 }
 
 .Top-review-numbers {
@@ -158,7 +198,7 @@ a {
 }
 
 .institution-labels {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 

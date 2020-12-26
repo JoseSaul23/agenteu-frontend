@@ -50,7 +50,7 @@ export class InstitutionsInMenuList extends Component {
           <div className="m-3 ml-5">
             <h5 className="title is-5">Instituciones</h5>
           </div>
-          <div className="columns is-multiline m-2">
+          <div className="columns is-multiline is-mobile m-1">
           {
             this.props.isLoading ?
               <React.Fragment>

@@ -28,8 +28,8 @@ export class Notification extends Component {
 
         return (
             <div className="pt-2 pb-2 pl-4 pr-4 list-border-bottom">
-                <div className="columns">
-                    <div className="column is-10">
+                <div className="columns is-mobile">
+                    <div className="column is-10-desktop is-8-mobile is-9-tablet">
                         {   
                             !check ?
                             <GoPrimitiveDot className="has-text-link"/> :
@@ -37,22 +37,22 @@ export class Notification extends Component {
                         }
                         {message} 
                     </div>
-                    <div className="column">
+                    <div className="column has-text-centered is-1-desktop">
                         <span className="has-text-warning-dark">
                             {
                                 !check ?
                                 <AiOutlineCheck
-                                onClick={this._handleCheck}
-                                className="custom-icon is-size-6" 
+                                    onClick={this._handleCheck}
+                                    className="custom-icon is-size-6" 
                                 /> :
                                 <MdKeyboardArrowRight
-                                onClick={this._handleCheck}
-                                className="custom-icon is-size-6" 
-                            />
+                                    onClick={this._handleCheck}
+                                    className="custom-icon is-size-6" 
+                                />
                             }
                         </span>
                     </div>
-                    <div className="column">
+                    <div className="column has-text-centered is-1-desktop">
                         <span className="has-text-danger-dark">
                             <FaTrashAlt 
                                 onClick={this._handleDelete}

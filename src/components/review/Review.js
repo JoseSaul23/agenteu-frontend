@@ -118,8 +118,8 @@ export class Review extends Component {
         const {auth} = this.props
 
         return (
-            <div className="columns is-multiline mb-5">
-                <div className="column is-full has-text-weight-medium small-label p-0 pl-1 closer-letters">
+            <div className="column py-1">
+                <div className="column is-full has-text-weight-medium small-label pb-0 pl-1 closer-letters">
                     <p>
                         <span className="black-title">{user_name}</span> • {date}
                     </p>
@@ -134,34 +134,38 @@ export class Review extends Component {
                     </Link>
                 </div>
                 <div className="column">
-                    <div className="columns is-mobile">
-                        <div className="column is-four-fifths review-main-box pt-2 pr-2 pl-2 pb-0"> 
+                    <div className="columns is-mobile is-multiline">
+                        <div className="column is-9-desktop is-full-mobile is-9-tablet review-main-box pt-2 pr-2 pl-2 pb-0"> 
                             <Link to={"/publicaciones/" + id}>
                                 <div className="review-text"> 
-                                    <p>
+                                    <p className="text-overflow">
                                         {text}
                                     </p>
                                 </div>
                             </Link>
                             <div className="columns is-mobile pt-2"> 
-                                <div className="column is-6-desktop is-half-mobile icon">
+                                <div className="column is-4-desktop is-3-mobile is-4-tablet icon">
                                     {
                                         auth.isAuthenticated && 
                                         recomendations && 
                                         recomendations.includes(auth.user.id) ?
-                                        <div className="has-text-link">                                        
+                                        <div className="has-text-link centered-label">                                        
                                             <AiFillLike
                                                 onClick={this._receiveRecommendation}
                                                 className="custom-icon is-size-5"
                                             />
-                                            {recomendations_count}
+                                            <span>
+                                                {recomendations_count}
+                                            </span>
                                         </div> :
-                                        <div>
+                                        <div className="centered-label">
                                             <AiOutlineLike
                                                 onClick={this._receiveRecommendation}
                                                 className="custom-icon is-size-5"
                                             /> 
-                                            {recomendations_count}
+                                            <span>
+                                                {recomendations_count}
+                                            </span>
                                         </div> 
                                     }   
                                 </div>
@@ -217,7 +221,16 @@ export class Review extends Component {
                                 </div >
                             </div>
                         </div>
-                        <div className="column has-text-centered has-text-weight-medium pt-0"> 
+                        <div className="column is-hidden-desktop is-hidden-tablet-only pb-0 pl-0 pt-1">
+                            <span>
+                                calificación: <span style={{color: _myColor(rating, "rating")}} className="has-text-weight-medium">{rating}</span>
+                            </span> 
+                            {" • "} 
+                            <span>
+                                dificultad: <span style={{color: _myColor(difficulty, "difficulty")}} className="has-text-weight-medium">{difficulty}%</span>
+                            </span>
+                        </div>
+                        <div className="column is-hidden-mobile has-text-centered has-text-weight-medium pt-0"> 
                             <div className="review-main-box mb-4 close-letters"> 
                                 <p>calificación</p>
                                 <p 

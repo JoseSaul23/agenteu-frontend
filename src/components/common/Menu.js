@@ -7,38 +7,89 @@ import {BiNews} from 'react-icons/bi'
 import {MdLibraryBooks} from 'react-icons/md' 
 
 export class Menu extends Component {
+
+    state = {
+        section: null
+    }
+
+    componentDidMount(){
+        const path = this.props.location.pathname.split("/")
+        this.setState({ 
+            section: path[path.length-1] 
+        })
+    }
+
+    componentDidUpdate(prevPros){
+        if(prevPros.location.pathname !== this.props.location.pathname){
+            const path = this.props.location.pathname.split("/")
+            this.setState({ 
+                section: path[path.length-1] 
+            })
+        }
+    }
+
     render () {
         return (
         <aside className="menu-wrapper menu navbar-menu pl-5 pr-0">
             <ul className="menu-list">
                 <li>
-                    {/* <Link> */}
+                    <Link>
                         <GiHamburgerMenu className="is-size-4" />
-                    {/* </Link> */}
-                </li>
-                <li className="has-text-weight-medium">
-                    <Link to='/'>
-                        <VscHome className="is-size-4 mr-4"></VscHome> Inicio
                     </Link>
                 </li>
                 <li className="has-text-weight-medium">
-                    <Link to='/feed'>
-                        <BiNews className="is-size-4 mr-4"></BiNews> Lo último
+                    <Link 
+                        to='/'
+                        className={this.state.section === "" ? "menu-active" : ""}
+                    >
+                        <div className="centered-label">
+                            <VscHome className="is-size-4 mr-4"></VscHome>
+                            <span>Inicio</span>
+                        </div>
                     </Link>
                 </li>
                 <li className="has-text-weight-medium">
-                    <Link to='/biblioteca'>
-                        <MdLibraryBooks className="is-size-4 mr-4"></MdLibraryBooks> Biblioteca
+                    <Link 
+                        to='/feed'
+                        className={this.state.section === "feed" ? "menu-active" : ""}
+                    >
+                        <div className="centered-label">
+                            <BiNews className="is-size-4 mr-4"></BiNews>
+                            <span>Lo último</span>
+                        </div>
                     </Link>
                 </li>
                 <li className="has-text-weight-medium">
-                    <Link to="/instituciones">
-                        <BsBuilding className="is-size-4 mr-4"></BsBuilding> Instituciones
+                    <Link 
+                        to='/biblioteca'
+                        className={this.state.section === "favoritas" || this.state.section === "recomendadas" ? "menu-active" : ""}
+                    >
+                        <div className="centered-label">
+                            <MdLibraryBooks className="is-size-4 mr-4"></MdLibraryBooks>
+                            <span>Biblioteca</span>
+                        </div>
                     </Link>
                 </li>
                 <li className="has-text-weight-medium">
-                    <Link to='/profesores'>
-                        <BsPersonLinesFill className="is-size-4 mr-4"></BsPersonLinesFill> Profesores
+                    <Link 
+                        to="/instituciones"
+                        className={this.state.section === "instituciones" ? "menu-active" : ""}
+                    >
+                        <div className="centered-label">
+                            <BsBuilding className="is-size-4 mr-4"></BsBuilding>
+                            <span>Instituciones</span>
+                        </div>
+                    </Link>
+                </li>
+                <li className="has-text-weight-medium">
+                    <Link 
+                        to='/profesores'
+                        className={this.state.section === "profesores" ? "menu-active" : ""}
+                    >
+                        <div className="centered-label">
+                            <BsPersonLinesFill className="is-size-4 mr-4"></BsPersonLinesFill>
+                            <span>Profesores</span>
+                        </div>
                     </Link>
                 </li>
                 {/* <li className="ml-1 foot mb-6">

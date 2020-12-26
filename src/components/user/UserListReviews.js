@@ -33,7 +33,6 @@ export class UserListReviews extends Component {
     }
 
     _renderReviews = () => {
-        //cambiar mensaje por cargando
         if (this.props.reviews.length === 0) {
             return (
                 <div>No hay reseñas, empieza ahora.</div>

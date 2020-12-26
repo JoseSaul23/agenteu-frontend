@@ -11,10 +11,12 @@ export class RightPanel extends Component {
 
     render () {
         return (
-            <div className="column right-side-panel is-hidden-mobile">
+            <div className="column right-side-panel is-hidden-touch">
                 {
-                    this.props.isAuthenticated ? 
-                        <LikelyProfessorsList /> :
+                    this.props.isAuthenticated
+                    ?
+                        <LikelyProfessorsList />
+                    :
                         ""
                 }
             </div>

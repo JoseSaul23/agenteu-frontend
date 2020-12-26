@@ -112,10 +112,10 @@ export class UserFeed extends Component {
 
         return (
             <div className="columns">
-                <div className="column is-two-thirds">
-                    <div className="columns is-multiline is-centered pl-4">
-                        <div className="column m-5" >
-                            <div className="columns has-text-centered">
+                <div className="column is-8-desktop">
+                    <div className="columns is-multiline is-centered">
+                        <div className="column mx-5">
+                            <div className="columns mt-2">
                                 <div className="column">
                                 {
                                     loadingUniversityOptions ?
@@ -131,7 +131,7 @@ export class UserFeed extends Component {
                                         id="combo-box-uni"
                                         options={universityOptions[0] ? universityOptions : []}
                                         getOptionLabel={(option) => option.name}
-                                        style={{ width: 300 }}
+                                        style={{ width: 250, margin: "auto" }}
                                         onChange={this._handleUniversity}
                                         value={university ? universityOptions.find(option => option.id===university) : null}
                                         renderInput={(params) => 
@@ -155,7 +155,7 @@ export class UserFeed extends Component {
                                             id="combo-box-school"
                                             options={schoolOptions[0] ? schoolOptions : []}
                                             getOptionLabel={(option) => option.name}
-                                            style={{ width: 300 }}
+                                            style={{ width: 250, margin: "auto" }}
                                             onChange={this._handleSchool}
                                             value={school ? schoolOptions.find( option => option.id === school ) : null}
                                             renderInput={(params) => 
@@ -166,17 +166,17 @@ export class UserFeed extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="column is-four-fifths mt-2">
-                            {
-                                user.university ?
-                                <UserListReviews review_type="feed"/> :
-                                <div className="has-text-centered">
-                                    <p>
-                                        Elige para ver las reseñas de
-                                        tu universidad, tu escuela y los profesores de tu escuela
-                                    </p>    
-                                </div>
-                            }
+                        <div className="column is-10-desktop is-full-mobile is-9-tablet">
+                        {
+                            user.university ?
+                            <UserListReviews review_type="feed"/> :
+                            <div className="has-text-centered">
+                                <p>
+                                    Elige para ver las reseñas de
+                                    tu universidad, tu escuela y los profesores de tu escuela
+                                </p>    
+                            </div>
+                        }
                         </div>
                     </div>
                 </div>

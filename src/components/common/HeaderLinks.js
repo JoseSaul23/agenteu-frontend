@@ -5,49 +5,79 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {logout} from '../actions/authActions'
 import Badge from '@material-ui/core/Badge';
+import {MdKeyboardArrowRight} from 'react-icons/md'
+import {RiAccountPinCircleFill} from 'react-icons/ri'
 
 export class HeaderLinks extends Component {
+
+    state = {
+        active_notifications_count: 0
+    }
 
     static propTypes = {
         auth : PropTypes.object.isRequired,
         logout : PropTypes.func.isRequired
     }
 
+    componentDidMount() {
+        let endpoint  = "ws://127.0.0.1:8000/ws/notificaciones/";
+        let socket = new WebSocket(endpoint + `?token=${this.props.auth.auth_token}`)
+        socket.onmessage = (event) => {
+            this.setState({
+                active_notifications_count: JSON.parse(event.data).active_notifications_count 
+            })
+        }
+    }
+
     render () {
 
         const {isAuthenticated, user} = this.props.auth
+        
 
         const authLinks = (
             <ul className="has-text-centered">
                 <Link to="/notificaciones">
                     <li className="button small-text mr-5">
                         <Badge 
-                            badgeContent={user ? user.active_notifications_count : 0} 
+                            // badgeContent={user ? user.active_notifications_count : 0} 
+                            badgeContent={this.state.active_notifications_count}
                             color="secondary"
                         >
                             <IoIosNotifications  className="is-size-4" />
                         </Badge>
                     </li>
                 </Link>
-                <li className="dropdown is-hoverable">
+                <li className="dropdown is-right is-hoverable">
                     <div className="dropdown-trigger">
                         <button className="button is-link small-text">
                             <span>{user ? user.username : ''} ⯆</span>
                         </button>
                     </div>
-                    <div className="dropdown-menu" role="menu">
-                        <div className="dropdown-content">
+                    <div className="dropdown-menu pl-6" role="menu">
+                        <div className="dropdown-content has-text-left">
                             <Link to="/cuenta" className="dropdown-item">
-                                Cuenta
+                                <div className="centered-label level">
+                                    <span>Cuenta</span>
+                                    <MdKeyboardArrowRight size={25} className="level-right"/>
+                                </div>
                             </Link>
                             <Link to="/mis-publicaciones" className="dropdown-item">
-                                Mis reseñas
+                                <div className="centered-label level">
+                                    <span>Mis reseñas</span>
+                                    <MdKeyboardArrowRight size={25} className="level-right"/>
+                                </div>
                             </Link>
                             <Link to="/ajustes" className="dropdown-item">
-                                Ajustes
+                                <div className="centered-label level">
+                                    <span>Ajustes</span>
+                                    <MdKeyboardArrowRight size={25} className="level-right"/>
+                                </div>
                             </Link>
                             <Link to="/" onClick={this.props.logout} className="dropdown-item">
-                                Cerrar sesión
+                                <div className="centered-label level">
+                                    <span>Cerrar sesión</span>
+                                    <MdKeyboardArrowRight size={25} className="level-right"/>
+                                </div>
                             </Link>
                         </div>
                     </div>
@@ -56,7 +86,8 @@ export class HeaderLinks extends Component {
         )
 
         const guestLinks= (
-            <ul className="has-text-centered">
+            <React.Fragment>
+            <ul className="has-text-centered is-hidden-mobile">
                 <Link to="/registro">
                     <li className="button is-warning small-text mr-5">Registrarse</li>
                 </Link>
@@ -64,6 +95,27 @@ export class HeaderLinks extends Component {
                     <li className="button is-link small-text">Iniciar sesión</li>
                 </Link>
             </ul>
+            {/* MOBILE GUEST LINKS */}
+            <div class="dropdown is-hoverable is-right is-hidden-desktop">
+                <div class="dropdown-trigger centered-label">
+                    <RiAccountPinCircleFill size={25} />
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-content">
+                        <Link to="/registro">
+                            <div className="mb-1">
+                                Registrarse
+                            </div>
+                        </Link>
+                        <Link to="/iniciar-sesion">
+                            <div className="mb-1">
+                                Iniciar sesión
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+          </React.Fragment>
         )
 
         return (
