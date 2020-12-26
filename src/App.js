@@ -5,12 +5,12 @@ import {MenuMobile} from './components/common/MenuMobile'
 import {MasterWrapper} from './components/common/MasterWrapper'
 import Register from './components/accout/Register'
 import Login from './components/accout/Login'
+import Page404 from './components/common/Page404'
 import ResetPassword from './components/accout/ResetPassword'
 import ResetPasswordConfirmation from './components/accout/ResetPasswordConfirmation'
 import {Switch, Route } from 'react-router-dom'
 import './App.css';
 import 'my-bulma/css/mystyles.css'
-// import 'bulma/css/bulma.css'
 // import logoicono from './logo-icono.png' 
 import store from './store'
 import {getUser} from '../src/components/actions/authActions'
@@ -45,7 +45,7 @@ class App extends Component {
               path="" 
               render={({ location }) => (
                   location.state && location.state.is404
-                    ? <div>404!!!</div>
+                    ? <Page404 />
                     : 
                     <div className="main-content columns">
                       <div className="column side small-column full-h pr-0 is-hidden-mobile is-hidden-tablet-only">

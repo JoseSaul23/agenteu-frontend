@@ -135,7 +135,7 @@ export class ReviewDetail extends Component {
 
         return(
         <div className="columns">
-            <div className="column is-two-thirds">
+            <div className="column is-8-desktop">
                 {
                 this.props.isLoading ? 
                 
@@ -145,7 +145,9 @@ export class ReviewDetail extends Component {
                     </div>
                 </div> :
 
-                <div className="column is-10 is-offset-1 columns is-multiline mt-2">
+                <div className="columns is-centered">
+                <div className="column is-10-desktop is-9-tablet">
+                <div className="column py-1 mt-5">
                     <div className="column is-full has-text-weight-medium small-label p-0 pl-1 closer-letters">
                         <p>
                             <span className="black-title">{review.user_name}</span> • {review.date}
@@ -161,13 +163,13 @@ export class ReviewDetail extends Component {
                         </Link>
                     </div>
                     <div className="column">
-                        <div className="columns is-mobile">
-                            <div className="column is-four-fifths review-main-box pt-2 pr-2 pl-2 pb-0"> 
+                        <div className="columns is-mobile is-multiline">
+                            <div className="column is-9-desktop is-full-mobile is-9-tablet review-main-box pt-2 px-2 pb-0"> 
                                 <div className="review-text"> 
                                     <p className="text-overflow">{review.text}</p>
                                 </div>
                                 <div className="columns is-mobile pt-2"> 
-                                    <div className="column is-6-desktop is-half-mobile icon">
+                                    <div className="column is-4-desktop is-3-mobile is-4-tablet icon">
                                     {
                                         auth.isAuthenticated && 
                                         review.recomendations && 
@@ -240,7 +242,16 @@ export class ReviewDetail extends Component {
                                     </div >
                                 </div>
                             </div>
-                            <div className="column has-text-centered has-text-weight-medium pt-0"> 
+                            <div className="column is-hidden-desktop is-hidden-tablet-only pb-0 pl-0 pt-1">
+                                <span>
+                                    calificación: <span style={{color: _myColor(review.rating, "rating")}} className="has-text-weight-medium">{review.rating}</span>
+                                </span> 
+                                {" • "} 
+                                <span>
+                                    dificultad: <span style={{color: _myColor(review.difficulty, "difficulty")}} className="has-text-weight-medium">{review.difficulty}%</span>
+                                </span>
+                            </div>
+                            <div className="column is-hidden-mobile has-text-centered has-text-weight-medium pt-0"> 
                                 <div className="review-main-box mb-4 close-letters"> 
                                     <p>calificación</p>
                                     <p 
@@ -363,6 +374,8 @@ export class ReviewDetail extends Component {
                             </section>
                         </div>
                     </div>
+                </div>
+                </div> 
                 </div>
                 }
             </div>

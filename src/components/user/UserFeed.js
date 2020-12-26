@@ -9,7 +9,6 @@ import {updateUser} from '../actions/authActions'
 import PropTypes from 'prop-types'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import { string } from 'prop-types'
 
 
 export class UserFeed extends Component {

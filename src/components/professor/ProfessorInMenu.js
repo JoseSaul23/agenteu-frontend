@@ -8,7 +8,8 @@ export class ProfessorInMenu extends Component {
       = this.props
 
       return (
-        <div className="card column is-one-quarter-desktop m-4 p-0">
+        <div className="column is-one-quarter-desktop is-4-tablet px-2">
+        <div className="card p-0">
           <Link to={"/profesores/" + id}>
           <header className="has-background-link">
             <p className="card-header-title has-text-white p-2">
@@ -35,6 +36,7 @@ export class ProfessorInMenu extends Component {
             </div>
           </footer>
           </Link>
+        </div>
         </div>
       );
     }

@@ -27,7 +27,7 @@ export class MasterWrapper extends Component {
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/instituciones" component={InstitutionsInMenuList}></Route>
           <Route exact path="/profesores" component={ProfessorsInMenuList}></Route>
-          <Route path="/publicaciones/:id" component={ReviewDetail}></Route>
+          <Route exact path="/publicaciones/:id" component={ReviewDetail}></Route>
           <Route
             exact 
             path="/busqueda/:entity/:q/"
@@ -35,11 +35,11 @@ export class MasterWrapper extends Component {
               <SearchResults {...props}/>
             )} 
           /> 
-          <PrivateRoute path="/publicar/:id" component={CreateReview}></PrivateRoute>
-          <PrivateRoute path="/editar/:id" component={EditReview}></PrivateRoute>
-          <Route path="/feed" component={UserFeed}></Route>
+          <PrivateRoute exact path="/publicar/:id" component={CreateReview}></PrivateRoute>
+          <PrivateRoute exact path="/editar/:id" component={EditReview}></PrivateRoute>
+          <Route exact path="/feed" component={UserFeed}></Route>
           <Route path="/biblioteca" component={UserLibrary}></Route>
-          <PrivateRoute path="/mis-publicaciones" component={UserReviews}></PrivateRoute>
+          <PrivateRoute exact path="/mis-publicaciones" component={UserReviews}></PrivateRoute>
           <Route 
             path="/universidades/:id" 
             render={(props) => (
@@ -65,9 +65,9 @@ export class MasterWrapper extends Component {
               </Profile>
             )} 
           />
-          <Route path="/notificaciones" component={NotificationsList}></Route>
-          <Route path="/cuenta" component={UserAccount}></Route>
-          <Route path="/ajustes" component={UserSettings}></Route>
+          <Route exact path="/notificaciones" component={NotificationsList}></Route>
+          <Route exact path="/cuenta" component={UserAccount}></Route>
+          <Route exact path="/ajustes" component={UserSettings}></Route>
           <Route component={RedirectAs404}/>
         </Switch> 
       );

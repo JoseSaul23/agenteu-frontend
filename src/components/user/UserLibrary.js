@@ -55,13 +55,15 @@ export class UserLibrary extends Component {
                         <div className="column is-10-desktop is-full-mobile is-9-tablet">
                             <Switch>
                                 <Redirect exact from={this.props.match.url} to={this.props.match.url + "/favoritas"} />
-                                <Route  
+                                <Route 
+                                    exact 
                                     path={this.props.match.path + "/favoritas"}
                                     render={(props) => (
                                         <UserListReviews {...props} review_type="favorites"/>
                                     )} 
                                 />
                                 <Route  
+                                    exact
                                     path={this.props.match.path + "/recomendadas"}
                                     render={(props) => (
                                         <UserListReviews {...props} review_type="recommended"/>
