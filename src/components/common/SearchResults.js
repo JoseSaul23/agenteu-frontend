@@ -3,7 +3,7 @@ import {University} from '../university/University'
 import {Professor} from '../professor/Professor'
 import {School} from '../school/School'
 import {ReviewInResults} from '../review/ReviewInResults'
-import { Review } from '../review/Review'
+
 
 export class SearchResults extends Component {
 
@@ -18,13 +18,13 @@ export class SearchResults extends Component {
 
         fetch(`http://localhost:8000/api/${entity}/?search=` + q)
         .then(res => res.json())
-        .then(results => {
-            this.setState({results})
-            if (results[0] !== undefined){
+        .then(res => {
+            this.setState({results: res.results})
+            if (res.results[0] !== undefined){
                 this.setState( {
-                    first_result_name: results[0].name
+                    first_result_name: res.results[0].name
                 })
-                this._fetchFirstResultReviews(results[0].id)
+                this._fetchFirstResultReviews(res.results[0].id)
             }
         }) 
     }
@@ -122,8 +122,8 @@ export class SearchResults extends Component {
 
         fetch(`http://localhost:8000/api/${entity}/${id}/reviews`)
         .then(res => res.json())
-        .then(first_result_reviews => {
-            this.setState({first_result_reviews})
+        .then(res => {
+            this.setState({first_result_reviews: res.results})
         }) 
     }
 

@@ -8,32 +8,48 @@ import Badge from '@material-ui/core/Badge';
 import {MdKeyboardArrowRight} from 'react-icons/md'
 import {RiAccountPinCircleFill} from 'react-icons/ri'
 
-export class HeaderLinks extends Component {
+
+class HeaderLinks extends Component {
 
     state = {
         active_notifications_count: 0
     }
 
     static propTypes = {
-        auth : PropTypes.object.isRequired,
+        user : PropTypes.object,
         logout : PropTypes.func.isRequired
     }
 
     componentDidMount() {
-        let endpoint  = "ws://127.0.0.1:8000/ws/notificaciones/";
-        let socket = new WebSocket(endpoint + `?token=${this.props.auth.auth_token}`)
-        socket.onmessage = (event) => {
-            this.setState({
-                active_notifications_count: JSON.parse(event.data).active_notifications_count 
-            })
+        if(this.props.isAuthenticated) {
+            let endpoint  = "ws://127.0.0.1:8000/ws/notificaciones/";
+            let socket = new WebSocket(endpoint + `?token=${this.props.auth_token}`)
+            socket.onmessage = (event) => {
+                this.setState({
+                    active_notifications_count: JSON.parse(event.data).active_notifications_count 
+                })
+            }
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.isAuthenticated !== this.props.isAuthenticated) {
+            if(this.props.isAuthenticated){
+                let endpoint  = "ws://127.0.0.1:8000/ws/notificaciones/";
+                let socket = new WebSocket(endpoint + `?token=${this.props.auth_token}`)
+                socket.onmessage = (event) => {
+                    this.setState({
+                        active_notifications_count: JSON.parse(event.data).active_notifications_count 
+                    })
+                }
+            }
         }
     }
 
     render () {
-
-        const {isAuthenticated, user} = this.props.auth
+        console.log("notiii", this.state, this.props)
+        const {isAuthenticated, user} = this.props
         
-
         const authLinks = (
             <ul className="has-text-centered">
                 <Link to="/notificaciones">
@@ -85,7 +101,7 @@ export class HeaderLinks extends Component {
             </ul>
         )
 
-        const guestLinks= (
+        const guestLinks = (
             <React.Fragment>
             <ul className="has-text-centered is-hidden-mobile">
                 <Link to="/registro">
@@ -96,12 +112,12 @@ export class HeaderLinks extends Component {
                 </Link>
             </ul>
             {/* MOBILE GUEST LINKS */}
-            <div class="dropdown is-hoverable is-right is-hidden-desktop">
-                <div class="dropdown-trigger centered-label">
+            <div className="dropdown is-hoverable is-right is-hidden-desktop">
+                <div className="dropdown-trigger centered-label">
                     <RiAccountPinCircleFill size={25} />
                 </div>
-                <div class="dropdown-menu">
-                    <div class="dropdown-content">
+                <div className="dropdown-menu">
+                    <div className="dropdown-content">
                         <Link to="/registro">
                             <div className="mb-1">
                                 Registrarse
@@ -115,20 +131,20 @@ export class HeaderLinks extends Component {
                     </div>
                 </div>
             </div>
-          </React.Fragment>
+            </React.Fragment>
         )
-
         return (
             <React.Fragment>
                 { isAuthenticated ? authLinks : guestLinks }
             </React.Fragment>
- 
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    return {auth: state.auth}
-}
+const mapStateToProps = state => ({
+    user: state.auth.user,
+    isAuthenticated: state.auth.isAuthenticated,
+    auth_token: state.auth.auth_token
+})
 
 export default connect(mapStateToProps, {logout})(HeaderLinks)

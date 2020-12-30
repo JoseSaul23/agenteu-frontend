@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {GiHamburgerMenu} from 'react-icons/gi'
 import {VscHome} from 'react-icons/vsc'
 import {BsPersonLinesFill, BsBuilding} from 'react-icons/bs'
 import {BiNews} from 'react-icons/bi'
@@ -73,8 +72,8 @@ export class MenuMobile extends Component {
                 </div>
                 <div className="column">
                     <Link 
-                        to='/profesores'
-                        className={this.state.section === "profesores" ? "menu-active" : ""}
+                        to='/profesorado'
+                        className={this.state.section === "profesorado" ? "menu-active" : ""}
                     >
                         <div className="centered-label icon">
                             <BsPersonLinesFill size={24} />

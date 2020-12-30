@@ -26,7 +26,7 @@ export class MasterWrapper extends Component {
         <Switch> 
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/instituciones" component={InstitutionsInMenuList}></Route>
-          <Route exact path="/profesores" component={ProfessorsInMenuList}></Route>
+          <Route exact path="/profesorado" component={ProfessorsInMenuList}></Route>
           <Route exact path="/publicaciones/:id" component={ReviewDetail}></Route>
           <Route
             exact 
@@ -67,7 +67,7 @@ export class MasterWrapper extends Component {
           />
           <Route exact path="/notificaciones" component={NotificationsList}></Route>
           <Route exact path="/cuenta" component={UserAccount}></Route>
-          <Route exact path="/ajustes" component={UserSettings}></Route>
+          <Route path="/ajustes" component={UserSettings}></Route>
           <Route component={RedirectAs404}/>
         </Switch> 
       );

@@ -143,14 +143,17 @@ export class ProfessorDetails extends Component {
                             </p>
                         </div>
                         <div className="column">
-                            { this.props.entityDetails.reviewByUser.id ?
-                                "" :
-                                <Link to={"/publicar/" + id}>
-                                    <button className="button is-small is-link">
-                                        <span className="medium-text has-text-weight-medium">Crear reseña</span>
-                                    </button> 
-                                </Link>
-                            }
+                        {   
+                            this.props.isLoading ? 
+                            "" : 
+                            this.props.review.id ?
+                            "" :
+                            <Link to={"/publicar/" + id}>
+                                <button className="button is-small is-link">
+                                    <span className="medium-text has-text-weight-medium">Crear reseña</span>
+                                </button> 
+                            </Link>
+                        }
                         </div>
                     </div>
                     <div className="has-text-weight-medium mt-2">
@@ -200,6 +203,7 @@ const mapStateToProps = state => ({
     auth: state.auth,
     entityDetails : state.entityDetails,
     review: state.reviews.review,
+    isLoading: state.reviews.isLoading,
     error: state.error
 });
 

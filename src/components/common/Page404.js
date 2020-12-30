@@ -11,14 +11,14 @@ class Page404 extends Component {
 
     render () {
         return (
-            <section class="hero is-large">
-                <div class="hero-body pt-6">
-                    <div class="container has-text-centered">
+            <section className="hero is-large">
+                <div className="hero-body pt-6">
+                    <div className="container has-text-centered">
                         <FaSearch size={80} className="mb-4"/>
-                        <h1 class="title">
+                        <h1 className="title">
                             La página que busca no existe.
                         </h1>
-                        <h2 class="subtitle">
+                        <h2 className="subtitle">
                             Intente hacer otra busqueda.
                         </h2>
                     </div>

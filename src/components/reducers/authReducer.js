@@ -14,8 +14,8 @@ import {
 
 const initialState = {
     auth_token: localStorage.getItem('token'),
-    isAuthenticated: null,
-    isLoading: false,
+    isAuthenticated: false,
+    isLoading: true,
     user: null,
     likelyProfessors: [],
     loadingProfessors: false,

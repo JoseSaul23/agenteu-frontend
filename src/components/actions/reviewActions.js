@@ -19,13 +19,13 @@ import axios from 'axios'
 
 
 // Obtener las reseñas que pertenecen a una entidad
-export const getEntityReviews = (entity, id) => (dispatch) => {
+export const getEntityReviews = (entity, id, page=1) => (dispatch) => {
 
     dispatch({
         type:LOADING_REVIEWS
     })
 
-    axios.get(`http://localhost:8000/api/${entity}/${id}/reviews/`)
+    axios.get(`http://localhost:8000/api/${entity}/${id}/reviews/?page=${page}`)
     .then(res => {
         dispatch({
             type: GET_REVIEWS,
@@ -43,13 +43,13 @@ export const getEntityReviews = (entity, id) => (dispatch) => {
 
 // Obtener las reseñas que pertenecen a un usuario
 // (reseñas propias, favoritas o recomendadas)
-export const getUserReviews = (review_type) => (dispatch, getState) => {
+export const getUserReviews = (review_type, page=1) => (dispatch, getState) => {
 
     dispatch({
         type:LOADING_REVIEWS
     })
 
-    axios.get(`http://localhost:8000/auth/users/${review_type}/`, tokenConfig(getState))
+    axios.get(`http://localhost:8000/auth/users/${review_type}/?page=${page}`, tokenConfig(getState))
     .then(res => {
         dispatch({
             type: GET_REVIEWS,
@@ -66,17 +66,17 @@ export const getUserReviews = (review_type) => (dispatch, getState) => {
 }
 
 // Reseñas que salen en pagina principal
-export const getReviews = () => (dispatch) => {
+export const getReviews = (page=1) => (dispatch) => {
 
     dispatch({
         type:LOADING_REVIEWS
     })
 
-    axios.get(`http://localhost:8000/api/publicaciones/`)
+    axios.get(`http://localhost:8000/api/publicaciones/?page=${page}`)
     .then(res => {
         dispatch({
             type: GET_REVIEWS,
-            payload: res.data.results
+            payload: res.data
         })
     })
     .catch(e => {

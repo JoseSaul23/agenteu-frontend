@@ -10,8 +10,9 @@ import ResetPassword from './components/accout/ResetPassword'
 import ResetPasswordConfirmation from './components/accout/ResetPasswordConfirmation'
 import {Switch, Route } from 'react-router-dom'
 import './App.css';
-import 'my-bulma/css/mystyles.css'
-// import logoicono from './logo-icono.png' 
+// import 'my-bulma/css/mystyles.css'
+import 'bulma/css/bulma.css'
+import logoicono from './logo-icono.png' 
 import store from './store'
 import {getUser} from '../src/components/actions/authActions'
 import {connect} from 'react-redux'
@@ -24,16 +25,15 @@ class App extends Component {
   }
 
   render () {
-    return (  
-      // hacer con variable comun y corriete
-      // this.props.isLoading 
-      // ? <div className="columns is-vcentered full-h">
-      //     <div className="column is-half is-offset-one-quarter has-text-centered">
-      //       <img src={logoicono} className="app-logo" alt="logoicono" width="100" height="100"/>
-      //     </div>
-      //   </div> 
-      // :
-      <div className="App pb-6"> 
+    const loading = (
+      <div className="columns is-vcentered full-h">
+        <div className="column is-half is-offset-one-quarter has-text-centered">
+          <img src={logoicono} className="app-logo" alt="logoicono" width="100" height="100"/>
+        </div>
+      </div>
+    );
+    const content = (
+      <div className="App pb-6">
         <Header />
         <Switch>
             <Route exact path="/iniciar-sesion" component={Login} />
@@ -62,6 +62,11 @@ class App extends Component {
             />
         </Switch>
       </div>
+    )
+    return (  
+      <React.Fragment>
+        {content}
+      </React.Fragment>
     );
   }
 }

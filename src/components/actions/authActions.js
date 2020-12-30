@@ -39,7 +39,7 @@ export const getUser = () => (dispatch, getState) => {
 // Iniciar Sesión
 export const login = (email, password) => (dispatch) => {
     // Cargando usuario.
-    dispatch({ type: USER_LOADING });
+    // dispatch({ type: USER_LOADING });
 
     // Headers de la peticion HTTP.
     const config = {

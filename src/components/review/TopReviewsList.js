@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {getReviews, clearReviews} from '../actions/reviewActions'
 import PropTypes from 'prop-types'
 import Skeleton from '@material-ui/lab/Skeleton';
+import { Waypoint } from 'react-waypoint';
 
 
 export class TopReviewsList extends Component {
@@ -17,6 +18,10 @@ export class TopReviewsList extends Component {
 
     componentDidMount() {
       this.props.getReviews()
+    }
+
+    _loadMore = () => {
+      if(this.props.nextPage) this.props.getReviews(this.props.page + 1)
     }
 
     componentWillUnmount() {
@@ -55,33 +60,29 @@ export class TopReviewsList extends Component {
             <h5 className="title is-5">Top reseñas</h5>
           </div>
           <div className="columns is-multiline m-2">
+          {this._renderTopReviews() }
           {
-            this.props.areLoading ?
-              <React.Fragment>
-                {
-                  skeletons.map( ske => {
-                    return (
-                      <div key={ske} className="column is-one-quarter">
-                        <div className="columns is-multiline">
-                          <div className="column is-full pb-1">
-                            <Skeleton variant="rect" width={255} height={100} />
-                          </div>
-                          <div className="column is-full pt-0 pb-1">
-                            <Skeleton variant="rect" width={130} height={20} />
-                          </div>
-                          <div className="column pt-0">
-                            <Skeleton variant="rect" width={70} height={20} />
-                          </div>
-                        </div>
+            (this.props.areLoading || this.props.loadingMore) &&
+              skeletons.map( ske => {
+                return (
+                  <div key={ske} className="column is-one-quarter">
+                    <div className="columns is-multiline">
+                      <div className="column is-full pb-1">
+                        <Skeleton variant="rect" width={255} height={100} />
                       </div>
-                    )
-                  })
-                }
-              </React.Fragment>
-              :
-              this._renderTopReviews()
+                      <div className="column is-full pt-0 pb-1">
+                        <Skeleton variant="rect" width={130} height={20} />
+                      </div>
+                      <div className="column pt-0">
+                        <Skeleton variant="rect" width={70} height={20} />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
           }
           </div>
+          {!this.props.loadingMore ? <Waypoint onEnter={this._loadMore} /> : ""}
         </div>
       );
     }
@@ -89,7 +90,10 @@ export class TopReviewsList extends Component {
 
 const mapStateToProps = state => ({
   reviews : state.reviews.reviews,
-  areLoading: state.reviews.areLoading
+  page: state.reviews.page,
+  nextPage: state.reviews.nextPage,
+  areLoading: state.reviews.areLoading,
+  loadingMore: state.reviews.loadingMore,
 });
 
 export default connect(mapStateToProps, {getReviews, clearReviews})(TopReviewsList);

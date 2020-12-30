@@ -20,8 +20,8 @@ export class LastAdded extends Component {
     }
 
     componentWillUnmount() {
-        // Limpiar entidades cargadas
-        this.props.clearEntities()
+      // Limpiar entidades cargadas
+      this.props.clearEntities()
     }
   
     _renderLastAdded = () => {

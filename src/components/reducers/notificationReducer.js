@@ -1,15 +1,28 @@
-import {GET_NOTIFICATIONS, DELETE_NOTIFICATION, CHECK_NOTIFICATION, CLEAR_NOTIFICATIONS} from '../actions/types'
+import {
+    LOADING_NOTIFICATIONS, 
+    GET_NOTIFICATIONS,
+    DELETE_NOTIFICATION,
+    CHECK_NOTIFICATION,
+    CLEAR_NOTIFICATIONS
+} from '../actions/types'
 
 const initialState = {
-    notifications: []
+    notifications: [],
+    areLoading: false, 
 }
 
 export const notificationReducer = (state=initialState, action) => {
     switch(action.type){
+        case LOADING_NOTIFICATIONS:
+            return {
+                ...state,
+                areLoading: true,
+            }
         case GET_NOTIFICATIONS:
             return {
                 ...state,
-                notifications: action.payload
+                notifications: action.payload,
+                areLoading: false
             }
         case DELETE_NOTIFICATION:
             return {

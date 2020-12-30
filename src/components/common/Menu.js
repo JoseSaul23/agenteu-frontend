@@ -33,7 +33,7 @@ export class Menu extends Component {
         <aside className="menu-wrapper menu navbar-menu pl-5 pr-0">
             <ul className="menu-list">
                 <li>
-                    <Link>
+                    <Link to="/">
                         <GiHamburgerMenu className="is-size-4" />
                     </Link>
                 </li>
@@ -62,7 +62,13 @@ export class Menu extends Component {
                 <li className="has-text-weight-medium">
                     <Link 
                         to='/biblioteca'
-                        className={this.state.section === "favoritas" || this.state.section === "recomendadas" ? "menu-active" : ""}
+                        className={
+                            this.state.section === "favoritas" || 
+                            this.state.section === "recomendadas" ||
+                            this.state.section === "biblioteca" 
+                            ? "menu-active" 
+                            : ""
+                        }
                     >
                         <div className="centered-label">
                             <MdLibraryBooks className="is-size-4 mr-4"></MdLibraryBooks>
@@ -83,8 +89,8 @@ export class Menu extends Component {
                 </li>
                 <li className="has-text-weight-medium">
                     <Link 
-                        to='/profesores'
-                        className={this.state.section === "profesores" ? "menu-active" : ""}
+                        to='/profesorado'
+                        className={this.state.section === "profesorado" ? "menu-active" : ""}
                     >
                         <div className="centered-label">
                             <BsPersonLinesFill className="is-size-4 mr-4"></BsPersonLinesFill>

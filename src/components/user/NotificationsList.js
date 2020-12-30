@@ -54,7 +54,14 @@ export class NotificationsList extends Component {
                                 <div className="p-4 pt-1 list-border-bottom has-text-weight-bold">
                                     Notificaciones
                                 </div>
-                                {this._renderNotifications()}
+                                {this.props.areLoading ?
+                                    <div className="columns mt-6">
+                                        <div className="column has-text-centered">
+                                            <button className="button is-link is-loading">Loading</button>
+                                        </div>
+                                    </div> :
+                                    this._renderNotifications()
+                                }
                             </div>
                         </div>
                     </div>
@@ -67,6 +74,7 @@ export class NotificationsList extends Component {
 
 const mapStateToProps = state => ({
     notifications : state.notification.notifications,
+    areLoading: state.notification.areLoading
 });
 
 export default connect(mapStateToProps, {getNotifications, clearNotifications})(NotificationsList);

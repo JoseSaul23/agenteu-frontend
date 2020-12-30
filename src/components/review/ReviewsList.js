@@ -3,6 +3,8 @@ import Review from './Review'
 import {connect} from 'react-redux'
 import {getEntityReviews, clearReviews} from '../actions/reviewActions'
 import PropTypes from 'prop-types'
+import { Waypoint } from 'react-waypoint';
+
 
 export class ReviewsList extends Component {
 
@@ -30,6 +32,12 @@ export class ReviewsList extends Component {
             const {id} = this.props.match.params
             this.props.getEntityReviews(entity, id)
         }
+    }
+
+    _loadMore = () => {
+        const {entity} = this.props
+        const {id} = this.props.match.params
+        if(this.props.nextPage) this.props.getEntityReviews(entity, id, this.props.page + 1)
     }
 
     componentWillUnmount() {
@@ -66,27 +74,39 @@ export class ReviewsList extends Component {
                     />
                   );
             }   )
-        } 
+        }
       }
 
     render () {
         return (
-            this.props.areLoading ?
-                <div className="columns mb-6">
-                    <div className="column has-text-centered">
-                        <button className="button is-link is-loading">Loading</button>
+            <div>
+                {this.props.areLoading ?
+                    <div className="columns mb-6">
+                        <div className="column has-text-centered">
+                            <button className="button is-link is-loading">Loading</button>
+                        </div>
+                    </div> :
+                    this._renderReviews()
+                }
+                {!this.props.loadingMore ? <Waypoint onEnter={this._loadMore} /> : ""}
+                {this.props.loadingMore && 
+                    <div className="columns mt-6">
+                        <div className="column has-text-centered">
+                            <button className="button is-link is-loading">Loading</button>
+                        </div>
                     </div>
-                </div> :
-                <div>
-                    {this._renderReviews()}
-                </div>  
+                }
+            </div>  
         );
     }
 }
 
 const mapStateToProps = state => ({
     reviews : state.reviews.reviews,
-    areLoading: state.reviews.areLoading
+    areLoading: state.reviews.areLoading,
+    loadingMore: state.reviews.loadingMore,
+    page: state.reviews.page,
+    nextPage: state.reviews.nextPage,
 });
 
 export default connect(mapStateToProps, {getEntityReviews, clearReviews})(ReviewsList);

@@ -12,12 +12,13 @@ import Embed from '../src/components/review/Embed'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter>  
+        {/* PROVOCA RENDERIZADO DE APP, HACER DENTRO DE COMPONENTE 
         <Switch>
           <Route path="/embed/:id" component={Embed}/>
           <Route path="" component={App}/>
-        </Switch>
-        {/* <App /> */}
+        </Switch> */}
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

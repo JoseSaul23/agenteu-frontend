@@ -4,21 +4,10 @@ import {connect} from 'react-redux'
 import {getProfessors, clearEntities} from '../actions/entityActions'
 import PropTypes from 'prop-types'
 import Skeleton from '@material-ui/lab/Skeleton';
+import { Waypoint } from 'react-waypoint';
 
 
 export class ProfessorsInMenuList extends Component { //UniversityProfessorsList
-
-    // state = {
-    //   professors: []
-    // }
-  
-    // _fetchProfessors = () => {
-    //   fetch(`http://localhost:8000/api/profesores/`) //poner paginacion en backend de a 3 o 4. De escuelas por ahora.
-    //   .then(res => res.json())
-    //   .then(professors => {
-    //     this.setState({ professors })
-    //   }) 
-    // }
   
     static propTypes = {
       entities: PropTypes.array.isRequired,
@@ -29,6 +18,10 @@ export class ProfessorsInMenuList extends Component { //UniversityProfessorsList
 
     componentDidMount() {
       this.props.getProfessors()
+    }
+
+    _loadMore = () => {
+      if(this.props.nextPage) this.props.getProfessors(this.props.page + 1)
     }
 
     componentWillUnmount() {
@@ -63,29 +56,26 @@ export class ProfessorsInMenuList extends Component { //UniversityProfessorsList
             <h5 className="title is-5">Profesores</h5>
           </div>
           <div className="columns is-multiline">
+          {this._renderProfessors()}
           {
-            this.props.isLoading ?
-              <React.Fragment>
-                {
-                  skeletons.map( ske => {
-                    return (
-                      <div key={ske} className="column is-one-quarter has-text-centered">
-                        <div className="columns is-multiline">
-                          <div className="column is-full">
-                            <Skeleton variant="rect" width={260} height={45} />
-                          </div>
-                          <div className="column is-full pt-0">
-                            <Skeleton variant="rect" width={260} height={100} />
-                          </div>
-                        </div>
+            this.props.isLoading &&
+              skeletons.map( ske => {
+                return (
+                  <div key={ske} className="column is-one-quarter has-text-centered">
+                    <div className="columns is-multiline">
+                      <div className="column is-full">
+                        <Skeleton variant="rect" width={260} height={45} />
                       </div>
-                    )
-                  })
-                }
-              </React.Fragment>:
-              this._renderProfessors()
+                      <div className="column is-full pt-0">
+                        <Skeleton variant="rect" width={260} height={100} />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
             }
           </div>
+          <Waypoint onEnter={this._loadMore} />
         </div>
       );
     }
@@ -93,7 +83,9 @@ export class ProfessorsInMenuList extends Component { //UniversityProfessorsList
 
 const mapStateToProps = state => ({
   entities : state.entities.entities,
-  isLoading: state.entities.isLoading
+  isLoading: state.entities.isLoading,
+  page: state.entities.page,
+  nextPage: state.entities.nextPage
 });
 
 export default connect(mapStateToProps, {getProfessors, clearEntities})(ProfessorsInMenuList);

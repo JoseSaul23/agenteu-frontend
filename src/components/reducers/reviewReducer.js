@@ -16,9 +16,12 @@ import {
 
 const initialState = {
     reviews: [],
+    page: 0,
+    nextPage: null,
     review: {},
     isLoading: null,
     areLoading: null,
+    loadingMore: false,
     wasAdded: null,
     wasDeleted: false,
 }
@@ -28,13 +31,17 @@ export const reviewReducer = (state=initialState, action) => {
         case LOADING_REVIEWS:
             return {
                 ...state,
-                areLoading: true
+                areLoading: state.page === 0 ? true : false,
+                loadingMore: state.page > 0 ? true : false
             }
         case GET_REVIEWS:
             return {
                 ...state,
-                reviews: action.payload,
-                areLoading: false
+                reviews: [...state.reviews, ...action.payload.results],
+                page: state.page + 1,
+                nextPage: action.payload.next,
+                areLoading: false,
+                loadingMore: false
             }
         case LOADING_REVIEW:
             return {
@@ -85,7 +92,9 @@ export const reviewReducer = (state=initialState, action) => {
         case CLEAR_REVIEWS:
             return {
                 ...state,
-                reviews: []
+                reviews: [],
+                page: 0,
+                nextPage: null
             }
         case CLEAR_REVIEW:
             return {

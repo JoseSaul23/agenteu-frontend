@@ -3,6 +3,8 @@ import Review from '../review/Review'
 import {connect} from 'react-redux'
 import {getUserReviews, clearReviews} from '../actions/reviewActions'
 import PropTypes from 'prop-types'
+import { Waypoint } from 'react-waypoint';
+
 
 export class UserListReviews extends Component {
 
@@ -23,8 +25,13 @@ export class UserListReviews extends Component {
 
     componentDidUpdate(prevProps) {
         if(prevProps.review_type !== this.props.review_type){
+            this.props.clearReviews()
             this.props.getUserReviews(this.props.review_type)
         }
+    }
+
+    _loadMore = () => {
+        if(this.props.nextPage) this.props.getUserReviews(this.props.review_type, this.props.page + 1)
     }
 
     componentWillUnmount() {
@@ -64,22 +71,34 @@ export class UserListReviews extends Component {
 
     render () {
         return (
-            this.props.areLoading ?
+            <div>
+            {this.props.areLoading ?
                 <div className="columns mb-6">
                     <div className="column has-text-centered">
                         <button className="button is-link is-loading">Loading</button>
                     </div>
                 </div> :
-                <div>
-                    {this._renderReviews()}
-                </div>  
+                this._renderReviews()
+            }  
+            {!this.props.loadingMore ? <Waypoint onEnter={this._loadMore} /> : ""}
+            {this.props.loadingMore && 
+                <div className="columns mt-6">
+                    <div className="column has-text-centered">
+                        <button className="button is-link is-loading">Loading</button>
+                    </div>
+                </div>
+            }
+            </div>  
         );
     }
 }
 
 const mapStateToProps = state => ({
     reviews : state.reviews.reviews,
-    areLoading: state.reviews.areLoading
+    areLoading: state.reviews.areLoading,
+    loadingMore: state.reviews.loadingMore,
+    page: state.reviews.page,
+    nextPage: state.reviews.nextPage
 });
 
 export default connect(mapStateToProps, {getUserReviews, clearReviews})(UserListReviews);

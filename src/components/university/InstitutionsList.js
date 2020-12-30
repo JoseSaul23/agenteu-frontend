@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {getInstitutions, clearEntities} from '../actions/entityActions'
 import PropTypes from 'prop-types'
 import Skeleton from '@material-ui/lab/Skeleton';
+import { Waypoint } from 'react-waypoint';
+
 
 export class InstitutionsInMenuList extends Component {
 
@@ -16,6 +18,10 @@ export class InstitutionsInMenuList extends Component {
 
     componentDidMount() {
       this.props.getInstitutions()
+    }
+
+    _loadMore = () => {
+      if(this.props.nextPage) this.props.getInstitutions(this.props.page + 1)
     }
 
     componentWillUnmount() {
@@ -51,33 +57,29 @@ export class InstitutionsInMenuList extends Component {
             <h5 className="title is-5">Instituciones</h5>
           </div>
           <div className="columns is-multiline is-mobile m-1">
+          {this._renderInstitutions()}
           {
-            this.props.isLoading ?
-              <React.Fragment>
-                {
-                  skeletons.map( ske => {
-                    return (
-                      <div key={ske} className="column is-one-quarter has-text-centered">
-                        <div className="columns is-multiline">
-                          <div className="column is-full">
-                            <Skeleton variant="rect" width={255} height={120} />
-                          </div>
-                          <div className="column is-8 pt-0">
-                            <Skeleton variant="rect" width={160} height={75} />
-                          </div>
-                          <div className="column is-4 pt-0">
-                            <Skeleton variant="rect" width={70} height={75} />
-                          </div>
-                        </div>
+            this.props.isLoading &&
+              skeletons.map( ske => {
+                return (
+                  <div key={ske} className="column is-one-quarter has-text-centered">
+                    <div className="columns is-multiline">
+                      <div className="column is-full">
+                        <Skeleton variant="rect" width={255} height={120} />
                       </div>
-                    )
-                  })
-                }
-              </React.Fragment>
-              :
-              this._renderInstitutions()
+                      <div className="column is-8 pt-0">
+                        <Skeleton variant="rect" width={160} height={75} />
+                      </div>
+                      <div className="column is-4 pt-0">
+                        <Skeleton variant="rect" width={70} height={75} />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
             }
           </div>
+          <Waypoint onEnter={this._loadMore} />
         </div>
       );
     }
@@ -85,7 +87,9 @@ export class InstitutionsInMenuList extends Component {
 
 const mapStateToProps = state => ({
   entities : state.entities.entities,
-  isLoading: state.entities.isLoading
+  isLoading: state.entities.isLoading,
+  page: state.entities.page,
+  nextPage: state.entities.nextPage
 });
 
 export default connect(mapStateToProps, {getInstitutions, clearEntities})(InstitutionsInMenuList);

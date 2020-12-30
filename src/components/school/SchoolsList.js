@@ -3,6 +3,7 @@ import {School} from './School'
 import {connect} from 'react-redux'
 import {getEntitiesOfEntity, clearEntities} from '../actions/entityActions'
 import PropTypes from 'prop-types'
+import { Waypoint } from 'react-waypoint';
 
 
 export class SchoolsList extends Component {
@@ -21,6 +22,13 @@ export class SchoolsList extends Component {
     componentDidUpdate (prevProps) {
         if (prevProps.match.params.id !== this.props.match.params.id) { 
             this.props.getEntitiesOfEntity('universidades', this.props.match.params.id, 'schools')
+        }
+    }
+
+    _loadMore = () => {
+        const {id} = this.props.match.params
+        if(this.props.nextPage){
+            this.props.getEntitiesOfEntity('universidades', id, 'schools', this.props.page + 1)
         }
     }
 
@@ -56,22 +64,34 @@ export class SchoolsList extends Component {
 
     render () {
         return (
-            this.props.isLoading ?
-                <div className="columns mb-6">
-                    <div className="column has-text-centered">
-                        <button className="button is-link is-loading">Loading</button>
+            <div>
+                {this.props.isLoading ?
+                    <div className="columns mb-6">
+                        <div className="column has-text-centered">
+                            <button className="button is-link is-loading">Loading</button>
+                        </div>
+                    </div> :
+                    this._renderSchools()
+                }    
+                {!this.props.loadingMore ? <Waypoint onEnter={this._loadMore} /> : ""}
+                {this.props.loadingMore && 
+                    <div className="columns mt-6">
+                        <div className="column has-text-centered">
+                            <button className="button is-link is-loading">Loading</button>
+                        </div>
                     </div>
-                </div> :
-                <div>
-                    {this._renderSchools()}
-                </div>  
+                }
+            </div>  
         );
     }
 }
 
 const mapStateToProps = state => ({
     entities : state.entities.entities,
-    isLoading: state.entities.isLoading
+    isLoading: state.entities.isLoading,
+    loadingMore: state.entities.loadingMore,
+    page: state.entities.page,
+    nextPage: state.entities.nextPage,
 });
 
 export default connect(mapStateToProps, {getEntitiesOfEntity, clearEntities})(SchoolsList);

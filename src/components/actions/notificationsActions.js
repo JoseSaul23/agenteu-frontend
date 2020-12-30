@@ -1,8 +1,20 @@
-import {GET_NOTIFICATIONS, DELETE_NOTIFICATION, CHECK_NOTIFICATION, CLEAR_NOTIFICATIONS, GET_ERRORS} from './types'
-import {tokenConfig, getUser} from './authActions'
+import {
+    LOADING_NOTIFICATIONS,
+    GET_NOTIFICATIONS,
+    DELETE_NOTIFICATION,
+    CHECK_NOTIFICATION,
+    CLEAR_NOTIFICATIONS,
+    GET_ERRORS,
+} from './types'
+import {tokenConfig} from './authActions'
 import axios from 'axios'
 
 export const getNotifications = () => (dispatch, getState) => {
+
+    dispatch({
+        type: LOADING_NOTIFICATIONS
+    })
+
     // Petición HTTP a la API para obtener notificaciones del usuario autenticado.
     axios.get(`http://localhost:8000/api/notificaciones/`, tokenConfig(getState))
     .then( res => {

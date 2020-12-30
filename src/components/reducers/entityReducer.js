@@ -2,7 +2,10 @@ import {ENTITIES_LOADING, GET_ENTITIES, CLEAR_ENTITIES} from '../actions/types'
 
 const initialState = {
     entities: [],
+    page: 0,
+    nextPage: null,
     isLoading: null,
+    loadingMore: false,
 }
 
 export const entityReducer = (state=initialState, action) => {
@@ -10,18 +13,24 @@ export const entityReducer = (state=initialState, action) => {
         case ENTITIES_LOADING:
             return {
                 ...state,
-                isLoading: true
+                isLoading: state.page === 0 ? true : false,
+                loadingMore: state.page > 0 ? true : false
             }
         case GET_ENTITIES:
             return {
                 ...state,
-                entities: action.payload,
+                entities: [...state.entities, ...action.payload.results],
+                page: state.page + 1,
+                nextPage: action.payload.next,
                 isLoading: false,
+                loadingMore: false
             }
         case CLEAR_ENTITIES:
             return {
                 ...state,
-                entities: []
+                entities: [],
+                page: 0,
+                nextPage: null
             }
         default:
             return state
