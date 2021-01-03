@@ -18,7 +18,7 @@ export const getEntity = (entity, id) => (dispatch) => {
         type: ENTITY_LOADING
     })
 
-    axios.get(`http://localhost:8000/api/${entity}/${id}/`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/${entity}/${id}/`)
     .then(res => {
         dispatch({
             type: GET_ENTITY,
@@ -37,7 +37,7 @@ export const getEntity = (entity, id) => (dispatch) => {
 
 export const subscribeToEntity  = (entity, id) => (dispatch, getState) => {
     // Petición HTTP a la API para suscribirse a reseña 
-    axios.get(`http://localhost:8000/api/${entity}/${id}/subscribe/`, tokenConfig(getState))
+    axios.get(`${process.env.REACT_APP_API_URL}/api/${entity}/${id}/subscribe/`, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: SUBSCRIBE_TO_ENTITY,
@@ -71,7 +71,7 @@ export const getReviewByUser = (entity, entity_id) => (dispatch, getState) => {
         type: LOADING_REVIEW
     })
 
-    axios.get(`http://localhost:8000/api/${entity}/${entity_id}/getReviewByUserOr404/`, tokenConfig(getState))
+    axios.get(`${process.env.REACT_APP_API_URL}/api/${entity}/${entity_id}/getReviewByUserOr404/`, tokenConfig(getState))
     .then(res => {
         dispatch({
             type: GET_REVIEW,

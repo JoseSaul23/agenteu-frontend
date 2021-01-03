@@ -13,7 +13,7 @@ export const getSubscriptions = (entity) => (dispatch, getState) => {
     })
 
     // Peticion HTTP para obtener suscripciones de usuario autenticado
-    axios.get(`http://localhost:8000/auth/users/subscriptions_to_${entity}/`, tokenConfig(getState))
+    axios.get(`${process.env.REACT_APP_API_URL}/auth/users/subscriptions_to_${entity}/`, tokenConfig(getState))
     .then(res => {
         dispatch({
             type: GET_SUBSCRIPTIONS,

@@ -9,7 +9,7 @@ export const getEntitiesOfEntity = (entity, id, entities, page=1) => (dispatch) 
 
     // universidades => schools, professors
     // escuelas => professors
-    axios.get(`http://localhost:8000/api/${entity}/${id}/${entities}/?page=${page}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/${entity}/${id}/${entities}/?page=${page}`)
     .then(res => {
         dispatch({
             type: GET_ENTITIES,
@@ -33,7 +33,7 @@ export const getLastAdded = () => (dispatch) => {
     })
 
     // Ultimas escuelas agregadas
-    axios.get(`http://localhost:8000/api/escuelas/`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/escuelas/`)
     .then(res => {
         dispatch({
             type: GET_ENTITIES,
@@ -55,7 +55,7 @@ export const getInstitutions = (page=1) => (dispatch) => {
     })
 
     // Todas las universidades
-    axios.get(`http://localhost:8000/api/universidades/?page=${page}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/universidades/?page=${page}`)
     .then(res => {
         dispatch({
             type: GET_ENTITIES,
@@ -77,7 +77,7 @@ export const getProfessors = (page=1) => (dispatch) => {
     })
 
     // Todos los profesores
-    axios.get(`http://localhost:8000/api/profesores/?page=${page}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/profesores/?page=${page}`)
     .then(res => {
         dispatch({
             type: GET_ENTITIES,

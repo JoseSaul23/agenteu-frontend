@@ -29,13 +29,13 @@ export class MenuMobile extends Component {
 
     render () {
         return (
-            <nav className="navbar is-fixed-bottom columns is-mobile menu-mobile has-text-centered">
+            <nav className="navbar is-fixed-bottom columns is-mobile menu-mobile">
                 <div className="column">
                     <Link 
                         to='/'
                         className={this.state.section === "" ? "menu-active" : ""}
                     >
-                        <div className="centered-label icon">
+                        <div className="centered-label icon mx-3">
                             <VscHome size={24}/>
                         </div>
                     </Link> 
@@ -45,7 +45,7 @@ export class MenuMobile extends Component {
                         to='/feed'
                         className={this.state.section === "feed" ? "menu-active" : ""}
                     >
-                        <div className="centered-label icon">
+                        <div className="centered-label icon mx-3">
                             <BiNews size={24} />
                         </div>
                     </Link>
@@ -53,9 +53,9 @@ export class MenuMobile extends Component {
                 <div className="column">
                     <Link 
                         to='/biblioteca'
-                        className={this.state.section === "favoritas" || this.state.section === "recomendadas" ? "menu-active" : ""}
+                        className={this.state.section === "favoritas" || this.state.section === "recomendadas" || this.state.section === "biblioteca" ? "menu-active" : ""}
                     >
-                        <div className="centered-label icon">
+                        <div className="centered-label icon mx-3">
                             <MdLibraryBooks size={24} />
                         </div>
                     </Link>
@@ -65,7 +65,7 @@ export class MenuMobile extends Component {
                         to="/instituciones"
                         className={this.state.section === "instituciones" ? "menu-active" : ""}
                     >
-                        <div className="centered-label icon">
+                        <div className="centered-label icon mx-3">
                             <BsBuilding size={24} />
                         </div>
                     </Link>
@@ -75,7 +75,7 @@ export class MenuMobile extends Component {
                         to='/profesorado'
                         className={this.state.section === "profesorado" ? "menu-active" : ""}
                     >
-                        <div className="centered-label icon">
+                        <div className="centered-label icon mx-3">
                             <BsPersonLinesFill size={24} />
                         </div>
                     </Link> 

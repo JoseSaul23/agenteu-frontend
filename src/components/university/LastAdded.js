@@ -19,6 +19,10 @@ export class LastAdded extends Component {
       this.props.getLastAdded()
     }
 
+    componentDidUpdate(prevProps){
+      //limpiar o pedir nuevamente para evitar dublicados
+    }
+
     componentWillUnmount() {
       // Limpiar entidades cargadas
       this.props.clearEntities()

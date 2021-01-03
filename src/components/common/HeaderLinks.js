@@ -35,7 +35,7 @@ class HeaderLinks extends Component {
     componentDidUpdate(prevProps) {
         if(prevProps.isAuthenticated !== this.props.isAuthenticated) {
             if(this.props.isAuthenticated){
-                let endpoint  = "ws://127.0.0.1:8000/ws/notificaciones/";
+                let endpoint  = `${process.env.REACT_APP_SOCKET}/ws/notificaciones/`;
                 let socket = new WebSocket(endpoint + `?token=${this.props.auth_token}`)
                 socket.onmessage = (event) => {
                     this.setState({
@@ -47,7 +47,6 @@ class HeaderLinks extends Component {
     }
 
     render () {
-        console.log("notiii", this.state, this.props)
         const {isAuthenticated, user} = this.props
         
         const authLinks = (
@@ -112,20 +111,22 @@ class HeaderLinks extends Component {
                 </Link>
             </ul>
             {/* MOBILE GUEST LINKS */}
-            <div className="dropdown is-hoverable is-right is-hidden-desktop">
+            <div className="dropdown is-hoverable is-right is-hidden-desktop is-hidden-tablet">
                 <div className="dropdown-trigger centered-label">
                     <RiAccountPinCircleFill size={25} />
                 </div>
-                <div className="dropdown-menu">
-                    <div className="dropdown-content">
-                        <Link to="/registro">
-                            <div className="mb-1">
-                                Registrarse
+                <div className="dropdown-menu pl-6" role="menu">
+                    <div className="dropdown-content has-text-left">
+                        <Link to="/iniciar-sesion" className="dropdown-item">
+                            <div className="centered-label level">
+                                <span>Iniciar sesión</span>
+                                <MdKeyboardArrowRight size={25} className="level-right"/>
                             </div>
                         </Link>
-                        <Link to="/iniciar-sesion">
-                            <div className="mb-1">
-                                Iniciar sesión
+                        <Link to="/registro" className="dropdown-item">
+                            <div className="centered-label level">
+                                <span>Registrarse</span>
+                                <MdKeyboardArrowRight size={25} className="level-right"/>
                             </div>
                         </Link>
                     </div>

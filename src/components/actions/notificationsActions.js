@@ -16,7 +16,7 @@ export const getNotifications = () => (dispatch, getState) => {
     })
 
     // Petición HTTP a la API para obtener notificaciones del usuario autenticado.
-    axios.get(`http://localhost:8000/api/notificaciones/`, tokenConfig(getState))
+    axios.get(`${process.env.REACT_APP_API_URL}/api/notificaciones/`, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: GET_NOTIFICATIONS,
@@ -34,7 +34,7 @@ export const getNotifications = () => (dispatch, getState) => {
 
 export const deleteNotification = (id) => (dispatch, getState) => {
     // Petición HTTP a la API para borrar notificacione del usuario autenticado.
-    axios.delete(`http://localhost:8000/api/notificaciones/${id}/`, tokenConfig(getState))
+    axios.delete(`${process.env.REACT_APP_API_URL}/api/notificaciones/${id}/`, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: DELETE_NOTIFICATION,
@@ -52,7 +52,7 @@ export const deleteNotification = (id) => (dispatch, getState) => {
 
 export const checkNotification = (id) => (dispatch, getState) => {
     // Petición HTTP a la API para borrar notificacione del usuario autenticado.
-    axios.get(`http://localhost:8000/api/notificaciones/${id}/check_notification/`, tokenConfig(getState))
+    axios.get(`${process.env.REACT_APP_API_URL}/api/notificaciones/${id}/check_notification/`, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: CHECK_NOTIFICATION,

@@ -16,7 +16,7 @@ export class ReviewsList extends Component {
     }
   
     componentDidMount() {
-        // Tipo de entidad que llega como prop
+        // Tipo de entidad que llega como pro
         const {entity} = this.props
 
         // Id de la entidad en parametro

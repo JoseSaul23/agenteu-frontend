@@ -13,7 +13,8 @@ import {
     REPORT_REVIEW,
     GET_ERRORS,
     REVIEW_FORM_CLOSE,
-    CLEAR_REVIEW_BY_USER} from './types'
+    CLEAR_REVIEW_BY_USER,
+    GET_MESSAGES} from './types'
 import {tokenConfig} from './authActions'
 import axios from 'axios'
 
@@ -25,7 +26,7 @@ export const getEntityReviews = (entity, id, page=1) => (dispatch) => {
         type:LOADING_REVIEWS
     })
 
-    axios.get(`http://localhost:8000/api/${entity}/${id}/reviews/?page=${page}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/${entity}/${id}/reviews/?page=${page}`)
     .then(res => {
         dispatch({
             type: GET_REVIEWS,
@@ -49,7 +50,7 @@ export const getUserReviews = (review_type, page=1) => (dispatch, getState) => {
         type:LOADING_REVIEWS
     })
 
-    axios.get(`http://localhost:8000/auth/users/${review_type}/?page=${page}`, tokenConfig(getState))
+    axios.get(`${process.env.REACT_APP_API_URL}/auth/users/${review_type}/?page=${page}`, tokenConfig(getState))
     .then(res => {
         dispatch({
             type: GET_REVIEWS,
@@ -72,7 +73,7 @@ export const getReviews = (page=1) => (dispatch) => {
         type:LOADING_REVIEWS
     })
 
-    axios.get(`http://localhost:8000/api/publicaciones/?page=${page}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/publicaciones/?page=${page}`)
     .then(res => {
         dispatch({
             type: GET_REVIEWS,
@@ -96,7 +97,7 @@ export const getReview = (id) => (dispatch) => {
     })
 
     // Petición HTTP a la API para obtener reseña
-    axios.get(`http://localhost:8000/api/publicaciones/${id}/`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/publicaciones/${id}/`)
     .then( res => {
         dispatch({
             type: GET_REVIEW,
@@ -116,7 +117,7 @@ export const getReview = (id) => (dispatch) => {
 export const addReview = (review) => (dispatch, getState) => {
 
      // Petición HTTP a la API para publicar reseña con el usuario del token 
-     axios.post('http://localhost:8000/api/publicaciones/', review, tokenConfig(getState))
+     axios.post(`${process.env.REACT_APP_API_URL}/api/publicaciones/`, review, tokenConfig(getState))
      .then( res => {
          dispatch({ 
              type: ADD_REVIEW,
@@ -135,7 +136,7 @@ export const addReview = (review) => (dispatch, getState) => {
 export const editReview = (id, review) => (dispatch, getState) => {
 
     // Petición HTTP a la API para editar reseña con el usuario del token 
-    axios.put(`http://localhost:8000/api/publicaciones/${id}/`, review, tokenConfig(getState))
+    axios.put(`${process.env.REACT_APP_API_URL}/api/publicaciones/${id}/`, review, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: EDIT_REVIEW,
@@ -152,7 +153,7 @@ export const editReview = (id, review) => (dispatch, getState) => {
 
 export const deleteReview = (id) => (dispatch, getState) => {
      // Petición HTTP a la API para publicar reseña con el usuario del token 
-     axios.delete(`http://localhost:8000/api/publicaciones/${id}/`, tokenConfig(getState))
+     axios.delete(`${process.env.REACT_APP_API_URL}/api/publicaciones/${id}/`, tokenConfig(getState))
      .then( res => {
          dispatch({ 
              type: CLEAR_REVIEW_BY_USER,
@@ -161,6 +162,10 @@ export const deleteReview = (id) => (dispatch, getState) => {
             type: DELETE_REVIEW,
             payload: id
         });
+        dispatch({
+            type: GET_MESSAGES,
+            payload: "Reseña eliminada"
+        })
      })
      .catch( e => {
          const errors = {message: e.response.data, status: e.response.status}
@@ -173,7 +178,7 @@ export const deleteReview = (id) => (dispatch, getState) => {
 
 export const recommendReview = (id) => (dispatch, getState) => {
     // Petición HTTP a la API para dar recomendacion a reseña. 
-    axios.get(`http://localhost:8000/api/publicaciones/${id}/recommend/`, tokenConfig(getState))
+    axios.get(`${process.env.REACT_APP_API_URL}/api/publicaciones/${id}/recommend/`, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: RECOMMEND_REVIEW,
@@ -191,7 +196,7 @@ export const recommendReview = (id) => (dispatch, getState) => {
 
 export const saveReview = (id) => (dispatch, getState) => {
     // Petición HTTP a la API para dar guardar reseña. 
-    axios.get(`http://localhost:8000/api/publicaciones/${id}/favorite/`, tokenConfig(getState))
+    axios.get(`${process.env.REACT_APP_API_URL}/api/publicaciones/${id}/favorite/`, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: SAVE_REVIEW,
@@ -209,7 +214,7 @@ export const saveReview = (id) => (dispatch, getState) => {
 
 export const reportReview = (review) => (dispatch, getState) => {
     // Petición HTTP a la API para crear reporte
-    axios.post(`http://localhost:8000/api/reportes/`, {review}, tokenConfig(getState))
+    axios.post(`${process.env.REACT_APP_API_URL}/api/reportes/`, {review}, tokenConfig(getState))
     .then( res => {
         dispatch({ 
             type: REPORT_REVIEW,

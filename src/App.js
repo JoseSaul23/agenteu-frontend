@@ -10,11 +10,11 @@ import ResetPassword from './components/accout/ResetPassword'
 import ResetPasswordConfirmation from './components/accout/ResetPasswordConfirmation'
 import {Switch, Route } from 'react-router-dom'
 import './App.css';
-// import 'my-bulma/css/mystyles.css'
-import 'bulma/css/bulma.css'
+import 'mybulma/css/mystyles.css'
 import logoicono from './logo-icono.png' 
 import store from './store'
 import {getUser} from '../src/components/actions/authActions'
+import {clearMessages} from '../src/components/actions/messageActions'
 import {connect} from 'react-redux'
 
 
@@ -24,7 +24,12 @@ class App extends Component {
     store.dispatch(getUser())
   }
 
+  componentDidUpdate(){
+    setTimeout(() => this.props.clearMessages(), 3000);
+  }
+
   render () {
+    console.log("render")
     const loading = (
       <div className="columns is-vcentered full-h">
         <div className="column is-half is-offset-one-quarter has-text-centered">
@@ -61,11 +66,17 @@ class App extends Component {
               )} 
             />
         </Switch>
+        { this.props.message !== '' ? 
+          <div className="">
+            {this.props.message}
+          </div> 
+          : ""
+        }
       </div>
     )
     return (  
       <React.Fragment>
-        {content}
+        {this.props.isLoading ? loading : content}
       </React.Fragment>
     );
   }
@@ -73,8 +84,9 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   isLoading : state.auth.isLoading,
+  message: state.messages.message
 });
 
 export default connect(
-  mapStateToProps, {getUser}
+  mapStateToProps, {getUser, clearMessages}
 )(App);

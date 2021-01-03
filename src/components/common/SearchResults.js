@@ -16,7 +16,7 @@ export class SearchResults extends Component {
     _fetchResults = () => {
         const {entity, q} = this.props.match.params
 
-        fetch(`http://localhost:8000/api/${entity}/?search=` + q)
+        fetch(`${process.env.REACT_APP_API_URL}/api/${entity}/?search=` + q)
         .then(res => res.json())
         .then(res => {
             this.setState({results: res.results})
@@ -120,7 +120,7 @@ export class SearchResults extends Component {
     _fetchFirstResultReviews = (id) => {
         const {entity} = this.props.match.params
 
-        fetch(`http://localhost:8000/api/${entity}/${id}/reviews`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/${entity}/${id}/reviews`)
         .then(res => res.json())
         .then(res => {
             this.setState({first_result_reviews: res.results})

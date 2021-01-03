@@ -18,7 +18,7 @@ export const getUniversityOptions = () => (dispatch) => {
     })
 
     // Petición HTTP a la API para obtener notificaciones del usuario autenticado.
-    axios.get(`http://localhost:8000/api/universidades/options/`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/universidades/options/`)
     .then( res => {   
         dispatch({ 
             type: GET_UNIVERSITY_OPTIONS,
@@ -54,7 +54,7 @@ export const getSchoolOptions = (university_id) => (dispatch) => {
     })
 
     // Petición HTTP a la API para obtener notificaciones del usuario autenticado.
-    axios.get(`http://localhost:8000/api/universidades/${university_id}/school_options/`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/universidades/${university_id}/school_options/`)
     .then( res => {
         dispatch({ 
             type: GET_SCHOOL_OPTIONS,

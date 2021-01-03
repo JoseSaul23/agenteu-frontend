@@ -7,6 +7,7 @@ import {entityReducer} from './entityReducer'
 import {notificationReducer} from './notificationReducer'
 import {userFeedReducer} from './userFeedReducer'
 import {subscriptionsReducer} from './subscriptionsReducer'
+import {messageReducer} from './messageReducer'
 
 export default combineReducers({
     error: errorReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     entities: entityReducer,
     notification: notificationReducer,
     userFeed: userFeedReducer,
-    subscriptions: subscriptionsReducer
+    subscriptions: subscriptionsReducer,
+    messages: messageReducer
 });
