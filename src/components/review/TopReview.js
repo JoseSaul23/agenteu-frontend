@@ -17,7 +17,6 @@ export class TopReview extends Component {
       rating,
       difficulty,
       date,
-      user,
       user_name,
       entity,
       entity_name,

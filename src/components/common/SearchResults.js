@@ -10,11 +10,13 @@ export class SearchResults extends Component {
     state = {
         results: [],
         first_result_name: "",
-        first_result_reviews: []
+        first_result_reviews: [],
+        areLoading: false
     }
 
     _fetchResults = () => {
         const {entity, q} = this.props.match.params
+        this.setState({areLoading: true})
 
         fetch(`${process.env.REACT_APP_API_URL}/api/${entity}/?search=` + q)
         .then(res => res.json())
@@ -22,7 +24,8 @@ export class SearchResults extends Component {
             this.setState({results: res.results})
             if (res.results[0] !== undefined){
                 this.setState( {
-                    first_result_name: res.results[0].name
+                    first_result_name: res.results[0].name,
+                    areLoading: false
                 })
                 this._fetchFirstResultReviews(res.results[0].id)
             }
@@ -160,6 +163,13 @@ export class SearchResults extends Component {
 
         return (
             <div>
+                {this.state.areLoading ? 
+                <div className="columns mb-6">
+                <div className="column has-text-centered">
+                    <button className="button is-link is-loading">Loading</button>
+                </div>
+            </div> 
+                :
                 <div className="columns is-multiline m-2">
                     { 
                         entity === "profesores"
@@ -177,8 +187,9 @@ export class SearchResults extends Component {
                                     this._renderSchoolsResults()
                                 :
                                     <div>Eliga una categoria de búsqueda</div>
-                    }
+                    }   
                 </div>
+                }
                 {results.length !== 0
                 ?   <React.Fragment>
                         <hr className="horizontal-line"/>

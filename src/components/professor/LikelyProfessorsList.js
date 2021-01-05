@@ -60,6 +60,7 @@ export class LikelyProfessorsList extends Component {
     render () {
 
         // const {error} = this.props
+        const {user} = this.props.auth
 
         return (
             <div className="columns is-multiline side-list m-6">
@@ -86,9 +87,12 @@ export class LikelyProfessorsList extends Component {
                     this._renderProfessors()
                 }
                 <div className="column is-full has-text-centered has-text-link">
-                    {/* <Link to={this.see_more_url}> */}
-                        Ver más
-                    {/* </Link> */}
+                {user.school ? 
+                    <Link to={`/escuelas/${user.school}/profesores`}>
+                    Ver más
+                    </Link> :
+                    ""
+                }
                 </div>
             </div>
         );

@@ -15,7 +15,6 @@ export class ReviewInResults extends Component {
             rating,
             difficulty,
             date,
-            user,
             user_name,
             entity,
             entity_type,

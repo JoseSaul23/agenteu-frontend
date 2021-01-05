@@ -16,11 +16,15 @@ export class LastAdded extends Component {
     }
 
     componentDidMount() {
-      this.props.getLastAdded()
+      if(this.props.entities.length === 0){
+        this.props.getLastAdded()
+      }
     }
 
     componentDidUpdate(prevProps){
-      //limpiar o pedir nuevamente para evitar dublicados
+      if(prevProps.entities.length !== this.props.entities.length && this.props.entities.length === 0){
+        this.props.getLastAdded()
+      }
     }
 
     componentWillUnmount() {

@@ -14,7 +14,8 @@ import {
     GET_ERRORS,
     REVIEW_FORM_CLOSE,
     CLEAR_REVIEW_BY_USER,
-    GET_MESSAGES} from './types'
+    // GET_MESSAGES
+} from './types'
 import {tokenConfig} from './authActions'
 import axios from 'axios'
 
@@ -162,10 +163,10 @@ export const deleteReview = (id) => (dispatch, getState) => {
             type: DELETE_REVIEW,
             payload: id
         });
-        dispatch({
-            type: GET_MESSAGES,
-            payload: "Reseña eliminada"
-        })
+        // dispatch({
+        //     type: GET_MESSAGES,
+        //     payload: "Reseña eliminada"
+        // })
      })
      .catch( e => {
          const errors = {message: e.response.data, status: e.response.status}

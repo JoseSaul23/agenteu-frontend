@@ -13,6 +13,8 @@ import './App.css';
 import 'mybulma/css/mystyles.css'
 import logoicono from './logo-icono.png' 
 import store from './store'
+// import Alert from '@material-ui/lab/Alert';
+// import Snackbar from '@material-ui/core/Snackbar';
 import {getUser} from '../src/components/actions/authActions'
 import {clearMessages} from '../src/components/actions/messageActions'
 import {connect} from 'react-redux'
@@ -24,12 +26,11 @@ class App extends Component {
     store.dispatch(getUser())
   }
 
-  componentDidUpdate(){
-    setTimeout(() => this.props.clearMessages(), 3000);
-  }
+  // _handleAlertClose = () => {
+  //   this.props.clearMessages()
+  // }
 
   render () {
-    console.log("render")
     const loading = (
       <div className="columns is-vcentered full-h">
         <div className="column is-half is-offset-one-quarter has-text-centered">
@@ -66,12 +67,17 @@ class App extends Component {
               )} 
             />
         </Switch>
-        { this.props.message !== '' ? 
-          <div className="">
-            {this.props.message}
-          </div> 
-          : ""
-        }
+        {/* { 
+        <Snackbar 
+          open={this.props.message !== '' ? true : false}
+          autoHideDuration={2000}
+          onClose={this._handleAlertClose}
+        >
+          <Alert severity="success">
+            {this.props.message}Mensa
+          </Alert>
+        </Snackbar>
+        } */}
       </div>
     )
     return (  

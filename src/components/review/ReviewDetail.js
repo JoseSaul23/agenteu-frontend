@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import RightPanel from '../common/RightPanel'
-import {AiOutlineLike, AiFillLike, AiFillTwitterCircle} from 'react-icons/ai'
+import {AiOutlineLike, AiFillLike} from 'react-icons/ai'
 import {BsBookmark, BsBookmarkFill, BsFlagFill} from 'react-icons/bs'
 import {RiShareForwardFill} from 'react-icons/ri'
-import {FaTrashAlt, FaEdit, FaFacebook} from 'react-icons/fa'
-import {ImEmbed} from 'react-icons/im'
+import {FaTrashAlt, FaEdit, FaCopy} from 'react-icons/fa'
 import {_myColor} from '../common/util'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -124,8 +123,17 @@ export class ReviewDetail extends Component {
         this.setState({ showModal: !this.state.showModal })
     }
 
-    render() {
+    _copyToClipboard = () => {
+        const el = document.createElement('textarea');
+        el.value = window.location.href;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert("Link copiado al portapapeles")
+    }
 
+    render() {
         if (this.props.error.status === 404) {
             return <RedirectAs404 location={this.props.location}/>
         }
@@ -358,7 +366,14 @@ export class ReviewDetail extends Component {
                             </header>
                             <section className="modal-card-body">
                                 <div className="columns has-text-centered">
-                                    <div className="column is-4">
+                                    <div 
+                                        className="column is-4 custom-icon"
+                                        onClick={this._copyToClipboard}
+                                    >
+                                        <FaCopy className="is-size-2" />
+                                        <p>Copiar link a portapapeles</p>
+                                    </div>
+                                    {/* <div className="column is-4">
                                         <ImEmbed className="is-size-2" />
                                         <p>Incorporar</p>
                                     </div>
@@ -369,7 +384,7 @@ export class ReviewDetail extends Component {
                                     <div className="column is-4">
                                         <AiFillTwitterCircle className="is-size-2" />
                                         <p>Twitter</p>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </section>
                         </div>

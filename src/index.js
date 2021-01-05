@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Switch, Route}  from 'react-router-dom'
+import {BrowserRouter}  from 'react-router-dom'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
 import store from './store'
 
-import Embed from '../src/components/review/Embed'
+// import Embed from '../src/components/review/Embed'
+// import {Switch, Route}  from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>

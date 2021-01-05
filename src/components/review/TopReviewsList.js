@@ -17,7 +17,15 @@ export class TopReviewsList extends Component {
     }
 
     componentDidMount() {
-      this.props.getReviews()
+      if(this.props.page === 0){
+        this.props.getReviews()
+      }
+    }
+
+    componentDidUpdate(prevProps){
+      if(prevProps.page !== this.props.page && this.props.page === 0){
+        this.props.getReviews()
+      }
     }
 
     _loadMore = () => {
@@ -51,7 +59,6 @@ export class TopReviewsList extends Component {
     }
   
     render () {
-
       const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
       return (
@@ -94,6 +101,7 @@ const mapStateToProps = state => ({
   nextPage: state.reviews.nextPage,
   areLoading: state.reviews.areLoading,
   loadingMore: state.reviews.loadingMore,
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps, {getReviews, clearReviews})(TopReviewsList);

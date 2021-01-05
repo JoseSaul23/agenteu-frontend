@@ -111,10 +111,6 @@ a {
   position: fixed;
 }
 
-.message {
-  position: fixed;
-}
-
 .list-border-bottom {
   border-bottom-style: solid;
   border-width: 0.1rem;

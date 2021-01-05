@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Review from './Review'
-import RightPanel from '../common/RightPanel'
 import {connect} from 'react-redux'
 import {getReview, clearReview} from '../actions/reviewActions'
 import PropTypes from 'prop-types'

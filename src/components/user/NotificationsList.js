@@ -38,6 +38,8 @@ export class NotificationsList extends Component {
                         message={notification.message}
                         check={notification.check}
                         date={notification.date}
+                        subject={notification.subject}
+                        subject_id={notification.subject_id}
                     />
                   );
             }   )

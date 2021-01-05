@@ -22,26 +22,12 @@ class HeaderLinks extends Component {
 
     componentDidMount() {
         if(this.props.isAuthenticated) {
-            let endpoint  = "ws://127.0.0.1:8000/ws/notificaciones/";
+            let endpoint  = process.env.REACT_APP_SOCKET + "/ws/notificaciones/";
             let socket = new WebSocket(endpoint + `?token=${this.props.auth_token}`)
             socket.onmessage = (event) => {
                 this.setState({
                     active_notifications_count: JSON.parse(event.data).active_notifications_count 
                 })
-            }
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if(prevProps.isAuthenticated !== this.props.isAuthenticated) {
-            if(this.props.isAuthenticated){
-                let endpoint  = `${process.env.REACT_APP_SOCKET}/ws/notificaciones/`;
-                let socket = new WebSocket(endpoint + `?token=${this.props.auth_token}`)
-                socket.onmessage = (event) => {
-                    this.setState({
-                        active_notifications_count: JSON.parse(event.data).active_notifications_count 
-                    })
-                }
             }
         }
     }

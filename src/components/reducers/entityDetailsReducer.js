@@ -2,8 +2,6 @@ import {
     ENTITY_LOADING,
     GET_ENTITY,
     CLEAR_ENTITY,
-    REVIEW_BY_USER_LOADED,
-    CLEAR_REVIEW_BY_USER,
     SUBSCRIBE_TO_ENTITY
 } from '../actions/types'
 

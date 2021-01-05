@@ -6,6 +6,7 @@ import {MdKeyboardArrowRight} from 'react-icons/md'
 import {connect} from 'react-redux'
 import {checkNotification, deleteNotification} from '../actions/notificationsActions'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 
 export class Notification extends Component {
 
@@ -23,8 +24,14 @@ export class Notification extends Component {
     }
 
     render() {
+        // Se envian fecha y id pero no se usan en renderizado aun
+        const {message, check, subject, subject_id} = this.props
 
-        const {id, message, check, date} = this.props
+        const link = () => {
+            if(subject==="new_review"){
+                return `/publicaciones/${subject_id}`
+            }
+        }
 
         return (
             <div className="pt-2 pb-2 pl-4 pr-4 list-border-bottom">
@@ -35,7 +42,9 @@ export class Notification extends Component {
                             <GoPrimitiveDot className="has-text-link"/> :
                             ""
                         }
-                        {message} 
+                        <Link to={link}> 
+                            {message}
+                        </Link>
                     </div>
                     <div className="column has-text-centered is-1-desktop">
                         <span className="has-text-warning-dark">
