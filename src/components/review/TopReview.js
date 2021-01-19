@@ -6,7 +6,7 @@ import {_myColor} from '../common/util'
 export class TopReview extends Component {
 
   truncate(str) {
-    return str.length > 80 ? str.substring(0, 70) + "..." : str;
+    return str.length > 80 ? str.substring(0, 80) + "..." : str;
   }
 
   render () {

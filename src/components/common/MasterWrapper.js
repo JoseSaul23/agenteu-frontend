@@ -18,6 +18,7 @@ import UserAccount from '../user/UserAccount'
 import {UserSettings} from '../user/UserSettings'
 import {RedirectAs404} from '../common/RedirectAs404'
 import PrivateRoute from '../common/PrivateRoute'
+import {Terms} from '../common/terms'
 import ReviewDetail from '../review/ReviewDetail'
 
 export class MasterWrapper extends Component {
@@ -68,6 +69,7 @@ export class MasterWrapper extends Component {
           <Route exact path="/notificaciones" component={NotificationsList}></Route>
           <Route exact path="/cuenta" component={UserAccount}></Route>
           <Route path="/ajustes" component={UserSettings}></Route>
+          <Route exact path="/terminos-y-condiciones" component={Terms}/>
           <Route component={RedirectAs404}/>
         </Switch> 
       );

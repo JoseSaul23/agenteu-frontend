@@ -35,7 +35,7 @@ export class School extends Component {
                             <p className="institution-labels">dificultad</p>
                             <p 
                                 className="has-text-weight-medium"
-                                style={{color: _myColor(overall_difficulty, "rating")}} 
+                                style={{color: _myColor(overall_difficulty, "difficulty")}} 
                             >
                                 {overall_difficulty? overall_difficulty + "%": "N/A"}
                             </p>

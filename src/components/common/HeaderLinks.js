@@ -51,7 +51,7 @@ class HeaderLinks extends Component {
                 <li className="dropdown is-right is-hoverable">
                     <div className="dropdown-trigger">
                         <button className="button is-link small-text">
-                            <span>{user ? user.username : ''} ⯆</span>
+                            <span>{user ? user.username : ''}</span>
                         </button>
                     </div>
                     <div className="dropdown-menu pl-6" role="menu">

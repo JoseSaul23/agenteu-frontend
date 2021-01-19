@@ -17,7 +17,7 @@ export class TopReviewsList extends Component {
     }
 
     componentDidMount() {
-      if(this.props.page === 0){
+      if(this.props.areLoading === false && this.props.page === 0){
         this.props.getReviews()
       }
     }

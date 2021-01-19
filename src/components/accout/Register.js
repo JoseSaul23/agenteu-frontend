@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import logoicono from '../../logo-icono.png'
-import {Redirect} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {register} from '../actions/authActions'
@@ -104,7 +104,12 @@ export class Register extends Component {
                                 {error.message.password ? error.message.password : '' }
                             </p>
                         </div>
-                        <div className="field mt-5">
+                        <div className="field has-text-centered">
+                            <p>
+                                Al hacer clic en Registrarse aceptas los <Link to="/terminos-y-condiciones" className="has-text-link">Términos y Condiciones.</Link>
+                            </p>
+                        </div>
+                        <div className="field mt-4">
                             <p className="control has-text-centered">
                                 <button className="button is-warning is-medium has-text-white has-text-weight-bold">
                                     Registrarse

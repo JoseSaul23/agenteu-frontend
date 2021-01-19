@@ -5,7 +5,7 @@ import {_myColor} from '../common/util'
 export class ReviewInResults extends Component {
 
     truncate(str) {
-        return str.length > 100 ? str.substring(0, 80) + "..." : str;
+        return str.length > 100 ? str.substring(0, 90) + "..." : str;
     }
 
     render () {

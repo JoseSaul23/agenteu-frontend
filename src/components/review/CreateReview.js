@@ -134,7 +134,18 @@ export class CreateReview extends Component {
                         </form>
                     </div>
                     <div className="column">
-                        Caja de indicaciones
+                        <p className="subtitle is-4">Tenga en cuenta:</p>
+                        <ul>
+                            <li>
+                            - Revisa tu reseña antes de publicarla
+                            </li>
+                            <li>
+                            - Describe la forma de enseñar del profesor o institución y danos tu opinión
+                            </li>
+                            <li>
+                            - No uses lenguaje vulgar o insultos
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

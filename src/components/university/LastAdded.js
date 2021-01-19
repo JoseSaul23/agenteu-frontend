@@ -16,7 +16,7 @@ export class LastAdded extends Component {
     }
 
     componentDidMount() {
-      if(this.props.entities.length === 0){
+      if(this.props.isLoading === false && this.props.entities.length === 0){
         this.props.getLastAdded()
       }
     }
@@ -57,9 +57,7 @@ export class LastAdded extends Component {
     }
   
     render () {
-
-      const skeletons = [1, 2, 3];
-
+      const skeletons = [1];
       return (
         <div>
           <div className="m-3 ml-5">
@@ -75,13 +73,13 @@ export class LastAdded extends Component {
                         <div key={ske} className="column is-one-quarter has-text-centered mb-4">
                           <div className="columns is-multiline">
                             <div className="column is-full">
-                              <Skeleton variant="rect" width={255} height={65} />
+                              <Skeleton variant="rect" width={258} height={35} />
                             </div>
                             <div className="column is-8 pt-0">
-                              <Skeleton variant="rect" width={160} height={65} />
+                              <Skeleton variant="rect" width={160} height={80} />
                             </div>
                             <div className="column is-4 pt-0">
-                              <Skeleton variant="rect" width={70} height={65} />
+                              <Skeleton variant="rect" width={70} height={80} />
                             </div>
                           </div>
                         </div>
@@ -100,7 +98,7 @@ export class LastAdded extends Component {
 
 const mapStateToProps = state => ({
   entities : state.entities.entities,
-  isLoading: state.entities.isLoading
+  isLoading: state.entities.isLoading,
 });
 
 export default connect(mapStateToProps, {getLastAdded, clearEntities})(LastAdded);

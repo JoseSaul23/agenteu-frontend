@@ -4,7 +4,7 @@ const initialState = {
     entities: [],
     page: 0,
     nextPage: null,
-    isLoading: null,
+    isLoading: false,
     loadingMore: false,
 }
 

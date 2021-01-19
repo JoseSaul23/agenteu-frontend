@@ -77,14 +77,14 @@ export class ProfessorDetails extends Component {
 
         const {auth, review} = this.props
 
-        if(this.props.entityDetails.entityIsLoading){
+        if(this.props.entityDetails.entityIsLoading || this.props.isLoading){
             return (
                 <div>
                     <Skeleton className="mt-3" variant="rect" width={280} height={30} />
                     <Skeleton className="mt-3" variant="rect" width={300} height={30} />
                     <Skeleton className="mt-3" variant="rect" width={310} height={30} />
-                    <Skeleton className="mt-4" variant="rect" width={360} height={100} />
-                    <Skeleton className="mt-3 mb-5" variant="rect" width={300} height={20} />
+                    <Skeleton className="mt-4" variant="rect" width={350} height={100} />
+                    <Skeleton className="mt-3" variant="rect" width={300} height={20} />
                 </div>
             );
         }
@@ -144,8 +144,6 @@ export class ProfessorDetails extends Component {
                         </div>
                         <div className="column">
                         {   
-                            this.props.isLoading ? 
-                            "" : 
                             this.props.review.id ?
                             "" :
                             <Link to={"/publicar/" + id}>

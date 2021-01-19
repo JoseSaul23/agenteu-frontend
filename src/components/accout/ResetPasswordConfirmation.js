@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import logoicono from '../../logo-icono.png'
-import {Redirect, Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {resetPasswordConfirm} from '../actions/authActions'
@@ -19,6 +19,11 @@ export class ResetPasswordConfirmation extends Component {
         error: PropTypes.object.isRequired,
         resetPasswordConfirm: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
+    }
+
+    componentDidMount(){
+        const {uid, token} = this.props.match.params 
+        this.setState({uid, token})
     }
 
     _handleSubmit = (e) => {
@@ -40,7 +45,6 @@ export class ResetPasswordConfirmation extends Component {
             return <Redirect to="/" />
         }
 
-        const {email} = this.state
         const {error} = this.props
 
         return (

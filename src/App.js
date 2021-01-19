@@ -11,8 +11,7 @@ import ResetPasswordConfirmation from './components/accout/ResetPasswordConfirma
 import {Switch, Route } from 'react-router-dom'
 import './App.css';
 import 'mybulma/css/mystyles.css'
-import logoicono from './logo-icono.png' 
-import store from './store'
+import logoicono from './logo-icono.png'
 // import Alert from '@material-ui/lab/Alert';
 // import Snackbar from '@material-ui/core/Snackbar';
 import {getUser} from '../src/components/actions/authActions'
@@ -23,7 +22,7 @@ import {connect} from 'react-redux'
 class App extends Component {
 
   componentDidMount() {
-    store.dispatch(getUser())
+    this.props.getUser()
   }
 
   // _handleAlertClose = () => {
@@ -45,7 +44,7 @@ class App extends Component {
             <Route exact path="/iniciar-sesion" component={Login} />
             <Route exact path="/registro" component={Register} />
             <Route exact path="/recuperar-cuenta" component={ResetPassword} />
-            <Route exact path="/recuperar-cuenta-confirmacion" component={ResetPasswordConfirmation} />
+            <Route exact path="/password/reset/confirm/:uid/:token" component={ResetPasswordConfirmation} />
             <Route
               exact  
               path="" 

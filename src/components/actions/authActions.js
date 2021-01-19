@@ -188,6 +188,7 @@ export const resetPassword = (email) => (dispatch) => {
         // dispatch({
 
         // });
+        alert("Correo enviado")
         dispatch({
             type: CLEAR_ERRORS,
         });
@@ -208,6 +209,7 @@ export const resetPasswordConfirm = (uid,token, new_password) => (dispatch) => {
         // dispatch({
 
         // });
+        alert("Contraseña cambiada")
         dispatch({
             type: CLEAR_ERRORS,
         });

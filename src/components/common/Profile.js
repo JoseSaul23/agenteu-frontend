@@ -15,12 +15,11 @@ export class Profile extends Component {
 
     render () {
         const {entity} = this.props
-        const {id} = this.props.match.params
         return (
             <div className="columns">
-                <div className="column is-two-thirds">
+                <div className="column is-8-desktop">
                     <div className="columns mt-2 is-multiline">
-                        <div className="column is-four-fifths is-offset-1">
+                        <div className="column is-four-fifths-desktop is-8-tablet is-8-fullhd is-offset-1">
                             {/* DETALLES */}
                             {this.props.children}
                         </div>

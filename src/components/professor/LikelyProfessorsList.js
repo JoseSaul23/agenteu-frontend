@@ -65,7 +65,7 @@ export class LikelyProfessorsList extends Component {
         return (
             <div className="columns is-multiline side-list m-6">
                 <div className="column list-border-bottom has-text-centered">
-                    <p className="black-title has-text-weight-bold big-text">Conoces o Conoceras</p>
+                    <p className="black-title has-text-weight-bold big-text">Profesores probables</p>
                 </div>
                 {
                     this.props.auth.loadingProfessors ?

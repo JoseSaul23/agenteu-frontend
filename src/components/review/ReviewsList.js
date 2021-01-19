@@ -30,6 +30,7 @@ export class ReviewsList extends Component {
         if(prevProps.match.params.id !== this.props.match.params.id){
             const {entity} = this.props
             const {id} = this.props.match.params
+            this.props.clearReviews()
             this.props.getEntityReviews(entity, id)
         }
     }

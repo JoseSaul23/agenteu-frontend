@@ -30,7 +30,6 @@ export class ProfessorsList extends Component {
     }
 
     _loadMore = () => {
-        console.log("aqui")
         if(this.props.nextPage){
             const {entity} = this.props
             const {id} = this.props.match.params

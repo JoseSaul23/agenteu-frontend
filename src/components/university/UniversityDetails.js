@@ -18,7 +18,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 export class UniversityDetails extends Component {
 
     state = {
-        showLoginMessageForSubscribe: false
+        showLoginMessageForSubscribe: false,
+        imgLoaded: false
     }
 
     static propTypes = {
@@ -79,14 +80,14 @@ export class UniversityDetails extends Component {
 
         const {auth, review} = this.props
 
-        if(this.props.entityDetails.entityIsLoading){
+        if(this.props.entityDetails.entityIsLoading || this.props.isLoading){
             return (
                 <div>
                     <Skeleton variant="rect" width={300} height={150} />
                     <Skeleton className="mt-3" variant="rect" width={300} height={20} />
                     <Skeleton className="mt-5" variant="rect" width={340} height={30} />
                     <Skeleton className="mt-4" variant="rect" width={360} height={120} />
-                    <Skeleton className="mt-3 mb-5" variant="rect" width={300} height={20} />
+                    <Skeleton className="mt-3" variant="rect" width={300} height={20} />
                 </div>
             );
         }
@@ -94,7 +95,17 @@ export class UniversityDetails extends Component {
         return (
             <div className="columns is-multiline">
                 <div className="column is-three-fifths">
-                    <img src={logo} alt="logo"/>
+                    {
+                        this.state.imgLoaded 
+                        ? null 
+                        : <Skeleton variant="rect" width={300} height={150} />
+                    }
+                    <img 
+                        src={logo}
+                        style={this.state.imgLoaded ? {} : {display: 'none'}}
+                        onLoad={() => this.setState({imgLoaded: true})} 
+                        alt="logo"
+                    />
                 </div>
                 <div className="column is-full black-title big-text pb-0 pt-0 has-text-weight-medium">
                     {name}
@@ -141,8 +152,6 @@ export class UniversityDetails extends Component {
                         </div>
                         <div className="column">
                         { 
-                            this.props.isLoading ? 
-                            "" :
                             this.props.review.id ?
                             "" :
                             <Link to={"/publicar/" + id}>

@@ -21,11 +21,10 @@ export class SearchResults extends Component {
         fetch(`${process.env.REACT_APP_API_URL}/api/${entity}/?search=` + q)
         .then(res => res.json())
         .then(res => {
-            this.setState({results: res.results})
-            if (res.results[0] !== undefined){
+            this.setState({results: res.results, areLoading: false})
+            if (res.results.length > 0){
                 this.setState( {
-                    first_result_name: res.results[0].name,
-                    areLoading: false
+                    first_result_name: res.results[0].name
                 })
                 this._fetchFirstResultReviews(res.results[0].id)
             }
