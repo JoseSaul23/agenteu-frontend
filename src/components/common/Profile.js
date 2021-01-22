@@ -17,9 +17,9 @@ export class Profile extends Component {
         const {entity} = this.props
         return (
             <div className="columns">
-                <div className="column is-8-desktop">
+                <div className="column">
                     <div className="columns mt-2 is-multiline">
-                        <div className="column is-four-fifths-desktop is-8-tablet is-8-fullhd is-offset-1">
+                        <div className="column is-four-fifths-desktop is-8-tablet is-8-fullhd is-offset-1 px-5">
                             {/* DETALLES */}
                             {this.props.children}
                         </div>
@@ -37,7 +37,7 @@ export class Profile extends Component {
                                 exact
                                 path={this.props.match.path}
                                 render={(props) => (
-                                    <div className="column is-four-fifths is-offset-1 mt-2">
+                                    <div className="column is-7-fullhd is-10-desktop is-full-mobile is-9-tablet is-offset-1 mt-2">
                                         <ReviewsList {...props} entity={entity}/>
                                     </div>
                                 )} 
@@ -57,7 +57,7 @@ export class Profile extends Component {
                                 ?   <Route 
                                         path={this.props.match.path + "/escuelas"}
                                         render={(props) => (
-                                            <div className="column is-four-fifths is-offset-1 mt-2">
+                                            <div className="column is-two-fifths is-offset-1 mt-2">
                                                 <SchoolsList {...props} />
                                             </div>
                                         )} 

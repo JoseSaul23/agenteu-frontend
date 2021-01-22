@@ -31,11 +31,13 @@ class App extends Component {
 
   render () {
     const loading = (
-      <div className="columns is-vcentered full-h">
-        <div className="column is-half is-offset-one-quarter has-text-centered">
-          <img src={logoicono} className="app-logo" alt="logoicono" width="100" height="100"/>
+      <section className="hero is-fullheight">
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            <img src={logoicono} className="app-logo" alt="logoicono" width="100" height="100"/>
+          </div>
         </div>
-      </div>
+      </section>
     );
     const content = (
       <div className="App pb-6">
@@ -59,7 +61,7 @@ class App extends Component {
                       <div className="is-hidden-desktop">
                         <MenuMobile location={location}/>
                       </div>
-                      <div className="column master-wrapper">
+                      <div className="column master-wrapper pt-5">
                         <MasterWrapper />
                       </div>
                     </div>

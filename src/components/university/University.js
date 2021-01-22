@@ -7,9 +7,9 @@ export class University extends Component {
         const {id, name, logo, reviews_count, overall_rating, overall_difficulty} = this.props
 
         return (
-        <div className="column is-three-fifths mb-3">
+        <div className="column is-7-mobile is-three-fifths-desktop is-5-fullhd mb-3">
             <div className="columns is-7">
-                <div className="column is-half">
+                <div className="column is-half pt-0 pb-0">
                     <img src={logo} alt="logo"/>
                 </div>
                 <div className="column pl-2 pr-4 pl-4"> 

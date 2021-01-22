@@ -70,7 +70,7 @@ export class ProfessorsList extends Component {
 
     render () {
         return (
-            <div>
+            <div className="px-4">
                 {this.props.isLoading ?
                     <div className="columns mb-6">
                         <div className="column has-text-centered">

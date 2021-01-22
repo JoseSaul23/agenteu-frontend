@@ -12,13 +12,13 @@ export class InstitutionInMenu extends Component {
   render () {
     const {id, name, logo_img, overall_difficulty, overall_rating, reviews_count} = this.props
     return (
-      <div className="institutionMenu-wrapper column is-3-desktop is-4-tablet is-12-mobile">
+      <div className="institutionMenu-wrapper column is-3-desktop is-4-tablet is-12-mobile is-one-fifth-fullhd">
         <Link to={this.props.category === "school" ? "/escuelas/"+ id : "/universidades/"+ id }>
           {
             this.state.imgLoaded 
             ? null 
             : this.props.category === "school" 
-            ? <Skeleton variant="rect" width={258} height={35} />
+            ? <Skeleton variant="rect" width={258} height={40} />
             : <Skeleton variant="rect" width={255} height={120} />
           }
           <img 

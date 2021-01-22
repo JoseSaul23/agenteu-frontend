@@ -143,7 +143,7 @@ export class ReviewDetail extends Component {
 
         return(
         <div className="columns">
-            <div className="column is-8-desktop">
+            <div className="column">
                 {
                 this.props.isLoading ? 
                 
@@ -154,7 +154,7 @@ export class ReviewDetail extends Component {
                 </div> :
 
                 <div className="columns is-centered">
-                <div className="column is-10-desktop is-9-tablet">
+                <div className="column is-7-fullhd is-10-desktop is-full-mobile is-9-tablet">
                 <div className="column py-1 mt-5">
                     <div className="column is-full has-text-weight-medium small-label p-0 pl-1 closer-letters">
                         <p>
@@ -222,7 +222,7 @@ export class ReviewDetail extends Component {
                                         auth.isAuthenticated && 
                                         review.favorite && 
                                         review.favorite.includes(auth.user.id) ?
-                                        <div className="has-text-warning">                                        
+                                        <div>                                        
                                             <BsBookmarkFill
                                                 onClick={this._saveReview} 
                                                 className="custom-icon is-size-5"

@@ -27,11 +27,11 @@ export class ReviewInResults extends Component {
                     <div className="column is-two-fifths Top-review-box p-2">
                         <Link to={"/publicaciones/" + id}>
                             <div className="Results-review-text has-text-weight-medium">
-                                <p className="text-overflow">{this.truncate(text)}</p>
+                                <p className="text-overflow">{text}</p>
                             </div>
                         </Link>
                     </div>
-                    <div className="column pr-4 pl-4 pt-0"> 
+                    <div className="column pr-4 pl-4 pt-0 pb-0"> 
                         <div className="pb-3">
                             <p className="has-text-weight-medium">Por {user_name} - {date}</p>
                             <Link to={

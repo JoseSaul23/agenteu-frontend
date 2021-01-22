@@ -11,7 +11,7 @@ export class RightPanel extends Component {
 
     render () {
         return (
-            <div className="column right-side-panel is-hidden-touch">
+            <div className="column is-4-desktop is-3-fullhd right-side-panel is-hidden-touch">
                 {
                     this.props.isAuthenticated
                     ?

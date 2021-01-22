@@ -9,7 +9,7 @@ export class UserSettings extends Component {
     render () {
         return (
             <div className="columns">
-                <div className="column is-8-desktop pt-5">
+                <div className="column pt-5">
                     <h5 className="title ml-5 is-5">Ajustes</h5>
                     <h6 className="title ml-5 is-6">Suscripciones</h6>
                     <ProfileNavBar 

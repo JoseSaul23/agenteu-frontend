@@ -49,11 +49,11 @@ export class NotificationsList extends Component {
     render () {
         return (
             <div className="columns">
-                <div className="column is-8-desktop mt-4">
+                <div className="column mt-6">
                     <div className="columns is-multiline is-mobile is-centered">
-                        <div className="column is-four-fifths mt-2">
+                        <div className="column is-four-fifths-mobile is-four-fifths-desktop is-four-fifths-tablet is-7-fullhd">
                             <div className="side round-box pb-3 black-title">
-                                <div className="p-4 pt-1 list-border-bottom has-text-weight-bold">
+                                <div className="p-4 list-border-bottom has-text-weight-bold">
                                     Notificaciones
                                 </div>
                                 {this.props.areLoading ?

@@ -33,27 +33,20 @@ export class LastAdded extends Component {
     }
   
     _renderLastAdded = () => {
-      if (this.props.entities.length === 0) {
+      return this.props.entities.map( inst => { 
         return (
-            <div>No hay escuelas</div>
-        );
-      }
-      else {
-        return this.props.entities.map( inst => { 
-          return (
-            <InstitutionInMenu
-              category="school"
-              key={inst.id}
-              id={inst.id}
-              name={inst.name} 
-              logo_img={inst.logo}
-              overall_rating={inst.overall_rating}
-              overall_difficulty={inst.overall_difficulty}
-              reviews_count={inst.reviews_count}
-            />
-            );
-        } ) 
-      }
+          <InstitutionInMenu
+            category="school"
+            key={inst.id}
+            id={inst.id}
+            name={inst.name} 
+            logo_img={inst.logo}
+            overall_rating={inst.overall_rating}
+            overall_difficulty={inst.overall_difficulty}
+            reviews_count={inst.reviews_count}
+          />
+          );
+      } ) 
     }
   
     render () {
@@ -70,19 +63,22 @@ export class LastAdded extends Component {
                   {
                     skeletons.map( ske => {
                       return (
-                        <div key={ske} className="column is-one-quarter has-text-centered mb-4">
+                        <div key={ske} className="column is-one-quarter has-text-centered mb-2">
                           <div className="columns is-multiline">
                             <div className="column is-full">
                               <Skeleton variant="rect" width={258} height={35} />
                             </div>
                             <div className="column is-8 pt-0">
-                              <Skeleton variant="rect" width={160} height={80} />
+                              <Skeleton variant="rect" width={160} height={89} />
                             </div>
                             <div className="column is-4 pt-0">
-                              <Skeleton variant="rect" width={70} height={80} />
+                              <Skeleton variant="rect" width={70} height={89} />
                             </div>
                           </div>
                         </div>
+                        // <Skeleton>
+                        //   <InstitutionInMenu category="school" />
+                        // </Skeleton>
                       )
                     })
                   }

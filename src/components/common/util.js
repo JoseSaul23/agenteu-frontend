@@ -8,17 +8,17 @@ export const _myColor = (value, type) => {
     if (value >= 4)
       return "#339E21"
     // amarillo
-    return "#FBC400"
+    return "#FFA400"
   }
 
   if(type === "difficulty"){
     // rojo
-    if (value >= 75)
+    if (value >= 80)
       return "#9C1E1E"
     // verde
-    if (value <= 40 )
+    if (value <= 49 )
       return "#339E21" 
     // amarillo
-    return "#FBC400" 
+    return "#FFA400" 
   }
 }

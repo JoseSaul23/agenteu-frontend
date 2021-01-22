@@ -36,7 +36,7 @@ class HeaderLinks extends Component {
         const {isAuthenticated, user} = this.props
         
         const authLinks = (
-            <ul className="has-text-centered">
+            <ul className="has-text-right">
                 <Link to="/notificaciones">
                     <li className="button small-text mr-5">
                         <Badge 
@@ -88,7 +88,7 @@ class HeaderLinks extends Component {
 
         const guestLinks = (
             <React.Fragment>
-            <ul className="has-text-centered is-hidden-mobile">
+            <ul className="has-text-right is-hidden-mobile">
                 <Link to="/registro">
                     <li className="button is-warning small-text mr-5">Registrarse</li>
                 </Link>

@@ -201,7 +201,7 @@ export class Review extends Component {
                                         auth.isAuthenticated && 
                                         favorite && 
                                         favorite.includes(auth.user.id) ?
-                                        <div className="has-text-warning">                                        
+                                        <div>                                        
                                             <BsBookmarkFill
                                                 onClick={this._saveReview} 
                                                 className="custom-icon is-size-5"

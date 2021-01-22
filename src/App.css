@@ -1,23 +1,52 @@
-.App {
-  padding-top: 5%; 
-  /* poner media para otros pantallas */
-}
-
 @media only screen and (max-width: 767px) {
   .App {
-    padding-top: 8rem;
+    padding-top: 7rem;
   }
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (min-width: 768px) {
   .App {
     padding-top: 8rem;
+  }
+  .small-column {
+    flex: none !important;
+    width: 15% !important; 
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .App {
+    padding-top: 4rem;
+  }
+}
+
+@media only screen and (min-width: 1216px) {
+  .small-column {
+    flex: none !important;
+    width: 16% !important; 
+  }
+}
+
+@media only screen and (min-width: 1408px) {
+  .small-column {
+    flex: none !important;
+    width: 13% !important; 
+  }
+  .App {
+    padding-top: 4rem;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .small-column {
+    flex: none !important;
+    width: 11% !important; 
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .app-logo {
-    animation: App-logo-spin infinite 5s linear;
+    animation: App-logo-spin infinite 3s linear;
   }
 }
 
@@ -32,11 +61,6 @@
 
 a {
   color: inherit !important;
-}
-
-.small-column {
-  flex: none !important;
-  width: 15% !important; 
 }
 
 .centered-label {
@@ -155,8 +179,12 @@ a {
 }
 
 .text-overflow {
-  overflow-wrap: break-word;
+  /* overflow-wrap: break-word; */
   /* word-break: break-all; */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .Top-review-box {

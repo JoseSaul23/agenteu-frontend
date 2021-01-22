@@ -73,13 +73,13 @@ export class EditReview extends Component {
         return (
             <div>
                 <div className="m-3 ml-5">
-                    <h5 className="title is-5">Editar reseña.</h5>
+                    <h5 className="title is-5">Modificar reseña.</h5>
                 </div>
                 <div className="columns">
-                    <div className="column is-three-fifths pt-0">
+                    <div className="column is-three-fifths is-6-fullhd pt-0">
                         <form onSubmit={this._handleSubmit} className="columns is-multiline m-2">
                             <div className="column is-full field is-four-fifths">
-                                <label className="label">Escribe tu reseña: </label>
+                                <label className="label">Escribe tu opinión: </label>
                                 <div className="control">                 
                                     <textarea
                                         className="textarea"

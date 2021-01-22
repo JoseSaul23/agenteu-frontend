@@ -49,7 +49,7 @@ export class InstitutionsInMenuList extends Component {
   
     render () {
 
-      const skeletons = [1, 2, 3];
+      const skeletons = [1];
 
       return (
         <div>

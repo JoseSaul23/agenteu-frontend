@@ -5,10 +5,6 @@ import {_myColor} from '../common/util'
 
 export class TopReview extends Component {
 
-  truncate(str) {
-    return str.length > 80 ? str.substring(0, 80) + "..." : str;
-  }
-
   render () {
 
     const {
@@ -25,11 +21,11 @@ export class TopReview extends Component {
     } = this.props
     
     return (
-      <div className="column is-3-desktop is-4-tablet">
+      <div className="column p-2 is-3-desktop is-4-tablet is-one-fifth-fullhd">
         <div className="Top-review-box">
           <Link to={"/publicaciones/" + id}>
             <div className="Top-review-text has-text-weight-medium">
-              <p>{this.truncate(text)}</p>
+              <p className="text-overflow">{text}</p>
             </div>
           </Link>
           <div className="Top-review-numbers columns is-mobile"> 

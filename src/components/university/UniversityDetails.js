@@ -12,7 +12,6 @@ import {
 import {clearReview} from '../actions/reviewActions'
 import {clearErrors} from '../actions/errorActions'
 import PropTypes from 'prop-types'
-import Review from '../review/Review'
 import Skeleton from '@material-ui/lab/Skeleton';
 
 export class UniversityDetails extends Component {
@@ -152,8 +151,14 @@ export class UniversityDetails extends Component {
                         </div>
                         <div className="column">
                         { 
-                            this.props.review.id ?
-                            "" :
+                            this.props.review.id
+                            ?
+                            <Link to={"/editar/" + review.id}>
+                                <button className="button is-small is-link">
+                                    <span className="medium-text has-text-weight-medium">Modificar reseña</span>
+                                </button> 
+                            </Link>
+                            :
                             <Link to={"/publicar/" + id}>
                                 <button className="button is-small is-link">
                                     <span className="medium-text has-text-weight-medium">Crear reseña</span>
@@ -178,28 +183,6 @@ export class UniversityDetails extends Component {
                         ''  
                     }
                 </div>
-                {
-                review.id
-                ?   <div className="column pt-0">
-                        <Review 
-                            key={review.id}
-                            id={review.id} 
-                            text={review.text}
-                            rating={review.rating}
-                            difficulty={review.difficulty}
-                            date={review.date}
-                            user={review.user}
-                            user_name={review.user_name}
-                            entity={review.entity}
-                            entity_name={review.entity_name}
-                            entity_type={review.entity_type}
-                            recomendations_count={review.recomendations_count}
-                            recomendations={review.recomendations}
-                            favorite={review.favorite}
-                        />
-                    </div> 
-                :   ""
-                }
             </div>
         );
     }

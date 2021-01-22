@@ -163,13 +163,13 @@ export class SearchResults extends Component {
         return (
             <div>
                 {this.state.areLoading ? 
-                <div className="columns mb-6">
-                <div className="column has-text-centered">
-                    <button className="button is-link is-loading">Loading</button>
-                </div>
-            </div> 
+                <div className="columns mt-4">
+                    <div className="column has-text-centered">
+                        <button className="button is-link is-loading">Loading</button>
+                    </div>
+                </div> 
                 :
-                <div className="columns is-multiline m-2">
+                <div className="m-2 mt-5">
                     { 
                         entity === "profesores"
                         ? 
@@ -189,7 +189,7 @@ export class SearchResults extends Component {
                     }   
                 </div>
                 }
-                {results.length !== 0
+                {results.length !== 0 && !this.state.areLoading
                 ?   <React.Fragment>
                         <hr className="horizontal-line"/>
                         <div className="m-3 ml-5">

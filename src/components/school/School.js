@@ -8,12 +8,10 @@ export class School extends Component {
         = this.props
 
         return (
-        <div className="column is-three-fifths mb-3">
+        <div className="column is-4-desktop is-6-tablet is-3-fullhd mb-3">
             <div className="columns is-7">
-                <div className="column is-half">
-                    <img src={school_logo} alt="logo"/>
-                </div>
                 <div className="column pl-2 pr-4 pl-4"> 
+                    <img src={school_logo} alt="logo"/>
                     <div className="pb-3">
                         <p className="has-text-weight-medium">{name}</p>
                         <Link to={"/universidades/" + school_university}>

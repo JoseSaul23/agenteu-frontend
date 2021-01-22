@@ -48,11 +48,11 @@ export class ProfessorsInMenuList extends Component { //UniversityProfessorsList
   
     render () {
 
-      const skeletons = [1, 2];
+      const skeletons = [1,2,3,4,5,6,7,8,9,10,11,12];
 
       return (
         <div>
-          <div className="m-3 ml-5">
+          <div className="m-3 mb-4 ml-5">
             <h5 className="title is-5">Profesores</h5>
           </div>
           <div className="columns is-multiline">

@@ -77,8 +77,8 @@ export class UserFeed extends Component {
             schoolOptions,
             university,
             school,
-            loadingUniversityOptions,
-            loadingSchoolOptions,
+            // loadingUniversityOptions,
+            // loadingSchoolOptions,
         } = this.props.userFeed
         
         const {user} = this.props
@@ -111,52 +111,34 @@ export class UserFeed extends Component {
 
         return (
             <div className="columns">
-                <div className="column is-8-desktop">
+                <div className="column">
                     <div className="columns is-multiline is-centered">
                         <div className="column mx-5">
                             <div className="columns mt-2">
-                                <div className="column">
+                                <div className="column is-offset-2-fullhd is-4-fullhd">
                                 {
-                                    loadingUniversityOptions ?
-                                    <div className="control">
-                                        <div className="select is-loading">
-                                            <select>
-                                                <option>Cargando universidades</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    :
                                     <Autocomplete
                                         id="combo-box-uni"
                                         options={universityOptions[0] ? universityOptions : []}
                                         getOptionLabel={(option) => option.name}
                                         style={{ width: 250, margin: "auto" }}
                                         onChange={this._handleUniversity}
-                                        value={university ? universityOptions.find(option => option.id===university) : null}
+                                        value={universityOptions.find(option => option.id===university) || null}
                                         renderInput={(params) => 
                                             <TextField {...params} label="Selecciona tu universidad" variant="outlined" 
                                         />}
                                     />
                                 }
                                 </div>
-                                <div className="column">
+                                <div className="column is-4-fullhd">
                                     {
-                                        loadingSchoolOptions ?
-                                        <div className="control">
-                                            <div className="select is-loading">
-                                                <select>
-                                                    <option>Cargando escuelas</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        :
                                         <Autocomplete
                                             id="combo-box-school"
                                             options={schoolOptions[0] ? schoolOptions : []}
                                             getOptionLabel={(option) => option.name}
                                             style={{ width: 250, margin: "auto" }}
                                             onChange={this._handleSchool}
-                                            value={school ? schoolOptions.find( option => option.id === school ) : null}
+                                            value={schoolOptions.find( option => option.id === school ) || null}
                                             renderInput={(params) => 
                                                 <TextField {...params} label="Selecciona tu escuela" variant="outlined" 
                                             />}
@@ -165,7 +147,7 @@ export class UserFeed extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="column is-10-desktop is-full-mobile is-9-tablet">
+                        <div className="column is-7-fullhd is-10-desktop is-full-mobile is-9-tablet">
                         {
                             user.university ?
                             <UserListReviews review_type="feed"/> :
