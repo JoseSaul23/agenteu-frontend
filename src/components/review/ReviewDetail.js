@@ -15,6 +15,7 @@ import {
     saveReview,
     reportReview
 } from '../actions/reviewActions'
+import {addMessage} from '../actions/messageActions'
 import {clearErrors} from '../actions/errorActions'
 import PropTypes from 'prop-types'
 import {RedirectAs404} from '../common/RedirectAs404'
@@ -130,7 +131,7 @@ export class ReviewDetail extends Component {
         el.select();
         document.execCommand('copy');
         document.body.removeChild(el);
-        alert("Link copiado al portapapeles")
+        this.props.addMessage("Link copiado al portapapeles")
     }
 
     render() {
@@ -174,79 +175,99 @@ export class ReviewDetail extends Component {
                         <div className="columns is-mobile is-multiline">
                             <div className="column is-9-desktop is-full-mobile is-9-tablet review-main-box pt-2 px-2 pb-0"> 
                                 <div className="review-text"> 
-                                    <p className="text-overflow">{review.text}</p>
+                                    <p className="">{review.text}</p>
                                 </div>
                                 <div className="columns is-mobile pt-2"> 
                                     <div className="column is-4-desktop is-3-mobile is-4-tablet icon">
-                                    {
-                                        auth.isAuthenticated && 
-                                        review.recomendations && 
-                                        review.recomendations.includes(auth.user.id) ?
-                                        <div className="has-text-link centered-label">                                        
-                                            <AiFillLike
-                                                onClick={this._receiveRecommendation}
-                                                className="custom-icon is-size-5"
-                                            />
-                                            {review.recomendations_count}
-                                        </div> :
-                                        <div className="centered-label">
-                                            <AiOutlineLike
-                                                onClick={this._receiveRecommendation}
-                                                className="custom-icon is-size-5"
-                                            /> 
-                                            {review.recomendations_count}
-                                        </div> 
-                                    }   
+                                        <div className="tooltip">
+                                        {
+                                            auth.isAuthenticated && 
+                                            review.recomendations && 
+                                            review.recomendations.includes(auth.user.id) ?
+                                            <div className="has-text-link centered-label">                                        
+                                                <AiFillLike
+                                                    onClick={this._receiveRecommendation}
+                                                    className="custom-icon is-size-5"
+                                                />
+                                                <span className="tooltiptext">Quitar recomendación</span>
+                                                {review.recomendations_count}
+                                            </div> :
+                                            <div className="centered-label">
+                                                <AiOutlineLike
+                                                    onClick={this._receiveRecommendation}
+                                                    className="custom-icon is-size-5"
+                                                />
+                                                <span className="tooltiptext">Recomendar reseña</span>  
+                                                {review.recomendations_count}
+                                            </div> 
+                                        }
+                                        </div>   
                                     </div>
                                     <div className="column has-text-centered has-text-link">
                                     {
                                         this.props.auth.user && this.props.auth.user.id === review.user ?
+                                        <div className="tooltip">
                                             <Link to={"/editar/" + review.id}>
                                                 <FaEdit className="is-size-5" />
-                                            </Link> :
+                                            </Link>
+                                            <span className="tooltiptext">Editar</span>
+                                        </div>:
                                         ''
                                     } 
                                     </div>
                                     <div className="column has-text-centered has-text-danger-dark">
                                     {
                                         this.props.auth.user && this.props.auth.user.id === review.user ?
+                                        <div className="tooltip">
                                             <FaTrashAlt 
                                                 onClick={this._showDeleteConfirmation}
                                                 className="custom-icon is-size-6" 
-                                            /> :
-                                            ''
+                                            /> 
+                                            <span className="tooltiptext">Eliminar</span>
+                                        </div> :
+                                        ''
                                     } 
                                     </div>
                                     <div className="column has-text-centered">
-                                    {
-                                        auth.isAuthenticated && 
-                                        review.favorite && 
-                                        review.favorite.includes(auth.user.id) ?
-                                        <div>                                        
-                                            <BsBookmarkFill
-                                                onClick={this._saveReview} 
-                                                className="custom-icon is-size-5"
-                                            />
-                                        </div> :
-                                        <div>
-                                            <BsBookmark
-                                                onClick={this._saveReview} 
-                                                className="custom-icon is-size-5"
-                                            />
+                                        <div className="tooltip">
+                                        {
+                                            auth.isAuthenticated && 
+                                            review.favorite && 
+                                            review.favorite.includes(auth.user.id) ?
+                                            <div>                                        
+                                                <BsBookmarkFill
+                                                    onClick={this._saveReview} 
+                                                    className="custom-icon is-size-5"
+                                                />
+                                                <span className="tooltiptext">No guardar</span>
+                                            </div> :
+                                            <div>
+                                                <BsBookmark
+                                                    onClick={this._saveReview} 
+                                                    className="custom-icon is-size-5"
+                                                />
+                                                <span className="tooltiptext">Guardar</span>
+                                            </div>
+                                        }
                                         </div>
-                                    }
                                     </div>
                                     <div className="column has-text-centered">
-                                        <RiShareForwardFill 
-                                            onClick={this._toggleModal}
-                                            className="custom-icon is-size-5" 
-                                        />
+                                        <div className="tooltip">
+                                            <RiShareForwardFill 
+                                                onClick={this._toggleModal}
+                                                className="custom-icon is-size-5" 
+                                            />
+                                            <span className="tooltiptext">Compartir</span>
+                                        </div>
                                     </div >
                                     <div className="column has-text-centered">
-                                        <BsFlagFill  
-                                            onClick={this._handleReport} 
-                                            className="custom-icon is-size-5" 
-                                        />
+                                        <div className="tooltip">
+                                            <BsFlagFill  
+                                                onClick={this._handleReport} 
+                                                className="custom-icon is-size-5" 
+                                            />
+                                            <span className="tooltiptext">Reportar</span>
+                                        </div> 
                                     </div >
                                 </div>
                             </div>
@@ -410,5 +431,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps, 
-    {getReview, clearReview, deleteReview, recommendReview, saveReview, reportReview, clearErrors}
+    {getReview, clearReview, deleteReview, recommendReview, saveReview, reportReview, clearErrors, addMessage}
 )(ReviewDetail);

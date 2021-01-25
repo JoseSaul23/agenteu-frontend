@@ -3,7 +3,7 @@ import {ProfessorInMenu} from './ProfessorInMenu'
 import {connect} from 'react-redux'
 import {getProfessors, clearEntities} from '../actions/entityActions'
 import PropTypes from 'prop-types'
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 import { Waypoint } from 'react-waypoint';
 
 
@@ -64,10 +64,10 @@ export class ProfessorsInMenuList extends Component { //UniversityProfessorsList
                   <div key={ske} className="column is-one-quarter has-text-centered">
                     <div className="columns is-multiline">
                       <div className="column is-full">
-                        <Skeleton variant="rect" width={260} height={45} />
+                        <Skeleton variant="rectangular" width={260} height={45} />
                       </div>
                       <div className="column is-full pt-0">
-                        <Skeleton variant="rect" width={260} height={100} />
+                        <Skeleton variant="rectangular" width={260} height={100} />
                       </div>
                     </div>
                   </div>

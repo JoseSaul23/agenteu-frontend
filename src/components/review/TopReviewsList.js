@@ -3,7 +3,7 @@ import {TopReview} from './TopReview'
 import {connect} from 'react-redux'
 import {getReviews, clearReviews} from '../actions/reviewActions'
 import PropTypes from 'prop-types'
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 import { Waypoint } from 'react-waypoint';
 
 
@@ -75,13 +75,13 @@ export class TopReviewsList extends Component {
                   <div key={ske} className="column is-one-quarter">
                     <div className="columns is-multiline">
                       <div className="column is-full pb-1">
-                        <Skeleton variant="rect" width={255} height={100} />
+                        <Skeleton variant="rectangular" width={255} height={100} />
                       </div>
                       <div className="column is-full pt-0 pb-1">
-                        <Skeleton variant="rect" width={130} height={20} />
+                        <Skeleton variant="rectangular" width={130} height={20} />
                       </div>
                       <div className="column pt-0">
-                        <Skeleton variant="rect" width={70} height={20} />
+                        <Skeleton variant="rectangular" width={70} height={20} />
                       </div>
                     </div>
                   </div>

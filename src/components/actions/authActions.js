@@ -13,6 +13,7 @@ import {
     LIKELY_PROFESSORS_LOADING,
     GET_LIKELY_PROFESSORS,
     CLEAR_LIKELY_PROFESSORS,
+    GET_MESSAGES
 } from './types'
 
 
@@ -113,6 +114,10 @@ export const register = ({username, email, password}) => (dispatch) => {
                 type: REGISTER_SUCCESS, 
                 payload: res.data
             });
+            dispatch({
+                type: GET_MESSAGES,
+                payload: "Bienvenido a AgenteUIS, " + res.data.user.username
+            })
         })
         .catch( e => {
             const errors = {message: e.response.data, status: e.response.status}
@@ -135,6 +140,10 @@ export const updateUser = (fields) => (dispatch, getState) => {
             dispatch({
                 type: CLEAR_ERRORS,
             });
+            dispatch({
+                type: GET_MESSAGES,
+                payload: "Datos de cuenta modificados"
+            })
         })
         .catch( e => {
             const errors = {message: e.response.data, status: e.response.status}
@@ -149,10 +158,13 @@ export const updatePassword = (current_password, new_password) => (dispatch, get
     // Petición HTTP a la API para cambiar contraseña 
     axios.post(`${process.env.REACT_APP_API_URL}/auth/users/set_password/`, {current_password, new_password}, tokenConfig(getState))
     .then( res => {
-        // dispatch(getUser());
         dispatch({
             type: CLEAR_ERRORS,
         });
+        dispatch({
+            type: GET_MESSAGES,
+            payload: "Contraseña modificada exitosamente"
+        })
     })
     .catch( e => {
         const errors = {message: e.response.data, status: e.response.status}
@@ -171,6 +183,10 @@ export const updateEmail = (new_email, current_password) => (dispatch, getState)
             dispatch({
                 type: CLEAR_ERRORS,
             });
+            dispatch({
+                type: GET_MESSAGES,
+                payload: "Correo modificado exitosamente"
+            })
         })
         .catch( e => {
             const errors = {message: e.response.data, status: e.response.status}
@@ -185,10 +201,10 @@ export const resetPassword = (email) => (dispatch) => {
     // Petición HTTP para enviar correo al usuario
     axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password/`, {email})
     .then( res => {
-        // dispatch({
-
-        // });
-        alert("Correo enviado")
+        dispatch({
+            type: GET_MESSAGES,
+            payload: "Correo con link de recuperación enviado"
+        })
         dispatch({
             type: CLEAR_ERRORS,
         });
@@ -206,10 +222,10 @@ export const resetPasswordConfirm = (uid,token, new_password) => (dispatch) => {
     // Petición HTTP para enviar correo al usuario
     axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`, {uid, token, new_password})
     .then( res => {
-        // dispatch({
-
-        // });
-        alert("Contraseña cambiada")
+        dispatch({
+            type: GET_MESSAGES,
+            payload: "Contraseña modificada exitosamente"
+        })
         dispatch({
             type: CLEAR_ERRORS,
         });

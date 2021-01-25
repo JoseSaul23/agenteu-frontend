@@ -14,7 +14,7 @@ import {
     GET_ERRORS,
     REVIEW_FORM_CLOSE,
     CLEAR_REVIEW_BY_USER,
-    // GET_MESSAGES
+    GET_MESSAGES
 } from './types'
 import {tokenConfig} from './authActions'
 import axios from 'axios'
@@ -39,6 +39,9 @@ export const getEntityReviews = (entity, id, page=1) => (dispatch) => {
         dispatch( {
             type: GET_ERRORS,
             payload: errors
+        })
+        dispatch( {
+            type: CLEAR_REVIEWS,
         })
     }) 
 }
@@ -156,6 +159,7 @@ export const deleteReview = (id) => (dispatch, getState) => {
      // Petición HTTP a la API para publicar reseña con el usuario del token 
      axios.delete(`${process.env.REACT_APP_API_URL}/api/publicaciones/${id}/`, tokenConfig(getState))
      .then( res => {
+         // YA NO HAY RESEÑA POR USUARIO
          dispatch({ 
              type: CLEAR_REVIEW_BY_USER,
          });
@@ -163,10 +167,10 @@ export const deleteReview = (id) => (dispatch, getState) => {
             type: DELETE_REVIEW,
             payload: id
         });
-        // dispatch({
-        //     type: GET_MESSAGES,
-        //     payload: "Reseña eliminada"
-        // })
+        dispatch({
+            type: GET_MESSAGES,
+            payload: "Reseña eliminada"
+        })
      })
      .catch( e => {
          const errors = {message: e.response.data, status: e.response.status}
@@ -221,6 +225,10 @@ export const reportReview = (review) => (dispatch, getState) => {
             type: REPORT_REVIEW,
             payload: res.data
         });
+        dispatch({
+            type: GET_MESSAGES,
+            payload: "Reporte creado"
+        })
     })
     .catch( e => {
         const errors = {message: e.response.data, status: e.response.status}

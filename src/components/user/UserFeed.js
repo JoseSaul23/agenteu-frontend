@@ -4,10 +4,15 @@ import {BiNews} from 'react-icons/bi'
 import RightPanel from '../common/RightPanel'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {getUniversityOptions, getSchoolOptions, setSchool, setUniversity, clearOptions} from '../actions/userFeedActions'
+import {
+    getUniversityOptions,
+    getSchoolOptions,
+    setSchool,
+    setUniversity,
+    clearOptions} from '../actions/userFeedActions'
 import {updateUser} from '../actions/authActions'
 import PropTypes from 'prop-types'
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import Autocomplete from '@material-ui/core/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
 
@@ -61,7 +66,6 @@ export class UserFeed extends Component {
     _handleSchool = (e, newValue) => {
         const {user, userFeed} = this.props
         if(newValue !== null){
-            // this.props.setSchool(newValue.id)
             this.props.updateUser({ 
                 ...user,
                 university: userFeed.university,

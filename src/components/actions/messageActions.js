@@ -1,4 +1,12 @@
-import {CLEAR_MESSAGES} from './types'
+import {GET_MESSAGES, CLEAR_MESSAGES} from './types'
+
+
+export const addMessage = (message) => (dispatch) => {
+    dispatch({
+        type: GET_MESSAGES,
+        payload: message
+    })
+}
 
 export const clearMessages = () => (dispatch) => {
  dispatch({

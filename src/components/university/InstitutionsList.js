@@ -3,7 +3,7 @@ import {InstitutionInMenu} from './InstitutionInMenu'
 import {connect} from 'react-redux'
 import {getInstitutions, clearEntities} from '../actions/entityActions'
 import PropTypes from 'prop-types'
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 import { Waypoint } from 'react-waypoint';
 
 
@@ -65,13 +65,13 @@ export class InstitutionsInMenuList extends Component {
                   <div key={ske} className="column is-one-quarter has-text-centered">
                     <div className="columns is-multiline">
                       <div className="column is-full">
-                        <Skeleton variant="rect" width={255} height={120} />
+                        <Skeleton variant="rectangular" width={255} height={120} />
                       </div>
                       <div className="column is-8 pt-0">
-                        <Skeleton variant="rect" width={160} height={75} />
+                        <Skeleton variant="rectangular" width={160} height={75} />
                       </div>
                       <div className="column is-4 pt-0">
-                        <Skeleton variant="rect" width={70} height={75} />
+                        <Skeleton variant="rectangular" width={70} height={75} />
                       </div>
                     </div>
                   </div>

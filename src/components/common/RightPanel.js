@@ -12,13 +12,30 @@ export class RightPanel extends Component {
     render () {
         return (
             <div className="column is-4-desktop is-3-fullhd right-side-panel is-hidden-touch">
-                {
-                    this.props.isAuthenticated
-                    ?
-                        <LikelyProfessorsList />
-                    :
-                        ""
-                }
+                <div className="columns is-multiline" >
+                    <div className="column is-full">
+                        {/* <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p>
+                        <p>Espacio publicitario</p> */}
+                    </div>
+                    <div className="column">
+                    {
+                        this.props.isAuthenticated
+                        ?
+                            <LikelyProfessorsList />
+                        :
+                            ""
+                    }
+                    </div>
+                </div>
             </div>
         );
     }

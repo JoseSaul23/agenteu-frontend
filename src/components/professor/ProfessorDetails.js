@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import {getEntity, clearEntity, subscribeToEntity} from '../actions/entityDetailsActions'
 import {clearReview} from '../actions/reviewActions'
 import PropTypes from 'prop-types'
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 
 
 export class ProfessorDetails extends Component {
@@ -79,11 +79,11 @@ export class ProfessorDetails extends Component {
         if(this.props.entityDetails.entityIsLoading || this.props.isLoading){
             return (
                 <div>
-                    <Skeleton className="mt-3" variant="rect" width={280} height={30} />
-                    <Skeleton className="mt-3" variant="rect" width={300} height={30} />
-                    <Skeleton className="mt-3" variant="rect" width={310} height={30} />
-                    <Skeleton className="mt-4" variant="rect" width={350} height={100} />
-                    <Skeleton className="mt-3" variant="rect" width={300} height={20} />
+                    <Skeleton className="mt-3" variant="rectangular" width={280} height={30} />
+                    <Skeleton className="mt-3" variant="rectangular" width={300} height={30} />
+                    <Skeleton className="mt-3" variant="rectangular" width={310} height={30} />
+                    <Skeleton className="mt-4" variant="rectangular" width={350} height={100} />
+                    <Skeleton className="mt-3" variant="rectangular" width={300} height={20} />
                 </div>
             );
         }
@@ -110,15 +110,21 @@ export class ProfessorDetails extends Component {
                         {
                             auth.isAuthenticated && 
                             subscribers && 
-                            subscribers.includes(auth.user.id) ?                                      
-                            <IoIosNotifications
-                                onClick={this._handleSubscription} 
-                                className="custom-icon is-size-2 has-text-link"
-                            /> :
-                            <IoIosNotifications
-                                onClick={this._handleSubscription}  
-                                className="custom-icon is-size-2"
-                            />
+                            subscribers.includes(auth.user.id) ?
+                            <div className="tooltip">                                      
+                                <IoIosNotifications
+                                    onClick={this._handleSubscription} 
+                                    className="custom-icon is-size-2 has-text-link"
+                                /> 
+                                <span className="tooltiptext">Desuscribirse</span>
+                            </div> :
+                            <div className="tooltip">
+                                <IoIosNotifications
+                                    onClick={this._handleSubscription}  
+                                    className="custom-icon is-size-2"
+                                />
+                                <span className="tooltiptext">Suscribirse</span>
+                            </div>
                         }
                         </div>
                     </div>

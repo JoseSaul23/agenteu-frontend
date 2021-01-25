@@ -3,7 +3,7 @@ import {InstitutionInMenu} from './InstitutionInMenu'
 import {connect} from 'react-redux'
 import {getLastAdded, clearEntities} from '../actions/entityActions'
 import PropTypes from 'prop-types'
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 
 
 export class LastAdded extends Component {
@@ -66,13 +66,13 @@ export class LastAdded extends Component {
                         <div key={ske} className="column is-one-quarter has-text-centered mb-2">
                           <div className="columns is-multiline">
                             <div className="column is-full">
-                              <Skeleton variant="rect" width={258} height={35} />
+                              <Skeleton variant="rectangular" width={258} height={35} />
                             </div>
                             <div className="column is-8 pt-0">
-                              <Skeleton variant="rect" width={160} height={89} />
+                              <Skeleton variant="rectangular" width={160} height={89} />
                             </div>
                             <div className="column is-4 pt-0">
-                              <Skeleton variant="rect" width={70} height={89} />
+                              <Skeleton variant="rectangular" width={70} height={89} />
                             </div>
                           </div>
                         </div>

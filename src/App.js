@@ -12,8 +12,9 @@ import {Switch, Route } from 'react-router-dom'
 import './App.css';
 import 'mybulma/css/mystyles.css'
 import logoicono from './logo-icono.png'
-// import Alert from '@material-ui/lab/Alert';
-// import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/core/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
 import {getUser} from '../src/components/actions/authActions'
 import {clearMessages} from '../src/components/actions/messageActions'
 import {connect} from 'react-redux'
@@ -25,9 +26,13 @@ class App extends Component {
     this.props.getUser()
   }
 
-  // _handleAlertClose = () => {
-  //   this.props.clearMessages()
-  // }
+  _handleAlertClose = () => {
+    this.props.clearMessages()
+  }
+
+  _transitionUp(props) {
+    return <Slide {...props} direction="up" />;
+  }
 
   render () {
     const loading = (
@@ -68,17 +73,19 @@ class App extends Component {
               )} 
             />
         </Switch>
-        {/* { 
+        { 
         <Snackbar 
           open={this.props.message !== '' ? true : false}
-          autoHideDuration={2000}
+          autoHideDuration={1800}
           onClose={this._handleAlertClose}
+          TransitionComponent={this._transitionUp}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         >
-          <Alert severity="success">
-            {this.props.message}Mensa
+          <Alert severity="info">
+            {this.props.message}
           </Alert>
         </Snackbar>
-        } */}
+        }
       </div>
     )
     return (  

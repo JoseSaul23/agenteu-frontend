@@ -12,7 +12,7 @@ import {
 import {clearReview} from '../actions/reviewActions'
 import {clearErrors} from '../actions/errorActions'
 import PropTypes from 'prop-types'
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 
 export class UniversityDetails extends Component {
 
@@ -82,11 +82,11 @@ export class UniversityDetails extends Component {
         if(this.props.entityDetails.entityIsLoading || this.props.isLoading){
             return (
                 <div>
-                    <Skeleton variant="rect" width={300} height={150} />
-                    <Skeleton className="mt-3" variant="rect" width={300} height={20} />
-                    <Skeleton className="mt-5" variant="rect" width={340} height={30} />
-                    <Skeleton className="mt-4" variant="rect" width={360} height={120} />
-                    <Skeleton className="mt-3" variant="rect" width={300} height={20} />
+                    <Skeleton variant="rectangular" width={300} height={150} />
+                    <Skeleton className="mt-3" variant="rectangular" width={300} height={20} />
+                    <Skeleton className="mt-5" variant="rectangular" width={340} height={30} />
+                    <Skeleton className="mt-4" variant="rectangular" width={360} height={120} />
+                    <Skeleton className="mt-3" variant="rectangular" width={300} height={20} />
                 </div>
             );
         }
@@ -97,7 +97,7 @@ export class UniversityDetails extends Component {
                     {
                         this.state.imgLoaded 
                         ? null 
-                        : <Skeleton variant="rect" width={300} height={150} />
+                        : <Skeleton variant="rectangular" width={300} height={150} />
                     }
                     <img 
                         src={logo}
@@ -119,14 +119,20 @@ export class UniversityDetails extends Component {
                             auth.isAuthenticated && 
                             subscribers && 
                             subscribers.includes(auth.user.id) ?                                      
-                            <IoIosNotifications
-                                onClick={this._handleSubscription} 
-                                className="custom-icon is-size-2 has-text-link"
-                            /> :
-                            <IoIosNotifications
-                                onClick={this._handleSubscription}  
-                                className="custom-icon is-size-2"
-                            />
+                            <div className="tooltip">                                      
+                                <IoIosNotifications
+                                    onClick={this._handleSubscription} 
+                                    className="custom-icon is-size-2 has-text-link"
+                                /> 
+                                <span className="tooltiptext">Desuscribirse</span>
+                            </div> :
+                            <div className="tooltip">
+                                <IoIosNotifications
+                                    onClick={this._handleSubscription}  
+                                    className="custom-icon is-size-2"
+                                />
+                                <span className="tooltiptext">Suscribirse</span>
+                            </div>
                         }
                         </div>
                     </div>

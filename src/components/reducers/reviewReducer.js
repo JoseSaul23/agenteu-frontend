@@ -94,7 +94,8 @@ export const reviewReducer = (state=initialState, action) => {
                 ...state,
                 reviews: [],
                 page: 0,
-                nextPage: null
+                nextPage: null,
+                areLoading: false
             }
         case CLEAR_REVIEW:
             return {

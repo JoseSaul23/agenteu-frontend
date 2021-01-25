@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {_myColor} from '../common/util'
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 
 export class InstitutionInMenu extends Component {
 
@@ -18,8 +18,8 @@ export class InstitutionInMenu extends Component {
             this.state.imgLoaded 
             ? null 
             : this.props.category === "school" 
-            ? <Skeleton variant="rect" width={258} height={40} />
-            : <Skeleton variant="rect" width={255} height={120} />
+            ? <Skeleton variant="rectangular" width={258} height={40} />
+            : <Skeleton variant="rectangular" width={255} height={120} />
           }
           <img 
             src={logo_img}
